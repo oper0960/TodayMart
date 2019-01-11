@@ -1,0 +1,33 @@
+PODS:
+  - CPOpenSourceLicenses (1.1.0)
+  - GoogleMaps (2.7.0):
+    - GoogleMaps/Maps (= 2.7.0)
+  - GoogleMaps/Base (2.7.0)
+  - GoogleMaps/Maps (2.7.0):
+    - GoogleMaps/Base
+  - GooglePlaces (2.7.0):
+    - GoogleMaps/Base (= 2.7.0)
+  - SnapKit (4.0.1)
+
+DEPENDENCIES:
+  - CPOpenSourceLicenses
+  - GoogleMaps
+  - GooglePlaces
+  - SnapKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - CPOpenSourceLicenses
+    - GoogleMaps
+    - GooglePlaces
+    - SnapKit
+
+SPEC CHECKSUMS:
+  CPOpenSourceLicenses: 36f959fc7e2ded3a51342d94fdac89d4cf08f216
+  GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+
+PODFILE CHECKSUM: 27ace5bc796a05c9dc6122725578d160c1d80528
+
+COCOAPODS: 1.5.3
