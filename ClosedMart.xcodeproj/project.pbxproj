@@ -198,6 +198,42 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		42499F87220831BC008B3D04 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				6F65FB5420CA2CCF00E16129 /* MainViewController.swift */,
+				6F65FB5220CA2CC600E16129 /* Main.storyboard */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		42499F88220831C5008B3D04 /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				6F65FB4E20CA238C00E16129 /* NearbyMartMapViewController.swift */,
+				6F65FB5020CA239E00E16129 /* NearbyMartMap.storyboard */,
+			);
+			path = MapView;
+			sourceTree = "<group>";
+		};
+		42499F89220831CF008B3D04 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				42B6520A2174F563008DC258 /* FavoriteViewController.swift */,
+				42B652082174F54F008DC258 /* Favorite.storyboard */,
+			);
+			path = Favorite;
+			sourceTree = "<group>";
+		};
+		42499F8A220831DA008B3D04 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				316976AC20E9FF38000FA771 /* SettingViewController.swift */,
+				316976AA20E9FF23000FA771 /* Setting.storyboard */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
 		42B6520C2174F9C5008DC258 /* FavoriteTableView */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,14 +275,10 @@
 		6F65FB4720CA1DC300E16129 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				6F65FB5420CA2CCF00E16129 /* MainViewController.swift */,
-				6F65FB5220CA2CC600E16129 /* Main.storyboard */,
-				6F65FB4E20CA238C00E16129 /* NearbyMartMapViewController.swift */,
-				6F65FB5020CA239E00E16129 /* NearbyMartMap.storyboard */,
-				42B6520A2174F563008DC258 /* FavoriteViewController.swift */,
-				42B652082174F54F008DC258 /* Favorite.storyboard */,
-				316976AC20E9FF38000FA771 /* SettingViewController.swift */,
-				316976AA20E9FF23000FA771 /* Setting.storyboard */,
+				42499F87220831BC008B3D04 /* Base */,
+				42499F88220831C5008B3D04 /* MapView */,
+				42499F89220831CF008B3D04 /* Favorite */,
+				42499F8A220831DA008B3D04 /* Setting */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -693,7 +725,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QPVS7TPGTF;
 				INFOPLIST_FILE = ClosedMart/SupportingFiles/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -714,7 +746,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QPVS7TPGTF;
 				INFOPLIST_FILE = ClosedMart/SupportingFiles/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

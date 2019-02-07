@@ -20,6 +20,12 @@ class SettingViewController: UIViewController {
         "버전 \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)"
     ]
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationItem.largeTitleDisplayMode = .automatic
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setTableView()

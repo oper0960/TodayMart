@@ -27,6 +27,7 @@ class NearbyMartMapViewController: UIViewController {
         locationManager.delegate = self
         return locationManager
     }()
+    
     var zoomLevel: Float = 13.0
     
     override func viewDidLoad() {
@@ -267,6 +268,7 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location: CLLocation = locations.first else { return }
         
+        print(location)
         move(at: location.coordinate)
         
         self.currentLocation = location
