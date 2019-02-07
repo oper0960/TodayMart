@@ -138,7 +138,7 @@ class SQLiteManager {
     }
     
     func splitWeekDay(closedWeek: String) -> closedWeek {
-        
+    
         var week = [Int]()
         _ = closedWeek.components(separatedBy: ",").map {
             week.append(Int($0) ?? 0)
