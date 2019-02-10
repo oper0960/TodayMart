@@ -2,7 +2,7 @@
 //  FavoriteViewController.swift
 //  ClosedMart
 //
-//  Created by Ryu on 2018. 10. 16..
+//  Created by Gilwan Ryu on 2018. 10. 16..
 //  Copyright © 2018년 Ry. All rights reserved.
 //
 

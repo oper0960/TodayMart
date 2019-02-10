@@ -2,7 +2,7 @@
 //  MainViewController.swift
 //  ClosedMart
 //
-//  Created by seoju on 2018. 6. 8..
+//  Created by Gilwan Ryu on 2018. 6. 8..
 //  Copyright © 2018년 Ry. All rights reserved.
 //
 
@@ -30,7 +30,7 @@ extension MainViewController {
             
             nearbyMartViewController.title = "내주변찾기"
             nearbyMartViewController.tabBarItem = UITabBarItem(title: "", image: #imageLiteral(resourceName: "MapIcon"), tag: 0)
-            nearbyMartViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
+            nearbyMartViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             self.martTabBarController.viewControllers = [nearbyMartViewController].map({ UINavigationController.init(rootViewController: $0) })
         }
         
@@ -38,7 +38,7 @@ extension MainViewController {
             
             favoriteViewController.title = "즐겨찾기"
             favoriteViewController.tabBarItem = UITabBarItem(title: "", image: #imageLiteral(resourceName: "FavoriteIcon"), tag: 1)
-            favoriteViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
+            favoriteViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             self.martTabBarController.viewControllers?.append(UINavigationController.init(rootViewController: favoriteViewController))
         }
         
@@ -46,7 +46,7 @@ extension MainViewController {
             
             settingViewController.title = "설정"
             settingViewController.tabBarItem = UITabBarItem(title: "", image: #imageLiteral(resourceName: "SettingIcon"), tag: 2)
-            settingViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
+            settingViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
             self.martTabBarController.viewControllers?.append(UINavigationController.init(rootViewController: settingViewController))
         }
         

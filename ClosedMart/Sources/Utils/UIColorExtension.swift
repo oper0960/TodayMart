@@ -2,7 +2,7 @@
 //  UIColorExtension.swift
 //  ClosedMart
 //
-//  Created by seoju on 2018. 6. 8..
+//  Created by Gilwan Ryu on 2018. 6. 8..
 //  Copyright © 2018년 Ry. All rights reserved.
 //
 
