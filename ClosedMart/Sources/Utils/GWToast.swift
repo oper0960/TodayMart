@@ -2,7 +2,7 @@
 //  GWToast.swift
 //  Pods
 //
-//  Created by Ryu on 2017. 5. 9..
+//  Created by Gilwan Ryu on 2017. 5. 9..
 //
 //
 

@@ -7,14 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3111335421801C6E00EAEC8A /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3111335321801C6E00EAEC8A /* NotificationCenter.framework */; };
-		3111335721801C6E00EAEC8A /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3111335621801C6E00EAEC8A /* TodayViewController.swift */; };
-		3111335A21801C6E00EAEC8A /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3111335821801C6E00EAEC8A /* MainInterface.storyboard */; };
-		3111335E21801C6E00EAEC8A /* Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3111335221801C6E00EAEC8A /* Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		3111336321801D9000EAEC8A /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3157A65220DB489B0018336A /* SQLiteManager.swift */; };
-		3111336421801E8B00EAEC8A /* ETC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AD289E21777B19006FAC94 /* ETC.swift */; };
-		3111336521801E9800EAEC8A /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B6520D2174F9E2008DC258 /* FavoriteTableViewCell.swift */; };
-		3111336621801EE700EAEC8A /* Mart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3163BA9120CE0A4D00B8625C /* Mart.swift */; };
 		3157A65120DB45F80018336A /* ClosedDatabase.db in Resources */ = {isa = PBXBuildFile; fileRef = 3157A65020DB45F80018336A /* ClosedDatabase.db */; };
 		3157A65320DB489B0018336A /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3157A65220DB489B0018336A /* SQLiteManager.swift */; };
 		31586E6720E4E1C100FB9428 /* GWToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31586E6620E4E1C100FB9428 /* GWToast.swift */; };
@@ -43,32 +35,7 @@
 		6F65FB5720CA2D7700E16129 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		3111335C21801C6E00EAEC8A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6F65FB2820CA1DAB00E16129 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3111335121801C6E00EAEC8A;
-			remoteInfo = Widget;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		3111336221801C6E00EAEC8A /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				3111335E21801C6E00EAEC8A /* Widget.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		3111335221801C6E00EAEC8A /* Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3111335321801C6E00EAEC8A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		3111335621801C6E00EAEC8A /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		3111335921801C6E00EAEC8A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -106,14 +73,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3111334F21801C6E00EAEC8A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3111335421801C6E00EAEC8A /* NotificationCenter.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6F65FB2D20CA1DAB00E16129 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -258,7 +217,6 @@
 			isa = PBXGroup;
 			children = (
 				6F65FB3020CA1DAB00E16129 /* ClosedMart.app */,
-				3111335221801C6E00EAEC8A /* Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -329,23 +287,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3111335121801C6E00EAEC8A /* Widget */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3111335F21801C6E00EAEC8A /* Build configuration list for PBXNativeTarget "Widget" */;
-			buildPhases = (
-				3111334E21801C6E00EAEC8A /* Sources */,
-				3111334F21801C6E00EAEC8A /* Frameworks */,
-				3111335021801C6E00EAEC8A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Widget;
-			productName = Widget;
-			productReference = 3111335221801C6E00EAEC8A /* Widget.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		6F65FB2F20CA1DAB00E16129 /* ClosedMart */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6F65FB4220CA1DAC00E16129 /* Build configuration list for PBXNativeTarget "ClosedMart" */;
@@ -356,12 +297,10 @@
 				6F65FB2E20CA1DAB00E16129 /* Resources */,
 				7482ECE72B00C6A84A19DF0A /* [CP] Embed Pods Frameworks */,
 				ADCA83291FBB890316446AAD /* [CP] Copy Pods Resources */,
-				3111336221801C6E00EAEC8A /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				3111335D21801C6E00EAEC8A /* PBXTargetDependency */,
 			);
 			name = ClosedMart;
 			productName = ClosedMart;
@@ -378,9 +317,6 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = Ry;
 				TargetAttributes = {
-					3111335121801C6E00EAEC8A = {
-						CreatedOnToolsVersion = 10.0;
-					};
 					6F65FB2F20CA1DAB00E16129 = {
 						CreatedOnToolsVersion = 9.4;
 					};
@@ -400,20 +336,11 @@
 			projectRoot = "";
 			targets = (
 				6F65FB2F20CA1DAB00E16129 /* ClosedMart */,
-				3111335121801C6E00EAEC8A /* Widget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		3111335021801C6E00EAEC8A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3111335A21801C6E00EAEC8A /* MainInterface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6F65FB2E20CA1DAB00E16129 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -495,18 +422,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3111334E21801C6E00EAEC8A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3111335721801C6E00EAEC8A /* TodayViewController.swift in Sources */,
-				3111336521801E9800EAEC8A /* FavoriteTableViewCell.swift in Sources */,
-				3111336421801E8B00EAEC8A /* ETC.swift in Sources */,
-				3111336321801D9000EAEC8A /* SQLiteManager.swift in Sources */,
-				3111336621801EE700EAEC8A /* Mart.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6F65FB2C20CA1DAB00E16129 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -531,14 +446,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		3111335D21801C6E00EAEC8A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3111335121801C6E00EAEC8A /* Widget */;
-			targetProxy = 3111335C21801C6E00EAEC8A /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		3111335821801C6E00EAEC8A /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -559,49 +466,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		3111336021801C6E00EAEC8A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QPVS7TPGTF;
-				INFOPLIST_FILE = Widget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ryu.ClosedMart.Widget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		3111336121801C6E00EAEC8A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = QPVS7TPGTF;
-				INFOPLIST_FILE = Widget/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ryu.ClosedMart.Widget;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		6F65FB4020CA1DAC00E16129 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -720,7 +584,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 787EC97FB7F598FDC3A0FEE9 /* Pods-ClosedMart.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QPVS7TPGTF;
@@ -741,7 +604,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 682E580C80973C550FE89CF3 /* Pods-ClosedMart.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QPVS7TPGTF;
@@ -761,15 +623,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3111335F21801C6E00EAEC8A /* Build configuration list for PBXNativeTarget "Widget" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3111336021801C6E00EAEC8A /* Debug */,
-				3111336121801C6E00EAEC8A /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		6F65FB2B20CA1DAB00E16129 /* Build configuration list for PBXProject "ClosedMart" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

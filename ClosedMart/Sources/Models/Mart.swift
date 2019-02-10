@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 typealias name = String
 typealias closedWeek = [Int]
@@ -64,4 +65,11 @@ struct Mart: Codable {
         des = des.appending("   }")
         return des
     }
+}
+
+class Distance {
+    static let shared = Distance()
+    private init() {}
+    
+    var firstLocation: (Bool, CLLocationCoordinate2D) = (false, CLLocationCoordinate2D(latitude: 0, longitude: 0))
 }

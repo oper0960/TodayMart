@@ -2,7 +2,7 @@
 //  NearbyMartMapViewController.swift
 //  ClosedMart
 //
-//  Created by seoju on 2018. 6. 8..
+//  Created by Gilwan Ryu on 2018. 6. 8..
 //  Copyright © 2018년 Ry. All rights reserved.
 //
 
@@ -33,7 +33,7 @@ class NearbyMartMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLocation()
-        initialization()
+        setup()
         settingObserver()
     }
     
@@ -55,6 +55,32 @@ extension NearbyMartMapViewController {
     }
 }
 
+// MARK: - Observer
+extension NearbyMartMapViewController {
+    
+    func settingObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.enterForeground), name: .UIApplicationWillEnterForeground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.enterBankground), name: .UIApplicationDidEnterBackground, object: nil)
+    }
+    
+    @objc func enterForeground() {
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+1) {
+            if let location = self.currentLocation {
+                self.cameraFirstMove = !self.cameraFirstMove
+                self.getMartDataBool = !self.getMartDataBool
+                self.foregroundMove(at: location.coordinate)
+                self.getMartData(location: location)
+            }
+        }
+    }
+    
+    @objc func enterBankground() {
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+    }
+}
+
 // MARK: - Custom method
 extension NearbyMartMapViewController {
     
@@ -69,27 +95,10 @@ extension NearbyMartMapViewController {
         }
     }
     
-    func initialization() {
+    func setup() {
         self.navigationController?.navigationBar.isHidden = true
         self.refreshButton.layer.masksToBounds = false
         self.refreshButton.layer.cornerRadius = self.refreshButton.bounds.width/2
-    }
-    
-    func settingObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.enterForeground), name: .UIApplicationWillEnterForeground, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.enterBankground), name: .UIApplicationDidEnterBackground, object: nil)
-    }
-    
-    @objc func enterForeground() {
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        if let location = self.currentLocation {
-            self.foregroundMove(at: location.coordinate)
-            self.getMartData(location: location)
-        }
-    }
-    
-    @objc func enterBankground() {
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
     
     func move(at coordinate: CLLocationCoordinate2D) {
@@ -101,6 +110,7 @@ extension NearbyMartMapViewController {
     }
     
     func foregroundMove(at coordinate: CLLocationCoordinate2D) {
+        move(at: coordinate)
         let camera: GMSCameraPosition = GMSCameraPosition.camera(withTarget: coordinate, zoom: self.zoomLevel)
         self.mapView.camera = camera
     }
@@ -268,68 +278,33 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location: CLLocation = locations.first else { return }
         
-        print(location)
-        move(at: location.coordinate)
-        
-        self.currentLocation = location
-        
-        if !getMartDataBool {
-            getMartData(location: location)
-        }
-    }
-    
-    func getMartData(location: CLLocation) {
-        
-        self.getMartDataBool = true
-        
-        let mylocationRange = "\(location.coordinate.longitude - 0.05),\(location.coordinate.latitude - 0.05)," +
-                                "\(location.coordinate.longitude + 0.05),\(location.coordinate.latitude + 0.05)"
-        
-        var parameters = [String : Any]()
-        parameters.updateValue("MT1", forKey: "category_group_code")
-        parameters.updateValue(mylocationRange, forKey: "rect")
-        
-        var headers = [String: String]()
-        headers.updateValue(AppDelegate.kakaoAPIKEY, forKey: "Authorization")
-        
-        API.getRequest(url: "https://dapi.kakao.com/v2/local/search/category.json", parameters: parameters, headers: headers) { [weak self] (data, error) in
-            guard let data = data, error == nil else {
-                print(error ?? "Unknown error")
+        if !Distance.shared.firstLocation.0 {
+            Distance.shared.firstLocation.1 = location.coordinate
+            Distance.shared.firstLocation.0 = true
+        } else {
+            let fL = Distance.shared.firstLocation.1
+            
+            
+            let firstLocation = CLLocation(latitude: fL.latitude, longitude: fL.longitude)
+            let currentLocation = CLLocation(latitude: location.coordinate.latitude,
+                                             longitude: location.coordinate.longitude)
+            
+            if firstLocation.distance(from: currentLocation) > 500 {
+                self.cameraFirstMove = !self.cameraFirstMove
+                self.getMartDataBool = !self.getMartDataBool
+                self.currentLocation = location
+                move(at: location.coordinate)
+                if !getMartDataBool {
+                    getMartData(location: location)
+                }
                 return
             }
-            
-            do {
-                let marts = try JSONDecoder().decode(Documents.self, from: data)
-                
-                let filteringMart = marts.documents.filter {
-                    ($0.placeName?.hasPrefix("이마트"))! && ($0.categoryName?.contains("대형마트"))! ||
-                    ($0.placeName?.hasPrefix("홈플러스"))! && ($0.categoryName?.contains("대형마트"))! && !($0.placeName?.contains("스페셜"))! ||
-                    ($0.placeName?.hasPrefix("롯데마트"))! && ($0.categoryName?.contains("대형마트"))!
-                }
-                
-                if filteringMart.count > 0 {
-                    //for mart in filteringMart {
-                        //print(mart.description)
-                    //}
-                    self?.martArray = filteringMart
-                    self?.setMarker(marts: filteringMart)
-                } else {
-                    DispatchQueue.main.async {
-                        GWToast(message: "주변에 마트가 없습니다.").setPosition(position: .Bottom).setDuration(duration: 2).show()
-                    }
-                }
-            } catch {
-                let alert = UIAlertController(title: "마트정보 불러오기 실패", message: "잠시후에 다시 실행해주세요.", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "다시 불러오기", style: .default, handler: { action in
-                    self?.getMartData(location: location)
-                })
-                let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
-                alert.addAction(okAction)
-                alert.addAction(cancelAction)
-                DispatchQueue.main.async {
-                    self?.present(self!, animated: false, completion: nil)
-                }
-            }
+        }
+        
+        self.currentLocation = location
+        move(at: location.coordinate)
+        if !getMartDataBool {
+            getMartData(location: location)
         }
     }
 }
@@ -453,6 +428,65 @@ extension NearbyMartMapViewController {
         DispatchQueue.main.async {
             if let topController = UIApplication.topViewController() {
                 topController.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+}
+
+// MARK: - URLSession
+extension NearbyMartMapViewController {
+    func getMartData(location: CLLocation) {
+        
+        self.getMartDataBool = true
+        
+        let mylocationRange = "\(location.coordinate.longitude - 0.05),\(location.coordinate.latitude - 0.05)," +
+        "\(location.coordinate.longitude + 0.05),\(location.coordinate.latitude + 0.05)"
+        
+        var parameters = [String : Any]()
+        parameters.updateValue("MT1", forKey: "category_group_code")
+        parameters.updateValue(mylocationRange, forKey: "rect")
+        
+        var headers = [String: String]()
+        headers.updateValue(AppDelegate.kakaoAPIKEY, forKey: "Authorization")
+        
+        API.getRequest(url: "https://dapi.kakao.com/v2/local/search/category.json", parameters: parameters, headers: headers) { [weak self] (data, error) in
+            guard let data = data, error == nil else {
+                print(error ?? "Unknown error")
+                return
+            }
+            
+            do {
+                let marts = try JSONDecoder().decode(Documents.self, from: data)
+                
+                let filteringMart = marts.documents.filter {
+                    ($0.placeName?.hasPrefix("이마트"))! && ($0.categoryName?.contains("대형마트"))! ||
+                        ($0.placeName?.hasPrefix("홈플러스"))! && ($0.categoryName?.contains("대형마트"))! && !($0.placeName?.contains("스페셜"))! ||
+                        ($0.placeName?.hasPrefix("롯데마트"))! && ($0.categoryName?.contains("대형마트"))!
+                }
+                
+                if filteringMart.count > 0 {
+                    //for mart in filteringMart {
+                    //print(mart.description)
+                    //}
+                    self?.martArray?.removeAll()
+                    self?.martArray = filteringMart
+                    self?.setMarker(marts: filteringMart)
+                } else {
+                    DispatchQueue.main.async {
+                        GWToast(message: "주변에 마트가 없습니다.").setPosition(position: .Bottom).setDuration(duration: 2).show()
+                    }
+                }
+            } catch {
+                let alert = UIAlertController(title: "마트정보 불러오기 실패", message: "잠시후에 다시 실행해주세요.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "다시 불러오기", style: .default, handler: { action in
+                    self?.getMartData(location: location)
+                })
+                let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
+                alert.addAction(okAction)
+                alert.addAction(cancelAction)
+                DispatchQueue.main.async {
+                    self?.present(self!, animated: false, completion: nil)
+                }
             }
         }
     }
