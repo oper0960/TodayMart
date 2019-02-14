@@ -140,6 +140,7 @@ extension NearbyMartMapViewController: GMSMapViewDelegate {
             self.mapView.clear()
             
             for (index,mart) in marts.enumerated() {
+                self.martArray?.append(mart)
                 if let x = mart.x, let y = mart.y {
                     let position = CLLocationCoordinate2D(latitude: Double(y)!, longitude: Double(x)!)
                     let marker = GMSMarker(position: position)
@@ -160,6 +161,10 @@ extension NearbyMartMapViewController: GMSMapViewDelegate {
         let cameraCenterPosition: CLLocation = CLLocation(latitude: position.target.latitude, longitude: position.target.longitude)
         Locations.shared.movingLocation = cameraCenterPosition
         getMartData(location: cameraCenterPosition)
+    }
+    
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        print("move")
     }
     
     // Poi Touch
@@ -241,7 +246,6 @@ extension NearbyMartMapViewController: GMSMapViewDelegate {
     
     // Favorite Button
     @objc func favorite(_ sender: UIButton) {
-        
         if let marts = self.martArray {
             if let name = marts[sender.tag].placeName {
                 print(name)
@@ -291,6 +295,8 @@ extension NearbyMartMapViewController {
     
     func getMartData(location: CLLocation) {
         
+        indicator.startAnimating()
+        
         let mylocationRange = "\(location.coordinate.longitude - 0.05),\(location.coordinate.latitude - 0.05)," +
         "\(location.coordinate.longitude + 0.05),\(location.coordinate.latitude + 0.05)"
         
@@ -316,13 +322,19 @@ extension NearbyMartMapViewController {
                         ($0.placeName?.hasPrefix("롯데마트"))! && ($0.categoryName?.contains("대형마트"))!
                 }
                 
-                if filteringMart.count > 0 {
-                    for mart in filteringMart {
+                let resultMart = filteringMart.filter {
+                    if ($0.categoryName?.contains("트레이더스"))! {
+                        return false
+                    }
+                    return true
+                }
+                
+                if resultMart.count > 0 {
+                    for mart in resultMart {
                         print(mart.description)
                     }
-                    self?.martArray?.removeAll()
-                    self?.martArray = filteringMart
-                    self?.setMarker(marts: filteringMart)
+                    self?.martArray = resultMart
+                    self?.setMarker(marts: resultMart)
                 } else {
                     DispatchQueue.main.async {
                         GWToast(message: "주변에 마트가 없습니다.").setPosition(position: .Bottom).setDuration(duration: 2).show()
@@ -341,6 +353,7 @@ extension NearbyMartMapViewController {
                 }
             }
         }
+        indicator.stopAnimating()
     }
 }
 
