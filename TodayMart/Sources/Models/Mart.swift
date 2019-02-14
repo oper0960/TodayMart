@@ -67,9 +67,10 @@ struct Mart: Codable {
     }
 }
 
-class Distance {
-    static let shared = Distance()
+class Locations {
+    static let shared = Locations()
     private init() {}
     
-    var firstLocation: (Bool, CLLocationCoordinate2D) = (false, CLLocationCoordinate2D(latitude: 0, longitude: 0))
+    var currentLocation: CLLocation?
+    var movingLocation: CLLocation?
 }
