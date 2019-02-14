@@ -112,6 +112,7 @@ extension NearbyMartMapViewController {
     func foregroundMove(at coordinate: CLLocationCoordinate2D) {
         move(at: coordinate)
         let camera: GMSCameraPosition = GMSCameraPosition.camera(withTarget: coordinate, zoom: self.zoomLevel)
+        
         self.mapView.camera = camera
     }
     
@@ -311,6 +312,12 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
 
 // MARK: - GMSMapViewDelegate
 extension NearbyMartMapViewController: GMSMapViewDelegate {
+    
+    // 맵뷰 포커싱 이동시 맵뷰 센터
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        print(position.target.latitude)
+        print(position.target.longitude)
+    }
     
     @objc func favorite(_ sender: UIButton) {
         

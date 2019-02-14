@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MarkerView" customModule="ClosedMart" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MarkerView" customModule="TodayMart" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="250" height="120"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -23,7 +23,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="영업정보없음" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnb-fs-6ns">
-                    <rect key="frame" x="166" y="16" width="67.5" height="16"/>
+                    <rect key="frame" x="166.5" y="16" width="67.5" height="16"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                     <color key="textColor" red="0.20000000000000001" green="0.35686274509803922" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <nil key="highlightedColor"/>
@@ -80,17 +80,17 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="jnb-fs-6ns" secondAttribute="trailing" constant="16" id="DMG-H0-gjC"/>
                 <constraint firstItem="GL3-Ng-O8r" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="Gdm-SZ-Xbu"/>
                 <constraint firstItem="Ceo-jf-Yih" firstAttribute="top" secondItem="zPs-yn-9cn" secondAttribute="bottom" constant="5" id="I1f-kq-tDS"/>
-                <constraint firstItem="GL3-Ng-O8r" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="KP8-yv-uk7"/>
+                <constraint firstItem="jnb-fs-6ns" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="NSt-fU-mfK"/>
                 <constraint firstItem="9Nl-L1-P1g" firstAttribute="leading" secondItem="GL3-Ng-O8r" secondAttribute="leading" id="NgR-Ir-trS"/>
                 <constraint firstItem="zPs-yn-9cn" firstAttribute="top" secondItem="9Nl-L1-P1g" secondAttribute="bottom" constant="5" id="VYM-rt-6fK"/>
                 <constraint firstItem="bjF-7b-jB9" firstAttribute="centerY" secondItem="zPs-yn-9cn" secondAttribute="centerY" id="VcM-VW-pKE"/>
                 <constraint firstItem="KXQ-ms-P54" firstAttribute="leading" secondItem="GL3-Ng-O8r" secondAttribute="trailing" constant="5" id="VxR-4t-A2g"/>
                 <constraint firstItem="KXQ-ms-P54" firstAttribute="centerY" secondItem="GL3-Ng-O8r" secondAttribute="centerY" id="XyB-tk-4iu"/>
+                <constraint firstItem="GL3-Ng-O8r" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="16" id="bg2-tu-rJA"/>
                 <constraint firstItem="Ceo-jf-Yih" firstAttribute="leading" secondItem="zPs-yn-9cn" secondAttribute="leading" id="cb6-Zc-SIY"/>
                 <constraint firstItem="AjR-vt-47P" firstAttribute="centerY" secondItem="Ceo-jf-Yih" secondAttribute="centerY" id="hvg-YR-Csa"/>
                 <constraint firstItem="CBP-8y-jNa" firstAttribute="leading" secondItem="9Nl-L1-P1g" secondAttribute="trailing" constant="5" id="jbG-Ea-v7D"/>
                 <constraint firstItem="9Nl-L1-P1g" firstAttribute="top" secondItem="GL3-Ng-O8r" secondAttribute="bottom" constant="15" id="lsZ-Cv-jmV"/>
-                <constraint firstItem="jnb-fs-6ns" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="16" id="qWe-4r-fMe"/>
                 <constraint firstItem="CBP-8y-jNa" firstAttribute="centerY" secondItem="9Nl-L1-P1g" secondAttribute="centerY" id="wes-Fw-gr7"/>
                 <constraint firstItem="zPs-yn-9cn" firstAttribute="leading" secondItem="9Nl-L1-P1g" secondAttribute="leading" id="zEl-Lb-SAU"/>
             </constraints>
