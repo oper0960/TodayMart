@@ -12,6 +12,7 @@ import CoreLocation
 typealias name = String
 typealias closedWeek = [Int]
 typealias closedDay = [Int]
+typealias fixedClosedDay = [Int]
 
 class Mart {
     var name: String
@@ -45,7 +46,6 @@ class Locations {
     private init() {}
     
     var currentLocation: CLLocation?
-    var movingLocation: CLLocation?
 }
 
 //struct Documents: Codable {

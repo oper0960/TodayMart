@@ -117,6 +117,7 @@
 				3165B08920E0CD3C00F6911D /* MarkerView */,
 				42B6520C2174F9C5008DC258 /* FavoriteTableView */,
 				316976B220EA1424000FA771 /* SettingTableView */,
+				42499F8F2217330F008B3D04 /* OpensourceLicense */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -184,6 +185,13 @@
 				316976AA20E9FF23000FA771 /* Setting.storyboard */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		42499F8F2217330F008B3D04 /* OpensourceLicense */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = OpensourceLicense;
 			sourceTree = "<group>";
 		};
 		42B6520C2174F9C5008DC258 /* FavoriteTableView */ = {

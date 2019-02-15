@@ -98,10 +98,11 @@ class SQLiteManager {
             print("error preparing insert: \(errmsg)")
             return
         }
-        
+        var result = [Mart]()
         while true {
             switch sqlite3_step(stmt) {
             case SQLITE_DONE:
+                rowHandler!(result)
                 return
             case SQLITE_ROW:
                 // 0 = Name, 1 = ClosedWeek, 2 = ClosedDay, 3 = Favorite, 4 = OpeningHours
@@ -120,12 +121,9 @@ class SQLiteManager {
                 let longitude = String(cString: sqlite3_column_text(stmt, 8))
                 let latitude = String(cString: sqlite3_column_text(stmt, 9))
                 
-                var result = [Mart]()
                 result.append(Mart(name: name, week: closedWeek, day: closedDay, fav: favorite,
                                    hours: openingHours, fix: fixedClosedDay, add: address, tel: telNumber,
                                    logi: longitude, lati: latitude))
-               
-                rowHandler!(result)
             default:
                 throw SQLError.otherError
             }
@@ -148,16 +146,19 @@ class SQLiteManager {
         }
     }
     
-    func getFavoriteExecute(rowHandler: ((MartTuple) -> Void)? = nil) throws {
+    func getFavoriteExecute(rowHandler: (([Mart]) -> Void)? = nil) throws {
         if sqlite3_prepare_v2(db, "SELECT * FROM Mart WHERE Favorite = 1;", -1, &stmt, nil) != SQLITE_OK{
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("error preparing insert: \(errmsg)")
             return
         }
         
+        
+        var result = [Mart]()
         while true {
             switch sqlite3_step(stmt) {
             case SQLITE_DONE:
+                rowHandler!(result)
                 return
             case SQLITE_ROW:
                 // 0 = Name, 1 = ClosedWeek, 2 = ClosedDay, 3 = Favorite, 4 = OpeningHours, 5 = FixedClosedDay
@@ -170,7 +171,14 @@ class SQLiteManager {
                 if let fixedClosed = sqlite3_column_text(stmt, 5) {
                     fixedClosedDay = splitWeekDay(closedWeek: String(cString: fixedClosed))
                 }
-                rowHandler!((name, closedWeek, closedDay, favorite, openingHours, fixedClosedDay))
+                let address = String(cString: sqlite3_column_text(stmt, 6))
+                let telNumber = String(cString: sqlite3_column_text(stmt, 7))
+                let longitude = String(cString: sqlite3_column_text(stmt, 8))
+                let latitude = String(cString: sqlite3_column_text(stmt, 9))
+                
+                result.append(Mart(name: name, week: closedWeek, day: closedDay, fav: favorite,
+                                   hours: openingHours, fix: fixedClosedDay, add: address, tel: telNumber,
+                                   logi: longitude, lati: latitude))
             default:
                 throw SQLError.otherError
             }
