@@ -139,7 +139,7 @@ public class GWToast {
         
         let attributes = [kCTFontAttributeName:font, kCTParagraphStyleAttributeName:paragraphStyle]
         
-        let boundingRect = string.boundingRect(with: constrainedToSize, options: .usesLineFragmentOrigin, attributes: attributes as [NSAttributedStringKey : Any], context: nil)
+        let boundingRect = string.boundingRect(with: constrainedToSize, options: .usesLineFragmentOrigin, attributes: attributes as [NSAttributedString.Key : Any], context: nil)
         
         let widthFloat = ceilf(Float(boundingRect.size.width))
         let heightFloat = ceilf(Float(boundingRect.size.height))

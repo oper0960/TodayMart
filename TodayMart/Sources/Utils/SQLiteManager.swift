@@ -92,6 +92,46 @@ class SQLiteManager {
         }
     }
     
+    func executeAll(rowHandler: (([Mart]) -> Void)? = nil) throws {
+        if sqlite3_prepare_v2(db, "SELECT * FROM Mart;", -1, &stmt, nil) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing insert: \(errmsg)")
+            return
+        }
+        
+        while true {
+            switch sqlite3_step(stmt) {
+            case SQLITE_DONE:
+                return
+            case SQLITE_ROW:
+                // 0 = Name, 1 = ClosedWeek, 2 = ClosedDay, 3 = Favorite, 4 = OpeningHours
+                // 5 = FixClosedDay, 6 = address, 7 = telnumber, 8 = longitude, 9 = latitude
+                let name = String(cString: sqlite3_column_text(stmt, 0))
+                let closedWeek = splitWeekDay(closedWeek: String(cString: sqlite3_column_text(stmt, 1)))
+                let closedDay = splitWeekDay(closedWeek: String(cString: sqlite3_column_text(stmt, 2)))
+                let favorite = Int(sqlite3_column_int(stmt, 3))
+                let openingHours = String(cString: sqlite3_column_text(stmt, 4))
+                var fixedClosedDay: [Int] = []
+                if let fixedClosed = sqlite3_column_text(stmt, 5) {
+                    fixedClosedDay = splitWeekDay(closedWeek: String(cString: fixedClosed))
+                }
+                let address = String(cString: sqlite3_column_text(stmt, 6))
+                let telNumber = String(cString: sqlite3_column_text(stmt, 7))
+                let longitude = String(cString: sqlite3_column_text(stmt, 8))
+                let latitude = String(cString: sqlite3_column_text(stmt, 9))
+                
+                var result = [Mart]()
+                result.append(Mart(name: name, week: closedWeek, day: closedDay, fav: favorite,
+                                   hours: openingHours, fix: fixedClosedDay, add: address, tel: telNumber,
+                                   logi: longitude, lati: latitude))
+               
+                rowHandler!(result)
+            default:
+                throw SQLError.otherError
+            }
+        }
+    }
+    
     func favoriteExecute(name: String, favorite: Int, doneHandler: (() -> ())? = nil) throws {
         if sqlite3_prepare_v2(db, "UPDATE Mart SET Favorite = \(favorite) WHERE Name = '\(name)';", -1, &stmt, nil) != SQLITE_OK{
             let errmsg = String(cString: sqlite3_errmsg(db)!)

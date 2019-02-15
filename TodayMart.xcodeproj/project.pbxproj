@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3157A65120DB45F80018336A /* ClosedDatabase.db in Resources */ = {isa = PBXBuildFile; fileRef = 3157A65020DB45F80018336A /* ClosedDatabase.db */; };
 		3157A65320DB489B0018336A /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3157A65220DB489B0018336A /* SQLiteManager.swift */; };
 		31586E6720E4E1C100FB9428 /* GWToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31586E6620E4E1C100FB9428 /* GWToast.swift */; };
 		3163BA9220CE0A4D00B8625C /* Mart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3163BA9120CE0A4D00B8625C /* Mart.swift */; };
@@ -19,6 +18,7 @@
 		316976B020EA0A85000FA771 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316976AE20EA0A85000FA771 /* SettingTableViewCell.swift */; };
 		316976B120EA0A85000FA771 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 316976AF20EA0A85000FA771 /* SettingTableViewCell.xib */; };
 		317CD82920CA54DD00B03B13 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CD82820CA54DD00B03B13 /* API.swift */; };
+		42499F8E2217197A008B3D04 /* ClosedDatabase.db in Resources */ = {isa = PBXBuildFile; fileRef = 42499F8D2217197A008B3D04 /* ClosedDatabase.db */; };
 		42AD289F21777B19006FAC94 /* ETC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AD289E21777B19006FAC94 /* ETC.swift */; };
 		42B652092174F54F008DC258 /* Favorite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42B652082174F54F008DC258 /* Favorite.storyboard */; };
 		42B6520B2174F563008DC258 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B6520A2174F563008DC258 /* FavoriteViewController.swift */; };
@@ -37,7 +37,6 @@
 
 /* Begin PBXFileReference section */
 		3111335321801C6E00EAEC8A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		3157A65020DB45F80018336A /* ClosedDatabase.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase.db; sourceTree = "<group>"; };
 		3157A65220DB489B0018336A /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 		31586E6620E4E1C100FB9428 /* GWToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWToast.swift; sourceTree = "<group>"; };
 		3163BA9120CE0A4D00B8625C /* Mart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mart.swift; sourceTree = "<group>"; };
@@ -49,6 +48,7 @@
 		316976AE20EA0A85000FA771 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		316976AF20EA0A85000FA771 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		317CD82820CA54DD00B03B13 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		42499F8D2217197A008B3D04 /* ClosedDatabase.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase.db; sourceTree = "<group>"; };
 		42AD289E21777B19006FAC94 /* ETC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETC.swift; sourceTree = "<group>"; };
 		42B652082174F54F008DC258 /* Favorite.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Favorite.storyboard; sourceTree = "<group>"; };
 		42B6520A2174F563008DC258 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 		3157A64F20DB45E60018336A /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				3157A65020DB45F80018336A /* ClosedDatabase.db */,
+				42499F8D2217197A008B3D04 /* ClosedDatabase.db */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -267,10 +267,10 @@
 			isa = PBXGroup;
 			children = (
 				317CD82820CA54DD00B03B13 /* API.swift */,
-				31586E6620E4E1C100FB9428 /* GWToast.swift */,
 				3157A65220DB489B0018336A /* SQLiteManager.swift */,
 				6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */,
 				3164568020EC60850051AA57 /* UIApplicationExtensions.swift */,
+				31586E6620E4E1C100FB9428 /* GWToast.swift */,
 				42AD289E21777B19006FAC94 /* ETC.swift */,
 			);
 			path = Utils;
@@ -311,6 +311,7 @@
 				TargetAttributes = {
 					6F65FB2F20CA1DAB00E16129 = {
 						CreatedOnToolsVersion = 9.4;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -341,7 +342,7 @@
 				6F65FB3E20CA1DAC00E16129 /* LaunchScreen.storyboard in Resources */,
 				316976B120EA0A85000FA771 /* SettingTableViewCell.xib in Resources */,
 				316976AB20E9FF23000FA771 /* Setting.storyboard in Resources */,
-				3157A65120DB45F80018336A /* ClosedDatabase.db in Resources */,
+				42499F8E2217197A008B3D04 /* ClosedDatabase.db in Resources */,
 				42B652092174F54F008DC258 /* Favorite.storyboard in Resources */,
 				6F65FB3B20CA1DAC00E16129 /* Assets.xcassets in Resources */,
 				42B652102174F9E2008DC258 /* FavoriteTableViewCell.xib in Resources */,
@@ -579,7 +580,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryu.todaymart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -599,7 +600,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryu.todaymart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
