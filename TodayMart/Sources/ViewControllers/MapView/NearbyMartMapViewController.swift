@@ -15,7 +15,7 @@ class NearbyMartMapViewController: UIViewController {
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
-    var markerView = MarkerView(frame: CGRect(x: 0, y: 0, width: 250, height: 120))
+    var markerView = MarkerView(frame: CGRect(x: 0, y: 0, width: 300, height: 120))
     var tapMarker = GMSMarker()
     var martArray: [Mart]?
     
@@ -165,7 +165,7 @@ extension NearbyMartMapViewController: GMSMapViewDelegate {
         self.markerView.removeFromSuperview()
         self.markerView = MarkerView.instanceFromNib()
         self.markerView.favorite.tag = index
-        //        self.markerView.favorite.addTarget(self, action: #selector(favorite), for: .touchUpInside)
+        self.markerView.favorite.addTarget(self, action: #selector(favorite), for: .touchUpInside)
         
         // Mart Name
         self.markerView.placeName.text = martData.name
@@ -220,43 +220,59 @@ extension NearbyMartMapViewController: GMSMapViewDelegate {
         self.markerView.removeFromSuperview()
     }
     
-    //    // Favorite Button
-    //    @objc func favorite(_ sender: UIButton) {
-    //        if let marts = self.martArray {
-    //            if let name = marts[sender.tag].placeName {
-    //                var martData: Any?
-    //                do {
-    //                    let db = try SQLiteManager()
-    //
-    //                    try db.execute(name: name) { (mart: MartTuple) in
-    //                        martData = mart
-    //                    }
-    //
-    //                    let updateDB = try SQLiteManager()
-    //                    guard let data = martData as? MartTuple else { return }
-    //                    do {
-    //                        if data.3 == 0 {
-    //                            try updateDB.favoriteExecute(name: name, favorite: 1, doneHandler: {
-    //                                sender.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
-    //                            })
-    //                        } else {
-    //                            try updateDB.favoriteExecute(name: name, favorite: 0, doneHandler: {
-    //                                sender.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
-    //                            })
-    //                        }
-    //                    } catch {
-    //                        self.dbOpenErrorAlert()
-    //                    }
-    //                } catch {
-    //                    self.dbOpenErrorAlert()
-    //                }
-    //            }
-    //        }
-    //    }
+    // Favorite Button
+    @objc func favorite(_ sender: UIButton) {
+        if let marts = self.martArray {
+            let name = marts[sender.tag].name
+            var martData: Any?
+            do {
+                let db = try SQLiteManager()
+                
+                try db.execute(name: name) { (mart: MartTuple) in
+                    martData = mart
+                }
+                
+                let updateDB = try SQLiteManager()
+                guard let data = martData as? MartTuple else { return }
+                do {
+                    if data.3 == 0 {
+                        try updateDB.favoriteExecute(name: name, favorite: 1, doneHandler: {
+                            sender.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
+                        })
+                    } else {
+                        try updateDB.favoriteExecute(name: name, favorite: 0, doneHandler: {
+                            sender.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
+                        })
+                    }
+                } catch {
+                    self.dbOpenErrorAlert()
+                }
+            } catch {
+                self.dbOpenErrorAlert()
+            }
+        }
+    }
 }
 
-// MARK: - URLSession, Database
+// MARK: - Database
 extension NearbyMartMapViewController {
+    
+    func getMartData() {
+        self.indicator.startAnimating()
+        do {
+            let db = try SQLiteManager()
+            try db.executeAll() { (marts: [Mart]) in
+                self.indicator.stopAnimating()
+                self.martArray = marts
+                if let mart = self.martArray {
+                    self.setMarker(marts: mart)
+                }
+            }
+        } catch {
+            self.indicator.stopAnimating()
+            self.dbOpenErrorAlert()
+        }
+    }
     
     func dbOpenErrorAlert() {
         let alert = UIAlertController(title: "DB 불러오기 실패", message: "잠시후에 다시 실행해주세요.", preferredStyle: .alert)
@@ -266,20 +282,6 @@ extension NearbyMartMapViewController {
             if let topController = UIApplication.topViewController() {
                 topController.present(alert, animated: true, completion: nil)
             }
-        }
-    }
-    
-    func getMartData() {
-        self.indicator.startAnimating()
-        do {
-            let db = try SQLiteManager()
-            try db.executeAll() { (marts: [Mart]) in
-                self.indicator.stopAnimating()
-                self.setMarker(marts: marts)
-            }
-        } catch {
-            indicator.stopAnimating()
-            self.dbOpenErrorAlert()
         }
     }
 }

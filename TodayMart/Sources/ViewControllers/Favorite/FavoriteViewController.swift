@@ -12,7 +12,7 @@ class FavoriteViewController: UIViewController {
     
     @IBOutlet weak var mainTableView: UITableView!
     
-    var favoriteMart = [MartTuple]()
+    var favoriteMarts = [Mart]()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -32,14 +32,13 @@ extension FavoriteViewController {
         self.mainTableView.register(UINib(nibName: "FavoriteTableViewCell", bundle: nil), forCellReuseIdentifier: TableViewCellType.mainCell.rawValue)
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
-        let footer = UIView()
-        self.mainTableView.tableFooterView = footer
+        self.mainTableView.tableFooterView = UIView()
     }
 }
 
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.favoriteMart.count
+        return self.favoriteMarts.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -49,26 +48,27 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCellType.mainCell.rawValue, for: indexPath) as! FavoriteTableViewCell
         
-        let mart = self.favoriteMart[indexPath.row]
+        let mart = self.favoriteMarts[indexPath.row]
         
         // 이름
-        cell.placeName.text = mart.0
+        cell.placeName.text = mart.name
         
         // 휴무정보
-        cell.offDay.text = self.closedDayDescription(week: mart.1, day: mart.2, fixedDay: mart.5)
+        cell.offDay.text = self.closedDayDescription(week: mart.closedWeek, day: mart.closedDay,
+                                                     fixedDay: mart.fixedClosedDay)
         
         // 영업시간
-        cell.workTime.text = mart.4
+        cell.workTime.text = mart.openingHours
         
         // 영업정보
-        if self.closedDayYN(week: mart.1, day: mart.2) {
+        if self.closedDayYN(week: mart.closedWeek, day: mart.closedDay) {
             cell.status.textColor = .red
             cell.status.text = "휴무"
         } else {
-            if mart.1[0] == 0 && mart.2[0] == 8 || mart.1[1] == 0 && mart.2[1] == 8 {
+            if mart.closedWeek[0] == 0 && mart.closedDay[0] == 8 || mart.closedWeek[1] == 0 && mart.closedDay[1] == 8 {
                 cell.status.text = "영업정보없음"
             } else {
-                if self.openTime(time: mart.4) {
+                if self.openTime(time: mart.openingHours) {
                     cell.status.text = "영업중"
                     cell.status.textColor = #colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1)
                 } else {
@@ -83,10 +83,10 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         let delete = UITableViewRowAction(style: .default, title: "삭제") { (action, indexPath) in
-            let mart = self.favoriteMart[indexPath.row]
+            let mart = self.favoriteMarts[indexPath.row]
             do {
                 let db = try SQLiteManager()
-                try db.favoriteExecute(name: mart.0, favorite: 0, doneHandler: {
+                try db.favoriteExecute(name: mart.name, favorite: 0, doneHandler: {
                     self.getFavorite()
                 })
             } catch {
@@ -100,10 +100,10 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
 extension FavoriteViewController {
     func getFavorite() {
         do {
-            self.favoriteMart.removeAll()
+            self.favoriteMarts.removeAll()
             let db = try SQLiteManager()
-            try db.getFavoriteExecute { (mart: MartTuple) in
-                self.favoriteMart.append(mart)
+            try db.getFavoriteExecute { (marts: [Mart]) in
+                self.favoriteMarts = marts
             }
             self.mainTableView.reloadData()
         } catch {
