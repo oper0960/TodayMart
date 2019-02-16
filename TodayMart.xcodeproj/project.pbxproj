@@ -18,7 +18,6 @@
 		316976B020EA0A85000FA771 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316976AE20EA0A85000FA771 /* SettingTableViewCell.swift */; };
 		316976B120EA0A85000FA771 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 316976AF20EA0A85000FA771 /* SettingTableViewCell.xib */; };
 		317CD82920CA54DD00B03B13 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CD82820CA54DD00B03B13 /* API.swift */; };
-		42499F8E2217197A008B3D04 /* ClosedDatabase.db in Resources */ = {isa = PBXBuildFile; fileRef = 42499F8D2217197A008B3D04 /* ClosedDatabase.db */; };
 		42499F9A22185FAA008B3D04 /* OpenSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42499F9022185FAA008B3D04 /* OpenSource.swift */; };
 		42499F9B22185FAA008B3D04 /* OpenSourceTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42499F9122185FAA008B3D04 /* OpenSourceTextViewController.xib */; };
 		42499F9C22185FAA008B3D04 /* OpenSourceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42499F9222185FAA008B3D04 /* OpenSourceViewController.xib */; };
@@ -28,6 +27,7 @@
 		42499FA022185FAA008B3D04 /* Apache2.0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 42499F9722185FAA008B3D04 /* Apache2.0.txt */; };
 		42499FA122185FAA008B3D04 /* OpenSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42499F9822185FAA008B3D04 /* OpenSourceViewController.swift */; };
 		42499FA222185FAA008B3D04 /* OpenSourceTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42499F9922185FAA008B3D04 /* OpenSourceTextViewController.swift */; };
+		42499FA622186D81008B3D04 /* ClosedDatabase_V2.db in Resources */ = {isa = PBXBuildFile; fileRef = 42499FA522186D81008B3D04 /* ClosedDatabase_V2.db */; };
 		42AD289F21777B19006FAC94 /* ETC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AD289E21777B19006FAC94 /* ETC.swift */; };
 		42B652092174F54F008DC258 /* Favorite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42B652082174F54F008DC258 /* Favorite.storyboard */; };
 		42B6520B2174F563008DC258 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B6520A2174F563008DC258 /* FavoriteViewController.swift */; };
@@ -57,7 +57,6 @@
 		316976AE20EA0A85000FA771 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		316976AF20EA0A85000FA771 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		317CD82820CA54DD00B03B13 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
-		42499F8D2217197A008B3D04 /* ClosedDatabase.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase.db; sourceTree = "<group>"; };
 		42499F9022185FAA008B3D04 /* OpenSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSource.swift; sourceTree = "<group>"; };
 		42499F9122185FAA008B3D04 /* OpenSourceTextViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpenSourceTextViewController.xib; sourceTree = "<group>"; };
 		42499F9222185FAA008B3D04 /* OpenSourceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpenSourceViewController.xib; sourceTree = "<group>"; };
@@ -67,6 +66,7 @@
 		42499F9722185FAA008B3D04 /* Apache2.0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Apache2.0.txt; sourceTree = "<group>"; };
 		42499F9822185FAA008B3D04 /* OpenSourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSourceViewController.swift; sourceTree = "<group>"; };
 		42499F9922185FAA008B3D04 /* OpenSourceTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSourceTextViewController.swift; sourceTree = "<group>"; };
+		42499FA522186D81008B3D04 /* ClosedDatabase_V2.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase_V2.db; sourceTree = "<group>"; };
 		42AD289E21777B19006FAC94 /* ETC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETC.swift; sourceTree = "<group>"; };
 		42B652082174F54F008DC258 /* Favorite.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Favorite.storyboard; sourceTree = "<group>"; };
 		42B6520A2174F563008DC258 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 		3157A64F20DB45E60018336A /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				42499F8D2217197A008B3D04 /* ClosedDatabase.db */,
+				42499FA522186D81008B3D04 /* ClosedDatabase_V2.db */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -388,7 +388,6 @@
 				42499FA022185FAA008B3D04 /* Apache2.0.txt in Resources */,
 				316976AB20E9FF23000FA771 /* Setting.storyboard in Resources */,
 				42499F9B22185FAA008B3D04 /* OpenSourceTextViewController.xib in Resources */,
-				42499F8E2217197A008B3D04 /* ClosedDatabase.db in Resources */,
 				42B652092174F54F008DC258 /* Favorite.storyboard in Resources */,
 				42499F9C22185FAA008B3D04 /* OpenSourceViewController.xib in Resources */,
 				6F65FB3B20CA1DAC00E16129 /* Assets.xcassets in Resources */,
@@ -396,6 +395,7 @@
 				6F65FB5120CA239E00E16129 /* NearbyMartMap.storyboard in Resources */,
 				6F65FB5320CA2CC600E16129 /* Main.storyboard in Resources */,
 				42499F9F22185FAA008B3D04 /* MIT.txt in Resources */,
+				42499FA622186D81008B3D04 /* ClosedDatabase_V2.db in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
