@@ -41,6 +41,8 @@ class SQLiteManager {
                 }
             } else {
                 do {
+                    let targetURL = fileURL.appendingPathComponent(dbName, isDirectory: false)
+                    try fileManager.copyItem(at: bundleURL!, to: targetURL)
                     let fileDic = try fileManager.contentsOfDirectory(atPath: fileURL.path)
                     return "\(fileURL.path)/\(dbName)"
                 } catch {

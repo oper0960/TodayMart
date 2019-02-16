@@ -10,6 +10,5 @@ target 'TodayMart' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'SnapKit'
-  pod 'CPOpenSourceLicenses'
 
 end

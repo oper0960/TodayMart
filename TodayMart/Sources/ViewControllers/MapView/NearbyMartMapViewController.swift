@@ -383,14 +383,14 @@ extension NearbyMartMapViewController {
             return "휴무정보없음"
         }
         
-        if week[0] == 0 && day[0] == 8 {
-            if week[1] == 0 && day[1] == 8 {
-                return "매달 \(fixedDay[0]),\(fixedDay[1])일"
+        if week[0] == 0, day[0] == 8 {
+            if week[1] == 0, day[1] == 8 {
+                return fixedDay.count > 0 ? "매달 \(fixedDay[0]),\(fixedDay[1])일" : "연중무휴"
             } else {
                 return "매달 \(fixedDay[0])일, \(week[1])번째주 \(dayToString(day: day[1]))"
             }
         } else {
-            if week[1] == 0 && day[1] == 8 {
+            if week[1] == 0, day[1] == 8 {
                 return "\(week[0])번째주 \(dayToString(day: day[0])), 매달 \(fixedDay[0])일"
             }
         }
