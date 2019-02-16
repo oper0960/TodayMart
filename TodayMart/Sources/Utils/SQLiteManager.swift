@@ -23,14 +23,14 @@ class SQLiteManager {
     var stmt: OpaquePointer?
     
     private let dbPath: String = {
-        let bundleURL = Bundle.main.url(forResource: "ClosedDatabase", withExtension: "db")
+        let bundleURL = Bundle.main.url(forResource: "ClosedDatabase_V2", withExtension: "db")
         let fileManager = FileManager.default
-        let dbName = "ClosedDatabase.db"
+        let dbName = "ClosedDatabase_V2.db"
         
         if let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = documentsURL.appendingPathComponent("DB")
             
-            if !fileManager.fileExists(atPath: "\(fileURL.path)/\(dbName)") {
+            if !fileManager.fileExists(atPath: "\(fileURL.path)/") {
                 do {
                     try fileManager.createDirectory(atPath: fileURL.path, withIntermediateDirectories: true, attributes: nil)
                     let targetURL = fileURL.appendingPathComponent(dbName, isDirectory: false)
@@ -41,9 +41,14 @@ class SQLiteManager {
                 }
             } else {
                 do {
-                    let targetURL = fileURL.appendingPathComponent(dbName, isDirectory: false)
-                    try fileManager.copyItem(at: bundleURL!, to: targetURL)
                     let fileDic = try fileManager.contentsOfDirectory(atPath: fileURL.path)
+                    if let dbFileName = fileDic.first {
+                        if dbName != dbFileName {
+                            try fileManager.removeItem(atPath: "\(fileURL.path)/\(dbFileName)")
+                            let targetURL = fileURL.appendingPathComponent(dbName, isDirectory: false)
+                            try fileManager.copyItem(at: bundleURL!, to: targetURL)
+                        }
+                    }
                     return "\(fileURL.path)/\(dbName)"
                 } catch {
                     return bundleURL?.path
