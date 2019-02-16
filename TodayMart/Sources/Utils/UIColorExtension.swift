@@ -59,3 +59,14 @@ extension UIColor {
         }
     }
 }
+
+extension UINavigationController {
+    
+    func pushViewController(_ viewController: UIViewController, back: String, animated: Bool) {
+        if let controller = self.viewControllers.last {
+            let backButton = UIBarButtonItem(title: back, style:.plain, target: nil, action: nil)
+            controller.navigationItem.backBarButtonItem = backButton
+        }
+        pushViewController(viewController, animated: animated)
+    }
+}

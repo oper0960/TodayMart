@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CPOpenSourceLicenses
 import MessageUI
 
 class SettingViewController: UIViewController {
@@ -23,7 +22,7 @@ class SettingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .automatic
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
     }
     
     override func viewDidLoad() {
@@ -134,14 +133,13 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         case 1:
-            let openSourceLibraryVC = CPOpenSourceLibrariesViewController()
-            openSourceLibraryVC.openSourceList = [
-                CPOpenSource(title: "GoogleMaps", license: .apacheLicense2),
-                CPOpenSource(title: "GooglePlaces", license: .apacheLicense2),
-                CPOpenSource(title: "SnapKit", license: .mit(year: "2011", fullname: "SnapKit Team")),
-                CPOpenSource(title: "CPOpenSourceLicenses", license: .mit(year: "2017", fullname: "chope"))
+            let open = OpenSourceViewController()
+            open.opensourceList = [
+                OpenSource("SnapKit", license: .mit(year: "2011", name: "SnapKit Team")),
+                OpenSource("GoogleMaps", license: .apache2),
+                OpenSource("GooglePlaces", license: .apache2)
             ]
-            self.navigationController?.pushViewController(openSourceLibraryVC, animated: true)
+            self.navigationController?.pushViewController(open, animated: true)
         default:
             break
         }
