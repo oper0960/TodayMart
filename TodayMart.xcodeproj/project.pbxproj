@@ -28,6 +28,7 @@
 		42499FA122185FAA008B3D04 /* OpenSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42499F9822185FAA008B3D04 /* OpenSourceViewController.swift */; };
 		42499FA222185FAA008B3D04 /* OpenSourceTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42499F9922185FAA008B3D04 /* OpenSourceTextViewController.swift */; };
 		42499FA622186D81008B3D04 /* ClosedDatabase_V2.db in Resources */ = {isa = PBXBuildFile; fileRef = 42499FA522186D81008B3D04 /* ClosedDatabase_V2.db */; };
+		42499FA922196C33008B3D04 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 42499FA822196C33008B3D04 /* GoogleService-Info.plist */; };
 		42AD289F21777B19006FAC94 /* ETC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42AD289E21777B19006FAC94 /* ETC.swift */; };
 		42B652092174F54F008DC258 /* Favorite.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42B652082174F54F008DC258 /* Favorite.storyboard */; };
 		42B6520B2174F563008DC258 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B6520A2174F563008DC258 /* FavoriteViewController.swift */; };
@@ -67,6 +68,8 @@
 		42499F9822185FAA008B3D04 /* OpenSourceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSourceViewController.swift; sourceTree = "<group>"; };
 		42499F9922185FAA008B3D04 /* OpenSourceTextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSourceTextViewController.swift; sourceTree = "<group>"; };
 		42499FA522186D81008B3D04 /* ClosedDatabase_V2.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase_V2.db; sourceTree = "<group>"; };
+		42499FA722186F8A008B3D04 /* TodayMart-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TodayMart-Bridging-Header.h"; sourceTree = "<group>"; };
+		42499FA822196C33008B3D04 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		42AD289E21777B19006FAC94 /* ETC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ETC.swift; sourceTree = "<group>"; };
 		42B652082174F54F008DC258 /* Favorite.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Favorite.storyboard; sourceTree = "<group>"; };
 		42B6520A2174F563008DC258 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
@@ -292,8 +295,10 @@
 			isa = PBXGroup;
 			children = (
 				6F65FB4C20CA1F0E00E16129 /* Resources */,
-				6F65FB3C20CA1DAC00E16129 /* LaunchScreen.storyboard */,
 				6F65FB3F20CA1DAC00E16129 /* Info.plist */,
+				6F65FB3C20CA1DAC00E16129 /* LaunchScreen.storyboard */,
+				42499FA822196C33008B3D04 /* GoogleService-Info.plist */,
+				42499FA722186F8A008B3D04 /* TodayMart-Bridging-Header.h */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -332,6 +337,7 @@
 				6F65FB2E20CA1DAB00E16129 /* Resources */,
 				7482ECE72B00C6A84A19DF0A /* [CP] Embed Pods Frameworks */,
 				ADCA83291FBB890316446AAD /* [CP] Copy Pods Resources */,
+				42499FAA22196ED4008B3D04 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -390,6 +396,7 @@
 				42499F9B22185FAA008B3D04 /* OpenSourceTextViewController.xib in Resources */,
 				42B652092174F54F008DC258 /* Favorite.storyboard in Resources */,
 				42499F9C22185FAA008B3D04 /* OpenSourceViewController.xib in Resources */,
+				42499FA922196C33008B3D04 /* GoogleService-Info.plist in Resources */,
 				6F65FB3B20CA1DAC00E16129 /* Assets.xcassets in Resources */,
 				42B652102174F9E2008DC258 /* FavoriteTableViewCell.xib in Resources */,
 				6F65FB5120CA239E00E16129 /* NearbyMartMap.storyboard in Resources */,
@@ -402,6 +409,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		42499FAA22196ED4008B3D04 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
+		};
 		7482ECE72B00C6A84A19DF0A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -409,11 +434,15 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -630,6 +659,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryu.todaymart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TodayMart/SupportingFiles/TodayMart-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -650,6 +680,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryu.todaymart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TodayMart/SupportingFiles/TodayMart-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
