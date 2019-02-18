@@ -137,7 +137,8 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             open.opensourceList = [
                 OpenSource("SnapKit", license: .mit(year: "2011", name: "SnapKit Team")),
                 OpenSource("GoogleMaps", license: .apache2),
-                OpenSource("GooglePlaces", license: .apache2)
+                OpenSource("GooglePlaces", license: .apache2),
+                OpenSource("Firebase", license: .apache2)
             ]
             self.navigationController?.pushViewController(open, animated: true)
         default:

@@ -17,7 +17,7 @@ class FavoriteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationItem.largeTitleDisplayMode = .automatic
+        navigationController?.navigationItem.largeTitleDisplayMode = .always
         self.getFavorite()
     }
     
