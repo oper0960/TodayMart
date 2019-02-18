@@ -15,6 +15,8 @@ class NearbyMartMapViewController: UIViewController {
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
+    private var clusterManager: GMUClusterManager!
+    
     var markerView = MarkerView(frame: CGRect(x: 0, y: 0, width: 300, height: 120))
     var tapMarker = GMSMarker()
     var martArray: [Mart]?
@@ -72,6 +74,9 @@ extension NearbyMartMapViewController {
         navigationController?.navigationBar.isHidden = true
         refreshButton.layer.masksToBounds = false
         refreshButton.layer.cornerRadius = refreshButton.bounds.width/2
+        
+        clusterManager.setDelegate(self, mapDelegate: self)
+        
         getMartData()
         
         // location
@@ -104,7 +109,7 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
                 if let url = URL(string: UIApplication.openSettingsURLString) {
                     if UIApplication.shared.canOpenURL(url) {
                         if #available(iOS 10.0, *) {
-                            UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                            UIApplication.shared.open(url, options: [:], completionHandler: nil)
                         } else {
                             UIApplication.shared.openURL(url)
                         }
@@ -129,6 +134,16 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
             move(at: location.coordinate)
             firstActive = !firstActive
         }
+    }
+}
+
+extension NearbyMartMapViewController: GMUClusterManagerDelegate {
+    func clusterManager(_ clusterManager: GMUClusterManager, didTap cluster: GMUCluster) -> Bool {
+        let newCamera = GMSCameraPosition.camera(withTarget: cluster.position,
+                                                           zoom: mapView.camera.zoom + 1)
+        let update = GMSCameraUpdate.setCamera(newCamera)
+        mapView.moveCamera(update)
+        return true
     }
 }
 
@@ -397,9 +412,4 @@ extension NearbyMartMapViewController {
         
         return "\(week[0])번째주 \(dayToString(day: day[0])), \(week[1])번째주 \(dayToString(day: day[1]))"
     }
-}
-
-// Helper function inserted by Swift 4.2 migrator.
-fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
-    return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
