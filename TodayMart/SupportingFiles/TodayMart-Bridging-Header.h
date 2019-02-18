@@ -9,6 +9,6 @@
 #ifndef TodayMart_Bridging_Header_h
 #define TodayMart_Bridging_Header_h
 
-//#import <Google-Maps-iOS-Utils/GMUMarkerClustering.h>
+#import "GMUMarkerClustering.h"
 
 #endif /* TodayMart_Bridging_Header_h */
