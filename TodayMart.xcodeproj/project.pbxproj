@@ -34,7 +34,6 @@
 		42B6520B2174F563008DC258 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B6520A2174F563008DC258 /* FavoriteViewController.swift */; };
 		42B6520F2174F9E2008DC258 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42B6520D2174F9E2008DC258 /* FavoriteTableViewCell.swift */; };
 		42B652102174F9E2008DC258 /* FavoriteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42B6520E2174F9E2008DC258 /* FavoriteTableViewCell.xib */; };
-		53BBA1A83F12536605D67BAC /* Pods_TodayMart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1B63B59704ACCCFDB06ED65 /* Pods_TodayMart.framework */; };
 		6F65FB3420CA1DAB00E16129 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65FB3320CA1DAB00E16129 /* AppDelegate.swift */; };
 		6F65FB3B20CA1DAC00E16129 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F65FB3A20CA1DAC00E16129 /* Assets.xcassets */; };
 		6F65FB3E20CA1DAC00E16129 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F65FB3C20CA1DAC00E16129 /* LaunchScreen.storyboard */; };
@@ -43,6 +42,7 @@
 		6F65FB5320CA2CC600E16129 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F65FB5220CA2CC600E16129 /* Main.storyboard */; };
 		6F65FB5520CA2CCF00E16129 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65FB5420CA2CCF00E16129 /* MainViewController.swift */; };
 		6F65FB5720CA2D7700E16129 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */; };
+		E127CB8B74A44BC8D435B913 /* libPods-TodayMart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -88,7 +88,7 @@
 		6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		6FC5A24F42984D41CF33D1BD /* Pods-TodayMart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayMart.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart.release.xcconfig"; sourceTree = "<group>"; };
 		787EC97FB7F598FDC3A0FEE9 /* Pods-ClosedMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClosedMart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClosedMart/Pods-ClosedMart.debug.xcconfig"; sourceTree = "<group>"; };
-		C1B63B59704ACCCFDB06ED65 /* Pods_TodayMart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TodayMart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TodayMart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F53D5D55A2DC2B9364D33E52 /* Pods_ClosedMart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClosedMart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF0C18F195BEBA125B652103 /* Pods-TodayMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayMart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53BBA1A83F12536605D67BAC /* Pods_TodayMart.framework in Frameworks */,
+				E127CB8B74A44BC8D435B913 /* libPods-TodayMart.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,7 +110,7 @@
 			children = (
 				F53D5D55A2DC2B9364D33E52 /* Pods_ClosedMart.framework */,
 				3111335321801C6E00EAEC8A /* NotificationCenter.framework */,
-				C1B63B59704ACCCFDB06ED65 /* Pods_TodayMart.framework */,
+				A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -335,7 +335,6 @@
 				6F65FB2C20CA1DAB00E16129 /* Sources */,
 				6F65FB2D20CA1DAB00E16129 /* Frameworks */,
 				6F65FB2E20CA1DAB00E16129 /* Resources */,
-				7482ECE72B00C6A84A19DF0A /* [CP] Embed Pods Frameworks */,
 				ADCA83291FBB890316446AAD /* [CP] Copy Pods Resources */,
 				42499FAA22196ED4008B3D04 /* ShellScript */,
 			);
@@ -414,40 +413,14 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			outputFileListPaths = (
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\"\n";
-		};
-		7482ECE72B00C6A84A19DF0A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		ADCA83291FBB890316446AAD /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
