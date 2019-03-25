@@ -74,9 +74,6 @@ extension NearbyMartMapViewController {
         navigationController?.navigationBar.isHidden = true
         refreshButton.layer.masksToBounds = false
         refreshButton.layer.cornerRadius = refreshButton.bounds.width/2
-        
-        clusterManager.setDelegate(self, mapDelegate: self)
-        
         getMartData()
         
         // location
@@ -310,9 +307,9 @@ extension NearbyMartMapViewController {
             return false
         }
         
-        let time: TimeZone = TimeZone.current
-        let today = Date(timeIntervalSinceNow: TimeInterval(time.secondsFromGMT()))
-        let calendar = Calendar.current
+        let today = Date()
+        var calendar = Calendar.current
+        calendar.locale = Locale(identifier: "ko-KR")
         
         // 기준점 = 오늘
         var centerDate = DateComponents(calendar: calendar)
