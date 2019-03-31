@@ -9,6 +9,16 @@
 import UIKit
 import GoogleMaps
 
+class POIItem: NSObject, GMUClusterItem {
+    var position: CLLocationCoordinate2D
+    var name: String!
+    
+    init(position: CLLocationCoordinate2D, name: String) {
+        self.position = position
+        self.name = name
+    }
+}
+
 class NearbyMartMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: GMSMapView!
@@ -16,6 +26,7 @@ class NearbyMartMapViewController: UIViewController {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     private var clusterManager: GMUClusterManager!
+    let kClusterItemCount = 400
     
     var markerView = MarkerView(frame: CGRect(x: 0, y: 0, width: 300, height: 120))
     var tapMarker = GMSMarker()
@@ -75,8 +86,6 @@ extension NearbyMartMapViewController {
         refreshButton.layer.masksToBounds = false
         refreshButton.layer.cornerRadius = refreshButton.bounds.width/2
         
-        clusterManager.setDelegate(self, mapDelegate: self)
-        
         getMartData()
         
         // location
@@ -86,6 +95,7 @@ extension NearbyMartMapViewController {
             self.locationManager.startUpdatingLocation()
             self.mapView.settings.myLocationButton = true
             self.mapView.isMyLocationEnabled = true
+            self.mapView.setMinZoom(8, maxZoom: 15)
         }
     }
     
@@ -137,22 +147,34 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
     }
 }
 
-extension NearbyMartMapViewController: GMUClusterManagerDelegate {
+
+// MARK: - GMUClusterManagerDelegate, GMSMapViewDelegate
+extension NearbyMartMapViewController: GMUClusterManagerDelegate, GMUClusterRendererDelegate, GMSMapViewDelegate {
+    
+    func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
+        
+    }
+    
     func clusterManager(_ clusterManager: GMUClusterManager, didTap cluster: GMUCluster) -> Bool {
         let newCamera = GMSCameraPosition.camera(withTarget: cluster.position,
-                                                           zoom: mapView.camera.zoom + 1)
+                                                 zoom: mapView.camera.zoom + 1)
         let update = GMSCameraUpdate.setCamera(newCamera)
         mapView.moveCamera(update)
-        return true
+        return false
     }
-}
-
-// MARK: - GMSMapViewDelegate
-extension NearbyMartMapViewController: GMSMapViewDelegate {
     
     // Add MarkerView
     func setMarker(marts: [Mart]) {
         DispatchQueue.main.async {
+            
+            let iconGenerator = GMUDefaultClusterIconGenerator()
+            let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
+            let renderer = GMUDefaultClusterRenderer(mapView: self.mapView, clusterIconGenerator: iconGenerator)
+            self.clusterManager = GMUClusterManager(map: self.mapView, algorithm: algorithm, renderer: renderer)
+            self.generateClusterItems()
+            self.clusterManager.cluster()
+            self.clusterManager.setDelegate(self, mapDelegate: self)
+            
             for (index,mart) in marts.enumerated() {
                 let position = CLLocationCoordinate2D(latitude: Double(mart.latitude)!,
                                                       longitude: Double(mart.longitude)!)
@@ -168,58 +190,79 @@ extension NearbyMartMapViewController: GMSMapViewDelegate {
         }
     }
     
+    private func generateClusterItems() {
+        let extent = 0.2
+        for index in 1...kClusterItemCount {
+            guard let location = self.currentLocation else { return }
+            let lat = location.coordinate.latitude + extent * randomScale()
+            let lng = location.coordinate.longitude + extent * randomScale()
+            let name = "Item \(index)"
+            let item =
+                POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
+            clusterManager.add(item)
+        }
+    }
+    
+    private func randomScale() -> Double {
+        return Double(arc4random()) / Double(UINT32_MAX) * 2.0 - 1.0
+    }
+    
     // Poi Touch
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        
-        let userData = marker.userData as! [String: Any]
-        let martData = userData["mart"] as! Mart
-        let index = userData["index"] as! Int
-        
-        let position = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
-        self.tapMarker = marker
-        self.markerView.removeFromSuperview()
-        self.markerView = MarkerView.instanceFromNib()
-        self.markerView.favorite.tag = index
-        self.markerView.favorite.addTarget(self, action: #selector(favorite), for: .touchUpInside)
-        
-        // Mart Name
-        self.markerView.placeName.text = martData.name
-        
-        // 휴무정보
-        self.markerView.closedWeek.text = self.closedDayDescription(week: martData.closedWeek, day: martData.closedDay, fixedDay: martData.fixedClosedDay)
-        
-        // 영업유무
-        if self.closedDayYN(week: martData.closedWeek, day: martData.closedDay) {
-            self.markerView.onSaleYN.textColor = .red
-            self.markerView.onSaleYN.text = "휴무"
+        if let poiItem = marker.userData as? POIItem {
+            
         } else {
-            if martData.closedWeek[0] == 0 && martData.closedDay[0] == 8 ||
-                martData.closedWeek[1] == 0 && martData.closedDay[1] == 8 {
-                self.markerView.onSaleYN.text = "영업정보없음"
+            let userData = marker.userData as! [String: Any]
+            let martData = userData["mart"] as! Mart
+            let index = userData["index"] as! Int
+            
+            let position = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
+            self.tapMarker = marker
+            self.markerView.removeFromSuperview()
+            self.markerView = MarkerView.instanceFromNib()
+            self.markerView.favorite.tag = index
+            self.markerView.favorite.addTarget(self, action: #selector(favorite), for: .touchUpInside)
+            
+            // Mart Name
+            self.markerView.placeName.text = martData.name
+            
+            // 휴무정보
+            self.markerView.closedWeek.text = self.closedDayDescription(week: martData.closedWeek, day: martData.closedDay, fixedDay: martData.fixedClosedDay)
+            
+            // 영업유무
+            if self.closedDayYN(week: martData.closedWeek, day: martData.closedDay) {
+                self.markerView.onSaleYN.textColor = .red
+                self.markerView.onSaleYN.text = "휴무"
             } else {
-                self.markerView.onSaleYN.text = self.openTime(time: martData.openingHours) ? "영업중" : "영업종료"
+                if martData.closedWeek[0] == 0 && martData.closedDay[0] == 8 ||
+                    martData.closedWeek[1] == 0 && martData.closedDay[1] == 8 {
+                    self.markerView.onSaleYN.text = "영업정보없음"
+                } else {
+                    self.markerView.onSaleYN.text = self.openTime(time: martData.openingHours) ? "영업중" : "영업종료"
+                }
             }
+            
+            // 즐겨찾기
+            if martData.favorite == 0 {
+                self.markerView.favorite.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
+            } else {
+                self.markerView.favorite.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
+            }
+            
+            // 영업시간
+            self.markerView.workTime.text = martData.openingHours
+            
+            // 주소
+            self.markerView.address.text = martData.address
+            
+            self.markerView.center = mapView.projection.point(for: position)
+            self.markerView.frame.origin.y -= 100
+            self.markerView.layer.cornerRadius = 10
+            self.markerView.layer.borderColor = #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.7)
+            self.markerView.layer.borderWidth = 0.7
+            self.view.addSubview(self.markerView)
         }
         
-        // 즐겨찾기
-        if martData.favorite == 0 {
-            self.markerView.favorite.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
-        } else {
-            self.markerView.favorite.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
-        }
-        
-        // 영업시간
-        self.markerView.workTime.text = martData.openingHours
-        
-        // 주소
-        self.markerView.address.text = martData.address
-        
-        self.markerView.center = mapView.projection.point(for: position)
-        self.markerView.frame.origin.y -= 100
-        self.markerView.layer.cornerRadius = 10
-        self.markerView.layer.borderColor = #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.7)
-        self.markerView.layer.borderWidth = 0.7
-        self.view.addSubview(self.markerView)
         return false
     }
 
