@@ -8,25 +8,13 @@
 
 import UIKit
 import GoogleMaps
-
-class POIItem: NSObject, GMUClusterItem {
-    var position: CLLocationCoordinate2D
-    var name: String!
-    
-    init(position: CLLocationCoordinate2D, name: String) {
-        self.position = position
-        self.name = name
-    }
-}
+import PullUpController
 
 class NearbyMartMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
-    
-    private var clusterManager: GMUClusterManager!
-    let kClusterItemCount = 400
     
     var markerView = MarkerView(frame: CGRect(x: 0, y: 0, width: 300, height: 120))
     var tapMarker = GMSMarker()
@@ -42,6 +30,11 @@ class NearbyMartMapViewController: UIViewController {
     }()
     
     var zoomLevel: Float = 13.0
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkPermission()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +63,9 @@ extension NearbyMartMapViewController {
     }
     
     @objc func enterForeground() {
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        checkPermission {
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        }
     }
     
     @objc func enterBankground() {
@@ -80,6 +75,14 @@ extension NearbyMartMapViewController {
 
 // MARK: - Setup
 extension NearbyMartMapViewController {
+    
+    private func addPullUpController() {
+        guard let favoriteViewController: FavoriteViewController = UIStoryboard(name: "Favorite", bundle: nil)
+            .instantiateInitialViewController() as? FavoriteViewController else { return }
+        
+        
+        addPullUpController(favoriteViewController as! PullUpController, initialStickyPointOffset: 10, animated: true)
+    }
     
     func setup() {
         navigationController?.navigationBar.isHidden = true
@@ -92,7 +95,7 @@ extension NearbyMartMapViewController {
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
             self.locationManager.requestWhenInUseAuthorization()
             self.locationManager.startUpdatingLocation()
-            self.mapView.settings.myLocationButton = true
+//            self.mapView.settings.myLocationButton = true
             self.mapView.isMyLocationEnabled = true
             self.mapView.setMinZoom(8, maxZoom: 15)
         }
@@ -148,32 +151,11 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
 
 
 // MARK: - GMUClusterManagerDelegate, GMSMapViewDelegate
-extension NearbyMartMapViewController: GMUClusterManagerDelegate, GMUClusterRendererDelegate, GMSMapViewDelegate {
-    
-    func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
-        
-    }
-    
-    func clusterManager(_ clusterManager: GMUClusterManager, didTap cluster: GMUCluster) -> Bool {
-        let newCamera = GMSCameraPosition.camera(withTarget: cluster.position,
-                                                 zoom: mapView.camera.zoom + 1)
-        let update = GMSCameraUpdate.setCamera(newCamera)
-        mapView.moveCamera(update)
-        return false
-    }
+extension NearbyMartMapViewController: GMSMapViewDelegate {
     
     // Add MarkerView
     func setMarker(marts: [Mart]) {
         DispatchQueue.main.async {
-            
-            let iconGenerator = GMUDefaultClusterIconGenerator()
-            let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
-            let renderer = GMUDefaultClusterRenderer(mapView: self.mapView, clusterIconGenerator: iconGenerator)
-            self.clusterManager = GMUClusterManager(map: self.mapView, algorithm: algorithm, renderer: renderer)
-            self.generateClusterItems()
-            self.clusterManager.cluster()
-            self.clusterManager.setDelegate(self, mapDelegate: self)
-            
             for (index,mart) in marts.enumerated() {
                 let position = CLLocationCoordinate2D(latitude: Double(mart.latitude)!,
                                                       longitude: Double(mart.longitude)!)
@@ -189,78 +171,57 @@ extension NearbyMartMapViewController: GMUClusterManagerDelegate, GMUClusterRend
         }
     }
     
-    private func generateClusterItems() {
-        let extent = 0.2
-        for index in 1...kClusterItemCount {
-            guard let location = self.currentLocation else { return }
-            let lat = location.coordinate.latitude + extent * randomScale()
-            let lng = location.coordinate.longitude + extent * randomScale()
-            let name = "Item \(index)"
-            let item =
-                POIItem(position: CLLocationCoordinate2DMake(lat, lng), name: name)
-            clusterManager.add(item)
-        }
-    }
-    
-    private func randomScale() -> Double {
-        return Double(arc4random()) / Double(UINT32_MAX) * 2.0 - 1.0
-    }
-    
     // Poi Touch
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        if let poiItem = marker.userData as? POIItem {
-            
+        let userData = marker.userData as! [String: Any]
+        let martData = userData["mart"] as! Mart
+        let index = userData["index"] as! Int
+        
+        let position = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
+        self.tapMarker = marker
+        self.markerView.removeFromSuperview()
+        self.markerView = MarkerView.instanceFromNib()
+        self.markerView.favorite.tag = index
+        self.markerView.favorite.addTarget(self, action: #selector(favorite), for: .touchUpInside)
+        
+        // Mart Name
+        self.markerView.placeName.text = martData.name
+        
+        // 휴무정보
+        self.markerView.closedWeek.text = self.closedDayDescription(week: martData.closedWeek, day: martData.closedDay, fixedDay: martData.fixedClosedDay)
+        
+        // 영업유무
+        if self.closedDayYN(week: martData.closedWeek, day: martData.closedDay) {
+            self.markerView.onSaleYN.textColor = .red
+            self.markerView.onSaleYN.text = "휴무"
         } else {
-            let userData = marker.userData as! [String: Any]
-            let martData = userData["mart"] as! Mart
-            let index = userData["index"] as! Int
-            
-            let position = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
-            self.tapMarker = marker
-            self.markerView.removeFromSuperview()
-            self.markerView = MarkerView.instanceFromNib()
-            self.markerView.favorite.tag = index
-            self.markerView.favorite.addTarget(self, action: #selector(favorite), for: .touchUpInside)
-            
-            // Mart Name
-            self.markerView.placeName.text = martData.name
-            
-            // 휴무정보
-            self.markerView.closedWeek.text = self.closedDayDescription(week: martData.closedWeek, day: martData.closedDay, fixedDay: martData.fixedClosedDay)
-            
-            // 영업유무
-            if self.closedDayYN(week: martData.closedWeek, day: martData.closedDay) {
-                self.markerView.onSaleYN.textColor = .red
-                self.markerView.onSaleYN.text = "휴무"
+            if martData.closedWeek[0] == 0 && martData.closedDay[0] == 8 ||
+                martData.closedWeek[1] == 0 && martData.closedDay[1] == 8 {
+                self.markerView.onSaleYN.text = "영업정보없음"
             } else {
-                if martData.closedWeek[0] == 0 && martData.closedDay[0] == 8 ||
-                    martData.closedWeek[1] == 0 && martData.closedDay[1] == 8 {
-                    self.markerView.onSaleYN.text = "영업정보없음"
-                } else {
-                    self.markerView.onSaleYN.text = self.openTime(time: martData.openingHours) ? "영업중" : "영업종료"
-                }
+                self.markerView.onSaleYN.text = self.openTime(time: martData.openingHours) ? "영업중" : "영업종료"
             }
-            
-            // 즐겨찾기
-            if martData.favorite == 0 {
-                self.markerView.favorite.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
-            } else {
-                self.markerView.favorite.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
-            }
-            
-            // 영업시간
-            self.markerView.workTime.text = martData.openingHours
-            
-            // 주소
-            self.markerView.address.text = martData.address
-            
-            self.markerView.center = mapView.projection.point(for: position)
-            self.markerView.frame.origin.y -= 100
-            self.markerView.layer.cornerRadius = 10
-            self.markerView.layer.borderColor = #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.7)
-            self.markerView.layer.borderWidth = 0.7
-            self.view.addSubview(self.markerView)
         }
+        
+        // 즐겨찾기
+        if martData.favorite == 0 {
+            self.markerView.favorite.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
+        } else {
+            self.markerView.favorite.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
+        }
+        
+        // 영업시간
+        self.markerView.workTime.text = martData.openingHours
+        
+        // 주소
+        self.markerView.address.text = martData.address
+        
+        self.markerView.center = mapView.projection.point(for: position)
+        self.markerView.frame.origin.y -= 100
+        self.markerView.layer.cornerRadius = 10
+        self.markerView.layer.borderColor = #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.7)
+        self.markerView.layer.borderWidth = 0.7
+        self.view.addSubview(self.markerView)
         
         return false
     }
@@ -281,18 +242,18 @@ extension NearbyMartMapViewController: GMUClusterManagerDelegate, GMUClusterRend
     @objc func favorite(_ sender: UIButton) {
         if let marts = self.martArray {
             let name = marts[sender.tag].name
-            var martData: Any?
+            var martData: Mart?
             do {
                 let db = try SQLiteManager()
                 
-                try db.execute(name: name) { (mart: MartTuple) in
+                try db.executeSelect(name: name) { (mart: Mart) in
                     martData = mart
                 }
                 
                 let updateDB = try SQLiteManager()
-                guard let data = martData as? MartTuple else { return }
+                guard let data = martData else { return }
                 do {
-                    if data.3 == 0 {
+                    if data.favorite == 0 {
                         try updateDB.favoriteExecute(name: name, favorite: 1, doneHandler: {
                             sender.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
                         })
@@ -340,118 +301,5 @@ extension NearbyMartMapViewController {
                 topController.present(alert, animated: true, completion: nil)
             }
         }
-    }
-}
-
-// MARK: - Data Processing
-extension NearbyMartMapViewController {
-    
-    func closedDayYN (week: closedWeek, day: closedDay) -> Bool {
-        
-        if week[0] == 0 && day[0] == 8 || week[1] == 0 && day[1] == 8 {
-            return false
-        }
-        
-        let today = Date()
-        var calendar = Calendar.current
-        calendar.locale = Locale(identifier: "ko-KR")
-        
-        // 기준점 = 오늘
-        var centerDate = DateComponents(calendar: calendar)
-        centerDate.month = calendar.component(.month, from: today)
-        centerDate.weekday = calendar.component(.weekday, from: today)
-        centerDate.weekdayOrdinal = calendar.component(.weekdayOrdinal, from: today)
-        
-        // 첫번째 휴무
-        var firstWeekdate = DateComponents()
-        firstWeekdate.month = calendar.component(.month, from: today)
-        firstWeekdate.weekday = day[0]
-        firstWeekdate.weekdayOrdinal = week[0]
-        
-        // 두번째 휴무
-        var thirdWeekdate = DateComponents()
-        thirdWeekdate.month = calendar.component(.month, from: today)
-        thirdWeekdate.weekday = day[1]
-        thirdWeekdate.weekdayOrdinal = week[1]
-        
-        if centerDate.weekdayOrdinal == firstWeekdate.weekdayOrdinal && centerDate.weekday == firstWeekdate.weekday {
-            return true
-        }
-        
-        if centerDate.weekdayOrdinal == thirdWeekdate.weekdayOrdinal && centerDate.weekday == thirdWeekdate.weekday {
-            return true
-        }
-        return false
-    }
-    
-    func openTime(time: String) -> Bool {
-        
-        let timeSplit = time.split(separator: "~")
-        
-        let date = Date()
-        let dateFormatter = DateFormatter()
-        dateFormatter.calendar = Calendar(identifier: .gregorian)
-        dateFormatter.locale = Locale(identifier: "ko_kr")
-        dateFormatter.timeZone = TimeZone(abbreviation: "KST")
-        dateFormatter.dateFormat = "HH:mm"
-        
-        let currentTime = dateFormatter.string(from: date)
-        
-        guard let startTime = dateFormatter.date(from: String(timeSplit[0])),
-            let centerTime = dateFormatter.date(from: currentTime),
-            let closeTime = dateFormatter.date(from: String(timeSplit[1])) else { return false }
-        
-        return startTime < centerTime && centerTime < closeTime
-    }
-    
-    func closedDayDescription(week: closedWeek, day: closedDay, fixedDay: [Int]) -> String {
-        
-        enum Day: Int {
-            case sunday = 1
-            case monday = 2
-            case tuesday = 3
-            case wednesday = 4
-            case thursday = 5
-            case friday = 6
-            case saturday = 7
-        }
-        
-        func dayToString(day: Int) -> String {
-            
-            switch day {
-            case Day.sunday.rawValue:
-                return "일요일"
-            case Day.monday.rawValue:
-                return "월요일"
-            case Day.tuesday.rawValue:
-                return "화요일"
-            case Day.wednesday.rawValue:
-                return "수요일"
-            case Day.thursday.rawValue:
-                return "목요일"
-            case Day.friday.rawValue:
-                return "금요일"
-            default:
-                return "토요일"
-            }
-        }
-        
-        guard week.count == 2 && day.count == 2 else {
-            return "휴무정보없음"
-        }
-        
-        if week[0] == 0, day[0] == 8 {
-            if week[1] == 0, day[1] == 8 {
-                return fixedDay.count > 0 ? "매달 \(fixedDay[0]),\(fixedDay[1])일" : "연중무휴"
-            } else {
-                return "매달 \(fixedDay[0])일, \(week[1])번째주 \(dayToString(day: day[1]))"
-            }
-        } else {
-            if week[1] == 0, day[1] == 8 {
-                return "\(week[0])번째주 \(dayToString(day: day[0])), 매달 \(fixedDay[0])일"
-            }
-        }
-        
-        return "\(week[0])번째주 \(dayToString(day: day[0])), \(week[1])번째주 \(dayToString(day: day[1]))"
     }
 }
