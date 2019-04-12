@@ -74,6 +74,7 @@ PODS:
     - nanopb/encode (= 0.3.8)
   - nanopb/decode (0.3.8)
   - nanopb/encode (0.3.8)
+  - PullUpController (0.7.0)
   - SnapKit (4.0.1)
 
 DEPENDENCIES:
@@ -83,6 +84,7 @@ DEPENDENCIES:
   - Google-Maps-iOS-Utils
   - GoogleMaps
   - GooglePlaces
+  - PullUpController
   - SnapKit
 
 SPEC REPOS:
@@ -99,6 +101,7 @@ SPEC REPOS:
     - GooglePlaces
     - GoogleUtilities
     - nanopb
+    - PullUpController
     - SnapKit
 
 SPEC CHECKSUMS:
@@ -114,8 +117,9 @@ SPEC CHECKSUMS:
   GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   GoogleUtilities: 82f04aeff8426309dbdbc75f6c8accd1e584a5da
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
+  PullUpController: 5c8710cb686dca43d5850ae994debb7fdb824b75
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
 
-PODFILE CHECKSUM: 0baaf76248c0ca403fce11f54838a7382787e630
+PODFILE CHECKSUM: 2672978db297328f5b036c88ed51ada9d40a4ad7
 
 COCOAPODS: 1.5.3
