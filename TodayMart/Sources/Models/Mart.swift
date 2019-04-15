@@ -15,12 +15,12 @@ typealias closedDay = [Int]
 typealias fixedClosedDay = [Int]
 
 class Mart {
-    var name: String
-    var closedWeek: [Int]
-    var closedDay: [Int]
+    var name: name
+    var closedWeek: closedWeek
+    var closedDay: closedDay
     var favorite: Int
     var openingHours: String
-    var fixedClosedDay: [Int]
+    var fixedClosedDay: fixedClosedDay
     var address: String
     var telNumber: String
     var longitude: String

@@ -22,10 +22,13 @@ class SQLiteManager {
     var db: OpaquePointer?
     var stmt: OpaquePointer?
     
+    // DB 버전업시에 번들에 V4 로 바꿔서 넣고
+    // dbPath 에 Name 을 수정해줘야함
+    
     private let dbPath: String = {
-        let bundleURL = Bundle.main.url(forResource: "ClosedDatabase_V2", withExtension: "db")
+        let bundleURL = Bundle.main.url(forResource: "ClosedDatabase_V3", withExtension: "db")
         let fileManager = FileManager.default
-        let dbName = "ClosedDatabase_V2.db"
+        let dbName = "ClosedDatabase_V3.db"
         
         if let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = documentsURL.appendingPathComponent("DB")
@@ -122,7 +125,6 @@ class SQLiteManager {
                 // 0 = Name, 1 = ClosedWeek, 2 = ClosedDay, 3 = Favorite, 4 = OpeningHours
                 // 5 = FixClosedDay, 6 = address, 7 = telnumber, 8 = longitude, 9 = latitude
                 let name = String(cString: sqlite3_column_text(stmt, 0))
-                print(name)
                 let closedWeek = splitWeekDay(closedWeek: String(cString: sqlite3_column_text(stmt, 1)))
                 let closedDay = splitWeekDay(closedWeek: String(cString: sqlite3_column_text(stmt, 2)))
                 let favorite = Int(sqlite3_column_int(stmt, 3))
