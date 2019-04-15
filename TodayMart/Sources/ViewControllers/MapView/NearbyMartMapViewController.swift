@@ -200,7 +200,6 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, InfomationDelegate {
                 let infoViewController = storyboard.instantiateViewController(withIdentifier: "InfomationViewController") as! InfomationViewController
                 infoViewController.title = "마트"
                 infoViewController.mart = mart
-                infoViewController.marker = marker
                 infoViewController.delegate = self
                 self.presentPanModal(infoViewController)
             }
@@ -210,15 +209,9 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, InfomationDelegate {
         return false
     }
     
-    func completeDismiss(marker: GMSMarker, favorite: Int) {
+    func completeDismiss() {
         self.mapView.clear()
         self.getMartData()
-        
-        
-        
-//        DispatchQueue.main.async {
-//            marker.icon = favorite == 0 ? #imageLiteral(resourceName: "Pin_Blue") : #imageLiteral(resourceName: "Pin_Yellow")
-//        }
     }
 }
 

@@ -10,7 +10,7 @@ import UIKit
 import PanModal
 
 protocol InfomationDelegate: class {
-    func completeDismiss(marker: GMSMarker, favorite: Int)
+    func completeDismiss()
 }
 
 class InfomationViewController: UIViewController {
@@ -31,7 +31,6 @@ class InfomationViewController: UIViewController {
     @IBOutlet weak var favoriteButton: UIButton!
     
     var mart: Mart?
-    var marker: GMSMarker?
     weak var delegate: InfomationDelegate?
 
     override func viewDidLoad() {
@@ -41,16 +40,12 @@ class InfomationViewController: UIViewController {
         
         martNameLabel.text = mart.name
         
-        if let _ = marker {
             // 즐겨찾기
             if mart.favorite == 0 {
                 favoriteButton.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
             } else {
                 favoriteButton.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
             }
-        } else {
-            favoriteButton.isHidden = true
-        }
         
         infomationTableView.delegate = self
         infomationTableView.dataSource = self
@@ -59,9 +54,7 @@ class InfomationViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let marker = marker, let mart = mart {
-            delegate?.completeDismiss(marker: marker, favorite: mart.favorite)
-        }
+        delegate?.completeDismiss()
     }
 }
 

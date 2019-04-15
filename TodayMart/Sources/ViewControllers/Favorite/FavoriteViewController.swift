@@ -115,11 +115,18 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
                 let infoViewController = storyboard.instantiateViewController(withIdentifier: "InfomationViewController") as! InfomationViewController
                 infoViewController.title = "마트"
                 infoViewController.mart = mart
+                infoViewController.delegate = self
                 self.presentPanModal(infoViewController)
             }
         } catch {
             dbOpenErrorAlert()
         }
+    }
+}
+
+extension FavoriteViewController: InfomationDelegate {
+    func completeDismiss() {
+        getFavorite()
     }
 }
 
