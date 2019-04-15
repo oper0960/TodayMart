@@ -27,7 +27,7 @@ class SettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setTableView()
+        setup()
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,16 +38,16 @@ class SettingViewController: UIViewController {
 
 // MARK: - Custom Method
 extension SettingViewController {
-    func setTableView() {
+    func setup() {
+        
+        let closeButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Close"), style: .plain, target: self, action: #selector(close(_:)))
+        closeButton.tintColor = .black
+        navigationItem.rightBarButtonItem = closeButton
+        
+        self.mainTableView.register(UINib(nibName: "SettingTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingCell")
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
-        self.mainTableView.register(UINib(nibName: "SettingTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingCell")
-        self.mainTableView.tableFooterView = self.setFooterView()
-    }
-    
-    func setFooterView() -> UIView {
-        let footer = UIView()
-        return footer
+        self.mainTableView.tableFooterView = UIView()
     }
     
     func configuredMailComposeViewController() -> MFMailComposeViewController {
@@ -55,6 +55,10 @@ extension SettingViewController {
         mailVC.mailComposeDelegate = self
         mailVC.setToRecipients(["oper0960@gmail.com"])
         return mailVC
+    }
+    
+    @objc func close (_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -136,11 +140,13 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             let open = OpenSourceViewController()
             open.opensourceList = [
                 OpenSource("SnapKit", license: .mit(year: "2011", name: "SnapKit Team")),
+                OpenSource("Floaty", license: .mit(year: "2015", name: "Lee Sun-Hyoup")),
+                OpenSource("PanModal", license: .mit(year: "2018", name: "Tiny Speck")),
                 OpenSource("GoogleMaps", license: .apache2),
                 OpenSource("GooglePlaces", license: .apache2),
                 OpenSource("Firebase", license: .apache2)
             ]
-            self.navigationController?.pushViewController(open, animated: true)
+            navigationController?.pushViewController(open, animated: true)
         default:
             break
         }

@@ -29,10 +29,19 @@ class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController {
     func setup() {
+        
+        let closeButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Close"), style: .plain, target: self, action: #selector(close(_:)))
+        closeButton.tintColor = .black
+        navigationItem.rightBarButtonItem = closeButton
+        
         self.mainTableView.register(UINib(nibName: "FavoriteTableViewCell", bundle: nil), forCellReuseIdentifier: TableViewCellType.mainCell.rawValue)
         self.mainTableView.delegate = self
         self.mainTableView.dataSource = self
         self.mainTableView.tableFooterView = UIView()
+    }
+    
+    @objc func close (_ sender: UIBarButtonItem) {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -94,6 +103,23 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         return [delete]
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let mart = self.favoriteMarts[indexPath.row]
+        do {
+            let db = try SQLiteManager()
+            
+            try db.executeSelect(name: mart.name) {(mart: Mart) in
+                let storyboard = UIStoryboard.init(name: "NearbyMartMap", bundle: nil)
+                let infoViewController = storyboard.instantiateViewController(withIdentifier: "InfomationViewController") as! InfomationViewController
+                infoViewController.title = "마트"
+                infoViewController.mart = mart
+                self.presentPanModal(infoViewController)
+            }
+        } catch {
+            dbOpenErrorAlert()
+        }
     }
 }
 

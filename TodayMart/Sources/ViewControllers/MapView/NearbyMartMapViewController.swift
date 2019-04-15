@@ -8,7 +8,9 @@
 
 import UIKit
 import GoogleMaps
-import PullUpController
+import PanModal
+import Floaty
+import SnapKit
 
 class NearbyMartMapViewController: UIViewController {
     
@@ -33,24 +35,18 @@ class NearbyMartMapViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        checkPermission()
+        checkPermission {
+            self.mapView.clear()
+            self.getMartData()
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         checkPermission()
         settingObserver()
+        setFloatyButton()
         setup()
-    }
-}
-
-// MARK: - Button Action
-extension NearbyMartMapViewController {
-    @IBAction func refreshButton(_ sender: UIButton) {
-        checkPermission {
-            self.mapView.clear()
-            self.getMartData()
-        }
     }
 }
 
@@ -76,28 +72,45 @@ extension NearbyMartMapViewController {
 // MARK: - Setup
 extension NearbyMartMapViewController {
     
-    private func addPullUpController() {
-        guard let favoriteViewController: FavoriteViewController = UIStoryboard(name: "Favorite", bundle: nil)
-            .instantiateInitialViewController() as? FavoriteViewController else { return }
-        
-        
-        addPullUpController(favoriteViewController as! PullUpController, initialStickyPointOffset: 10, animated: true)
+    func setFloatyButton() {
+        let floaty = Floaty()
+        floaty.buttonColor = .white
+        floaty.addItem("내 위치로", icon: #imageLiteral(resourceName: "MapIcon")) { _ in
+            if let location = self.currentLocation {
+                self.move(at: location.coordinate)
+            }
+        }
+        floaty.addItem("즐겨찾기", icon: #imageLiteral(resourceName: "FavoriteIcon")) { _ in
+            let storyboard = UIStoryboard(name: "Favorite", bundle: nil)
+            let favoriteViewController = storyboard.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
+            favoriteViewController.title = "즐겨찾기"
+            self.present(UINavigationController(rootViewController: favoriteViewController), animated: true, completion: nil)
+        }
+        floaty.addItem("설정", icon: #imageLiteral(resourceName: "SettingIcon")) { _ in
+            let storyboard = UIStoryboard(name: "Setting", bundle: nil)
+            let settingViewController = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
+            settingViewController.title = "설정"
+            self.present(UINavigationController(rootViewController: settingViewController), animated: true, completion: nil)
+        }
+        view.addSubview(floaty)
+        floaty.snp.makeConstraints {
+            $0.trailing.equalTo(view.snp.trailing).offset(-16)
+            $0.bottom.equalTo(view.snp.bottom).offset(-16)
+            $0.height.width.equalTo(56)
+        }
     }
     
     func setup() {
         navigationController?.navigationBar.isHidden = true
-        refreshButton.layer.masksToBounds = false
-        refreshButton.layer.cornerRadius = refreshButton.bounds.width/2
-        getMartData()
         
         // location
         DispatchQueue.main.async {
             self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
             self.locationManager.requestWhenInUseAuthorization()
             self.locationManager.startUpdatingLocation()
-//            self.mapView.settings.myLocationButton = true
             self.mapView.isMyLocationEnabled = true
             self.mapView.setMinZoom(8, maxZoom: 15)
+            self.getMartData()
         }
     }
     
@@ -149,9 +162,8 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
     }
 }
 
-
 // MARK: - GMUClusterManagerDelegate, GMSMapViewDelegate
-extension NearbyMartMapViewController: GMSMapViewDelegate {
+extension NearbyMartMapViewController: GMSMapViewDelegate, InfomationDelegate {
     
     // Add MarkerView
     func setMarker(marts: [Mart]) {
@@ -160,7 +172,7 @@ extension NearbyMartMapViewController: GMSMapViewDelegate {
                 let position = CLLocationCoordinate2D(latitude: Double(mart.latitude)!,
                                                       longitude: Double(mart.longitude)!)
                 let marker = GMSMarker(position: position)
-                marker.icon = UIImage(named: "Pin_Orange")
+                marker.icon = mart.favorite == 0 ? #imageLiteral(resourceName: "Pin_Blue") : #imageLiteral(resourceName: "Pin_Yellow")
                 marker.appearAnimation = GMSMarkerAnimation.none
                 var markerData = [String: Any]()
                 markerData.updateValue(mart, forKey: "mart")
@@ -173,102 +185,40 @@ extension NearbyMartMapViewController: GMSMapViewDelegate {
     
     // Poi Touch
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        
         let userData = marker.userData as! [String: Any]
-        let martData = userData["mart"] as! Mart
-        let index = userData["index"] as! Int
+        let mart = userData["mart"] as! Mart
+        DispatchQueue.main.async {
+            marker.icon = #imageLiteral(resourceName: "Pin_Red")
+        }
         
-        let position = CLLocationCoordinate2D(latitude: marker.position.latitude, longitude: marker.position.longitude)
-        self.tapMarker = marker
-        self.markerView.removeFromSuperview()
-        self.markerView = MarkerView.instanceFromNib()
-        self.markerView.favorite.tag = index
-        self.markerView.favorite.addTarget(self, action: #selector(favorite), for: .touchUpInside)
-        
-        // Mart Name
-        self.markerView.placeName.text = martData.name
-        
-        // 휴무정보
-        self.markerView.closedWeek.text = self.closedDayDescription(week: martData.closedWeek, day: martData.closedDay, fixedDay: martData.fixedClosedDay)
-        
-        // 영업유무
-        if self.closedDayYN(week: martData.closedWeek, day: martData.closedDay) {
-            self.markerView.onSaleYN.textColor = .red
-            self.markerView.onSaleYN.text = "휴무"
-        } else {
-            if martData.closedWeek[0] == 0 && martData.closedDay[0] == 8 ||
-                martData.closedWeek[1] == 0 && martData.closedDay[1] == 8 {
-                self.markerView.onSaleYN.text = "영업정보없음"
-            } else {
-                self.markerView.onSaleYN.text = self.openTime(time: martData.openingHours) ? "영업중" : "영업종료"
+        do {
+            let db = try SQLiteManager()
+            
+            try db.executeSelect(name: mart.name) {(mart: Mart) in
+                let storyboard = UIStoryboard.init(name: "NearbyMartMap", bundle: nil)
+                let infoViewController = storyboard.instantiateViewController(withIdentifier: "InfomationViewController") as! InfomationViewController
+                infoViewController.title = "마트"
+                infoViewController.mart = mart
+                infoViewController.marker = marker
+                infoViewController.delegate = self
+                self.presentPanModal(infoViewController)
             }
+        } catch {
+            dbOpenErrorAlert()
         }
-        
-        // 즐겨찾기
-        if martData.favorite == 0 {
-            self.markerView.favorite.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
-        } else {
-            self.markerView.favorite.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
-        }
-        
-        // 영업시간
-        self.markerView.workTime.text = martData.openingHours
-        
-        // 주소
-        self.markerView.address.text = martData.address
-        
-        self.markerView.center = mapView.projection.point(for: position)
-        self.markerView.frame.origin.y -= 100
-        self.markerView.layer.cornerRadius = 10
-        self.markerView.layer.borderColor = #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 0.7)
-        self.markerView.layer.borderWidth = 0.7
-        self.view.addSubview(self.markerView)
-        
         return false
     }
-
-    // Poi View position
-    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        let location = CLLocationCoordinate2D(latitude: self.tapMarker.position.latitude, longitude: self.tapMarker.position.longitude)
-        self.markerView.center = mapView.projection.point(for: location)
-        self.markerView.frame.origin.y -= 100
-    }
     
-    // MapView Touch
-    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-        self.markerView.removeFromSuperview()
-    }
-    
-    // Favorite Button
-    @objc func favorite(_ sender: UIButton) {
-        if let marts = self.martArray {
-            let name = marts[sender.tag].name
-            var martData: Mart?
-            do {
-                let db = try SQLiteManager()
-                
-                try db.executeSelect(name: name) { (mart: Mart) in
-                    martData = mart
-                }
-                
-                let updateDB = try SQLiteManager()
-                guard let data = martData else { return }
-                do {
-                    if data.favorite == 0 {
-                        try updateDB.favoriteExecute(name: name, favorite: 1, doneHandler: {
-                            sender.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
-                        })
-                    } else {
-                        try updateDB.favoriteExecute(name: name, favorite: 0, doneHandler: {
-                            sender.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
-                        })
-                    }
-                } catch {
-                    self.dbOpenErrorAlert()
-                }
-            } catch {
-                self.dbOpenErrorAlert()
-            }
-        }
+    func completeDismiss(marker: GMSMarker, favorite: Int) {
+        self.mapView.clear()
+        self.getMartData()
+        
+        
+        
+//        DispatchQueue.main.async {
+//            marker.icon = favorite == 0 ? #imageLiteral(resourceName: "Pin_Blue") : #imageLiteral(resourceName: "Pin_Yellow")
+//        }
     }
 }
 
