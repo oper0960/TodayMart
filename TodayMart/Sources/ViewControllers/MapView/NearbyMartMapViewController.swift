@@ -183,11 +183,12 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
 
 // MARK: - GMUClusterRendererDelegate
 extension NearbyMartMapViewController: GMUClusterRendererDelegate {
+    
+    // Marker Custom Icon
     func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
         if let data = marker.userData as? POIItem {
             let userData = data.userData
             let mart = userData["mart"] as! Mart
-            // 커스텀 마커 아이콘
             marker.icon = mart.favorite == 0 ? #imageLiteral(resourceName: "Pin_Blue") : #imageLiteral(resourceName: "Pin_Yellow")
         }
     }
@@ -234,9 +235,6 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
         if let poiItem = marker.userData as? POIItem {
             let userData = poiItem.userData
             let mart = userData["mart"] as! Mart
-            DispatchQueue.main.async {
-                marker.icon = #imageLiteral(resourceName: "Pin_Red")
-            }
             
             do {
                 let db = try SQLiteManager()
@@ -248,6 +246,9 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
                     infoViewController.mart = mart
                     infoViewController.delegate = self
                     self.presentPanModal(infoViewController)
+                    DispatchQueue.main.async {
+                        marker.icon = #imageLiteral(resourceName: "Pin_Red")
+                    }
                 }
             } catch {
                 dbOpenErrorAlert()
