@@ -16,8 +16,6 @@
 		31586E6720E4E1C100FB9428 /* GWToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31586E6620E4E1C100FB9428 /* GWToast.swift */; };
 		3163BA9220CE0A4D00B8625C /* Mart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3163BA9120CE0A4D00B8625C /* Mart.swift */; };
 		3164568120EC60850051AA57 /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164568020EC60850051AA57 /* UIApplicationExtensions.swift */; };
-		3165B08B20E0CD5F00F6911D /* MarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3165B08A20E0CD5F00F6911D /* MarkerView.swift */; };
-		3165B08D20E0CD7400F6911D /* MarkerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3165B08C20E0CD7400F6911D /* MarkerView.xib */; };
 		316976AB20E9FF23000FA771 /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 316976AA20E9FF23000FA771 /* Setting.storyboard */; };
 		316976AD20E9FF38000FA771 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316976AC20E9FF38000FA771 /* SettingViewController.swift */; };
 		316976B020EA0A85000FA771 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316976AE20EA0A85000FA771 /* SettingTableViewCell.swift */; };
@@ -43,8 +41,6 @@
 		6F65FB3E20CA1DAC00E16129 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F65FB3C20CA1DAC00E16129 /* LaunchScreen.storyboard */; };
 		6F65FB4F20CA238C00E16129 /* NearbyMartMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65FB4E20CA238C00E16129 /* NearbyMartMapViewController.swift */; };
 		6F65FB5120CA239E00E16129 /* NearbyMartMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F65FB5020CA239E00E16129 /* NearbyMartMap.storyboard */; };
-		6F65FB5320CA2CC600E16129 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F65FB5220CA2CC600E16129 /* Main.storyboard */; };
-		6F65FB5520CA2CCF00E16129 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65FB5420CA2CCF00E16129 /* MainViewController.swift */; };
 		6F65FB5720CA2D7700E16129 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */; };
 		E127CB8B74A44BC8D435B913 /* libPods-TodayMart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */; };
 /* End PBXBuildFile section */
@@ -60,8 +56,6 @@
 		31586E6620E4E1C100FB9428 /* GWToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWToast.swift; sourceTree = "<group>"; };
 		3163BA9120CE0A4D00B8625C /* Mart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mart.swift; sourceTree = "<group>"; };
 		3164568020EC60850051AA57 /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
-		3165B08A20E0CD5F00F6911D /* MarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerView.swift; sourceTree = "<group>"; };
-		3165B08C20E0CD7400F6911D /* MarkerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MarkerView.xib; sourceTree = "<group>"; };
 		316976AA20E9FF23000FA771 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
 		316976AC20E9FF38000FA771 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		316976AE20EA0A85000FA771 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
@@ -91,8 +85,6 @@
 		6F65FB3F20CA1DAC00E16129 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6F65FB4E20CA238C00E16129 /* NearbyMartMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NearbyMartMapViewController.swift; sourceTree = "<group>"; };
 		6F65FB5020CA239E00E16129 /* NearbyMartMap.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = NearbyMartMap.storyboard; sourceTree = "<group>"; };
-		6F65FB5220CA2CC600E16129 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		6F65FB5420CA2CCF00E16129 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		6FC5A24F42984D41CF33D1BD /* Pods-TodayMart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayMart.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart.release.xcconfig"; sourceTree = "<group>"; };
 		787EC97FB7F598FDC3A0FEE9 /* Pods-ClosedMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClosedMart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClosedMart/Pods-ClosedMart.debug.xcconfig"; sourceTree = "<group>"; };
@@ -141,6 +133,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		311F6921226599B1008E67EE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3163BA9120CE0A4D00B8625C /* Mart.swift */,
+				3157A65220DB489B0018336A /* SQLiteManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3157A64F20DB45E60018336A /* Database */ = {
 			isa = PBXGroup;
 			children = (
@@ -153,8 +154,8 @@
 		3163BA9020CE0A4100B8625C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				311F6921226599B1008E67EE /* Model */,
 				3157A64F20DB45E60018336A /* Database */,
-				3163BA9120CE0A4D00B8625C /* Mart.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -162,22 +163,12 @@
 		3165B08820E0CD2900F6911D /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
-				3165B08920E0CD3C00F6911D /* MarkerView */,
 				31134A5F22643FB000D5D801 /* MapViewTableView */,
 				42B6520C2174F9C5008DC258 /* FavoriteTableView */,
 				316976B220EA1424000FA771 /* SettingTableView */,
 				42499F8F2217330F008B3D04 /* OpensourceLicense */,
 			);
 			path = CustomView;
-			sourceTree = "<group>";
-		};
-		3165B08920E0CD3C00F6911D /* MarkerView */ = {
-			isa = PBXGroup;
-			children = (
-				3165B08A20E0CD5F00F6911D /* MarkerView.swift */,
-				3165B08C20E0CD7400F6911D /* MarkerView.xib */,
-			);
-			path = MarkerView;
 			sourceTree = "<group>";
 		};
 		316976B220EA1424000FA771 /* SettingTableView */ = {
@@ -198,15 +189,6 @@
 				6FC5A24F42984D41CF33D1BD /* Pods-TodayMart.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		42499F87220831BC008B3D04 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				6F65FB5420CA2CCF00E16129 /* MainViewController.swift */,
-				6F65FB5220CA2CC600E16129 /* Main.storyboard */,
-			);
-			path = Base;
 			sourceTree = "<group>";
 		};
 		42499F88220831C5008B3D04 /* MapView */ = {
@@ -300,7 +282,6 @@
 		6F65FB4720CA1DC300E16129 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				42499F87220831BC008B3D04 /* Base */,
 				42499F88220831C5008B3D04 /* MapView */,
 				42499F89220831CF008B3D04 /* Favorite */,
 				42499F8A220831DA008B3D04 /* Setting */,
@@ -345,9 +326,8 @@
 			children = (
 				311573622260525000D6EDAD /* Extensions */,
 				317CD82820CA54DD00B03B13 /* API.swift */,
-				3157A65220DB489B0018336A /* SQLiteManager.swift */,
-				31586E6620E4E1C100FB9428 /* GWToast.swift */,
 				42AD289E21777B19006FAC94 /* ETC.swift */,
+				31586E6620E4E1C100FB9428 /* GWToast.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -415,7 +395,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				42499F9E22185FAA008B3D04 /* OpenSourceTableViewCell.xib in Resources */,
-				3165B08D20E0CD7400F6911D /* MarkerView.xib in Resources */,
 				6F65FB3E20CA1DAC00E16129 /* LaunchScreen.storyboard in Resources */,
 				316976B120EA0A85000FA771 /* SettingTableViewCell.xib in Resources */,
 				42499FA022185FAA008B3D04 /* Apache2.0.txt in Resources */,
@@ -428,7 +407,6 @@
 				6F65FB3B20CA1DAC00E16129 /* Assets.xcassets in Resources */,
 				42B652102174F9E2008DC258 /* FavoriteTableViewCell.xib in Resources */,
 				6F65FB5120CA239E00E16129 /* NearbyMartMap.storyboard in Resources */,
-				6F65FB5320CA2CC600E16129 /* Main.storyboard in Resources */,
 				42499F9F22185FAA008B3D04 /* MIT.txt in Resources */,
 				31134A5C2264241300D5D801 /* ClosedDatabase_V3.db in Resources */,
 			);
@@ -499,9 +477,7 @@
 				316976B020EA0A85000FA771 /* SettingTableViewCell.swift in Sources */,
 				31134A6122643FD000D5D801 /* MarkerInfoTableViewCell.swift in Sources */,
 				42AD289F21777B19006FAC94 /* ETC.swift in Sources */,
-				3165B08B20E0CD5F00F6911D /* MarkerView.swift in Sources */,
 				31586E6720E4E1C100FB9428 /* GWToast.swift in Sources */,
-				6F65FB5520CA2CCF00E16129 /* MainViewController.swift in Sources */,
 				6F65FB3420CA1DAB00E16129 /* AppDelegate.swift in Sources */,
 				42B6520F2174F9E2008DC258 /* FavoriteTableViewCell.swift in Sources */,
 				6F65FB4F20CA238C00E16129 /* NearbyMartMapViewController.swift in Sources */,

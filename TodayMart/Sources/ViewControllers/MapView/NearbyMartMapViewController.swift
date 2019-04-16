@@ -12,16 +12,33 @@ import PanModal
 import Floaty
 import SnapKit
 
+class POIItem: NSObject, GMUClusterItem {
+    var position: CLLocationCoordinate2D
+    var name: String!
+    var userData: [String: Any]
+    
+    init(position: CLLocationCoordinate2D, name: String, userData: [String: Any]) {
+        self.position = position
+        self.name = name
+        self.userData = userData
+    }
+}
+
+// Cluster
+let kClusterItemCount = 10000
+var kCameraLatitude = -33.8
+var kCameraLongitude = 151.2
+
 class NearbyMartMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
-    var markerView = MarkerView(frame: CGRect(x: 0, y: 0, width: 300, height: 120))
-    var tapMarker = GMSMarker()
-    var martArray: [Mart]?
+    // Cluster
+    private var clusterManager: GMUClusterManager!
     
+    var martArray: [Mart]?
     var currentLocation: CLLocation?
     var firstActive: Bool = false
     
@@ -123,6 +140,7 @@ extension NearbyMartMapViewController {
 // MARK: - CLLocationManagerDelegate
 extension NearbyMartMapViewController: CLLocationManagerDelegate {
     
+    // Permission check
     func checkPermission(permitHandler: (() -> ())? = nil) {
         let status = CLLocationManager.authorizationStatus()
         switch status {
@@ -150,6 +168,7 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
         }
     }
     
+    // update location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location: CLLocation = locations.first else { return }
         
@@ -162,50 +181,87 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
     }
 }
 
-// MARK: - GMUClusterManagerDelegate, GMSMapViewDelegate
-extension NearbyMartMapViewController: GMSMapViewDelegate, InfomationDelegate {
+// MARK: - GMUClusterRendererDelegate
+extension NearbyMartMapViewController: GMUClusterRendererDelegate {
+    func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
+        if let data = marker.userData as? POIItem {
+            let userData = data.userData
+            let mart = userData["mart"] as! Mart
+            // 커스텀 마커 아이콘
+            marker.icon = mart.favorite == 0 ? #imageLiteral(resourceName: "Pin_Blue") : #imageLiteral(resourceName: "Pin_Yellow")
+        }
+    }
+}
+
+// MARK: - GMSMapViewDelegate, GMUClusterManagerDelegate, InfomationDelegate
+extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDelegate, InfomationDelegate {
     
-    // Add MarkerView
+    // Add MarkerView (Cluster)
     func setMarker(marts: [Mart]) {
         DispatchQueue.main.async {
+            
+            // Set up the cluster manager with default icon generator and renderer.
+            let iconGenerator = GMUDefaultClusterIconGenerator()
+            let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
+            let renderer = GMUDefaultClusterRenderer(mapView: self.mapView, clusterIconGenerator: iconGenerator)
+            renderer.delegate = self
+            self.clusterManager = GMUClusterManager(map: self.mapView, algorithm: algorithm, renderer: renderer)
+            
             for (index,mart) in marts.enumerated() {
-                let position = CLLocationCoordinate2D(latitude: Double(mart.latitude)!,
-                                                      longitude: Double(mart.longitude)!)
-                let marker = GMSMarker(position: position)
-                marker.icon = mart.favorite == 0 ? #imageLiteral(resourceName: "Pin_Blue") : #imageLiteral(resourceName: "Pin_Yellow")
-                marker.appearAnimation = GMSMarkerAnimation.none
                 var markerData = [String: Any]()
                 markerData.updateValue(mart, forKey: "mart")
                 markerData.updateValue(index, forKey: "index")
-                marker.userData = markerData
-                marker.map = self.mapView
+                
+                kCameraLatitude = Double(mart.latitude)!
+                kCameraLongitude = Double(mart.longitude)!
+                
+                let position = CLLocationCoordinate2DMake(kCameraLatitude, kCameraLongitude)
+                let item = POIItem(position: position, name: index.description, userData: markerData)
+                self.clusterManager.add(item)
             }
+            
+            // Call cluster() after items have been added to perform the clustering and rendering on map.
+            self.clusterManager.cluster()
+            
+            // Register self to listen to both GMUClusterManagerDelegate and GMSMapViewDelegate events.
+            self.clusterManager.setDelegate(self, mapDelegate: self)
         }
     }
     
-    // Poi Touch
+    // Marker Tap
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        let userData = marker.userData as! [String: Any]
-        let mart = userData["mart"] as! Mart
-        DispatchQueue.main.async {
-            marker.icon = #imageLiteral(resourceName: "Pin_Red")
-        }
-        
-        do {
-            let db = try SQLiteManager()
-            
-            try db.executeSelect(name: mart.name) {(mart: Mart) in
-                let storyboard = UIStoryboard.init(name: "NearbyMartMap", bundle: nil)
-                let infoViewController = storyboard.instantiateViewController(withIdentifier: "InfomationViewController") as! InfomationViewController
-                infoViewController.title = "마트"
-                infoViewController.mart = mart
-                infoViewController.delegate = self
-                self.presentPanModal(infoViewController)
+        if let poiItem = marker.userData as? POIItem {
+            let userData = poiItem.userData
+            let mart = userData["mart"] as! Mart
+            DispatchQueue.main.async {
+                marker.icon = #imageLiteral(resourceName: "Pin_Red")
             }
-        } catch {
-            dbOpenErrorAlert()
+            
+            do {
+                let db = try SQLiteManager()
+                
+                try db.executeSelect(name: mart.name) {(mart: Mart) in
+                    let storyboard = UIStoryboard.init(name: "NearbyMartMap", bundle: nil)
+                    let infoViewController = storyboard.instantiateViewController(withIdentifier: "InfomationViewController") as! InfomationViewController
+                    infoViewController.title = "마트"
+                    infoViewController.mart = mart
+                    infoViewController.delegate = self
+                    self.presentPanModal(infoViewController)
+                }
+            } catch {
+                dbOpenErrorAlert()
+            }
         }
+        return false
+    }
+    
+    // Cluster Tap
+    func clusterManager(_ clusterManager: GMUClusterManager, didTap cluster: GMUCluster) -> Bool {
+        let newCamera = GMSCameraPosition.camera(withTarget: cluster.position,
+                                                 zoom: mapView.camera.zoom + 1)
+        let update = GMSCameraUpdate.setCamera(newCamera)
+        mapView.moveCamera(update)
         return false
     }
     
