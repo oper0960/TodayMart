@@ -23,7 +23,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         GMSServices.provideAPIKey(self.googleMapAPIKey)
         
+        setUserDefault()
+        
         return true
+    }
+    
+    func setUserDefault() {
+        if userDefault.object(forKey: UserSettings.clusterRendererAnimation) == nil {
+            userDefault.set(true, forKey: UserSettings.clusterRendererAnimation)
+        }
     }
 }
 

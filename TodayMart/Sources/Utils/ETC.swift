@@ -8,6 +8,16 @@
 
 import UIKit
 
+let userDefault = UserDefaults.standard
+
 enum TableViewCellType: String {
     case mainCell = "mainCell"
 }
+
+// UserDefault Key
+struct UserSettings {
+    // POI Clustering Animation
+    static let clusterRendererAnimation: String = "clusterRendererAnimation"
+}
+
+

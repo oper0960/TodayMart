@@ -12,6 +12,8 @@
 		31134A5E2264244100D5D801 /* ClosedDatabase_V2.db in Resources */ = {isa = PBXBuildFile; fileRef = 31134A5D2264244100D5D801 /* ClosedDatabase_V2.db */; };
 		31134A6122643FD000D5D801 /* MarkerInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31134A6022643FD000D5D801 /* MarkerInfoTableViewCell.swift */; };
 		311573612260524C00D6EDAD /* NSObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311573602260524C00D6EDAD /* NSObjectExtension.swift */; };
+		3116E772226D97C600224BC1 /* SettingOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3116E771226D97C600224BC1 /* SettingOptionsViewController.swift */; };
+		3116E774226D9CC900224BC1 /* OptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3116E773226D9CC900224BC1 /* OptionTableViewCell.swift */; };
 		3157A65320DB489B0018336A /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3157A65220DB489B0018336A /* SQLiteManager.swift */; };
 		31586E6720E4E1C100FB9428 /* GWToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31586E6620E4E1C100FB9428 /* GWToast.swift */; };
 		3163BA9220CE0A4D00B8625C /* Mart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3163BA9120CE0A4D00B8625C /* Mart.swift */; };
@@ -52,6 +54,8 @@
 		31134A5D2264244100D5D801 /* ClosedDatabase_V2.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase_V2.db; sourceTree = "<group>"; };
 		31134A6022643FD000D5D801 /* MarkerInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerInfoTableViewCell.swift; sourceTree = "<group>"; };
 		311573602260524C00D6EDAD /* NSObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObjectExtension.swift; sourceTree = "<group>"; };
+		3116E771226D97C600224BC1 /* SettingOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingOptionsViewController.swift; sourceTree = "<group>"; };
+		3116E773226D9CC900224BC1 /* OptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionTableViewCell.swift; sourceTree = "<group>"; };
 		3157A65220DB489B0018336A /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 		31586E6620E4E1C100FB9428 /* GWToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWToast.swift; sourceTree = "<group>"; };
 		3163BA9120CE0A4D00B8625C /* Mart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mart.swift; sourceTree = "<group>"; };
@@ -176,6 +180,7 @@
 			children = (
 				316976AE20EA0A85000FA771 /* SettingTableViewCell.swift */,
 				316976AF20EA0A85000FA771 /* SettingTableViewCell.xib */,
+				3116E773226D9CC900224BC1 /* OptionTableViewCell.swift */,
 			);
 			path = SettingTableView;
 			sourceTree = "<group>";
@@ -214,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				316976AC20E9FF38000FA771 /* SettingViewController.swift */,
+				3116E771226D97C600224BC1 /* SettingOptionsViewController.swift */,
 				316976AA20E9FF23000FA771 /* Setting.storyboard */,
 			);
 			path = Setting;
@@ -490,9 +496,11 @@
 				42499FA122185FAA008B3D04 /* OpenSourceViewController.swift in Sources */,
 				42499F9D22185FAA008B3D04 /* OpenSourceTableViewCell.swift in Sources */,
 				42B6520B2174F563008DC258 /* FavoriteViewController.swift in Sources */,
+				3116E772226D97C600224BC1 /* SettingOptionsViewController.swift in Sources */,
 				3157A65320DB489B0018336A /* SQLiteManager.swift in Sources */,
 				317CD82920CA54DD00B03B13 /* API.swift in Sources */,
 				42499F9A22185FAA008B3D04 /* OpenSource.swift in Sources */,
+				3116E774226D9CC900224BC1 /* OptionTableViewCell.swift in Sources */,
 				3163BA9220CE0A4D00B8625C /* Mart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
