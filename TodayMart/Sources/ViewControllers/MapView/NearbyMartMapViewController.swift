@@ -205,6 +205,7 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
             let iconGenerator = GMUDefaultClusterIconGenerator()
             let algorithm = GMUNonHierarchicalDistanceBasedAlgorithm()
             let renderer = GMUDefaultClusterRenderer(mapView: self.mapView, clusterIconGenerator: iconGenerator)
+            renderer.animatesClusters = userDefault.bool(forKey: UserSettings.clusterRendererAnimation)
             renderer.delegate = self
             self.clusterManager = GMUClusterManager(map: self.mapView, algorithm: algorithm, renderer: renderer)
             
@@ -259,8 +260,10 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
     
     // Cluster Tap
     func clusterManager(_ clusterManager: GMUClusterManager, didTap cluster: GMUCluster) -> Bool {
+        
         let newCamera = GMSCameraPosition.camera(withTarget: cluster.position,
                                                  zoom: mapView.camera.zoom + 1)
+        
         let update = GMSCameraUpdate.setCamera(newCamera)
         mapView.moveCamera(update)
         return false

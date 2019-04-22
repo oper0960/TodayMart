@@ -13,11 +13,18 @@ class SettingViewController: UIViewController {
     
     @IBOutlet weak var mainTableView: UITableView!
     
-    let menuArray: [String] = [
-        "개선 및 건의사항",
-        "오픈소스 라이센스",
-        "버전 \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)"
-    ]
+    enum SettingMenu {
+        case suggestions, opensource, version, option
+    }
+    
+    var menuArray: [SettingMenu] = {
+        var array = [SettingMenu]()
+        array.append(.option)
+        array.append(.suggestions)
+        array.append(.opensource)
+        array.append(.version)
+        return array
+    }()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -44,10 +51,10 @@ extension SettingViewController {
         closeButton.tintColor = .black
         navigationItem.rightBarButtonItem = closeButton
         
-        self.mainTableView.register(UINib(nibName: "SettingTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingCell")
-        self.mainTableView.delegate = self
-        self.mainTableView.dataSource = self
-        self.mainTableView.tableFooterView = UIView()
+        mainTableView.register(UINib(nibName: "SettingTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingCell")
+        mainTableView.delegate = self
+        mainTableView.dataSource = self
+        mainTableView.tableFooterView = UIView()
     }
     
     func configuredMailComposeViewController() -> MFMailComposeViewController {
@@ -95,7 +102,7 @@ extension SettingViewController: MFMailComposeViewControllerDelegate {
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.menuArray.count
+        return menuArray.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -104,16 +111,29 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingTableViewCell
-        
-        cell.titleLabel.text = menuArray[indexPath.row]
+        switch menuArray[indexPath.row] {
+        case .option:
+            cell.titleLabel.text = "앱 설정"
+        case .suggestions:
+            cell.titleLabel.text = "개선 및 건의사항"
+        case .opensource:
+            cell.titleLabel.text = "오픈소스 라이센스"
+        case .version:
+            cell.titleLabel.text = "버전 \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)"
+        }
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        switch indexPath.row {
-        case 0:
+        switch menuArray[indexPath.row]{
+        case .option:
+            let storyboard = UIStoryboard(name: "Setting", bundle: nil)
+            let optionViewController = storyboard.instantiateViewController(withIdentifier: "SettingOptionsViewController") as! SettingOptionsViewController
+            optionViewController.title = "앱 설정"
+            navigationController?.pushViewController(optionViewController, animated: true)
+        case .suggestions:
             let mailVC = configuredMailComposeViewController()
             if MFMailComposeViewController.canSendMail() {
                 self.present(mailVC, animated: true, completion: nil)
@@ -136,7 +156,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                     self.present(alert, animated: true, completion: nil)
                 }
             }
-        case 1:
+        case .opensource:
             let open = OpenSourceViewController()
             open.opensourceList = [
                 OpenSource("SnapKit", license: .mit(year: "2011", name: "SnapKit Team")),
