@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3112FFEC226ED125002A13C1 /* ClosedDatabase_V4.db in Resources */ = {isa = PBXBuildFile; fileRef = 3112FFEB226ED125002A13C1 /* ClosedDatabase_V4.db */; };
 		31134A5822641DE400D5D801 /* InfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31134A5722641DE400D5D801 /* InfomationViewController.swift */; };
 		31134A5C2264241300D5D801 /* ClosedDatabase_V3.db in Resources */ = {isa = PBXBuildFile; fileRef = 31134A5B2264241300D5D801 /* ClosedDatabase_V3.db */; };
 		31134A5E2264244100D5D801 /* ClosedDatabase_V2.db in Resources */ = {isa = PBXBuildFile; fileRef = 31134A5D2264244100D5D801 /* ClosedDatabase_V2.db */; };
@@ -49,6 +50,7 @@
 
 /* Begin PBXFileReference section */
 		3111335321801C6E00EAEC8A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		3112FFEB226ED125002A13C1 /* ClosedDatabase_V4.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase_V4.db; sourceTree = "<group>"; };
 		31134A5722641DE400D5D801 /* InfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationViewController.swift; sourceTree = "<group>"; };
 		31134A5B2264241300D5D801 /* ClosedDatabase_V3.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase_V3.db; sourceTree = "<group>"; };
 		31134A5D2264244100D5D801 /* ClosedDatabase_V2.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase_V2.db; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			children = (
 				31134A5D2264244100D5D801 /* ClosedDatabase_V2.db */,
 				31134A5B2264241300D5D801 /* ClosedDatabase_V3.db */,
+				3112FFEB226ED125002A13C1 /* ClosedDatabase_V4.db */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -400,6 +403,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3112FFEC226ED125002A13C1 /* ClosedDatabase_V4.db in Resources */,
 				42499F9E22185FAA008B3D04 /* OpenSourceTableViewCell.xib in Resources */,
 				6F65FB3E20CA1DAC00E16129 /* LaunchScreen.storyboard in Resources */,
 				316976B120EA0A85000FA771 /* SettingTableViewCell.xib in Resources */,

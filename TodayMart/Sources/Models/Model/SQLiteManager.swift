@@ -13,6 +13,17 @@ typealias MartTuple = (String, [Int], [Int], Int, String, [Int])
 
 class SQLiteManager {
     
+    init() throws {
+        // DB Open
+        guard sqlite3_open(dbPath, &self.db) == SQLITE_OK else { throw SQLError.connectionError }
+    }
+    
+    deinit {
+        // DB Close
+        sqlite3_finalize(stmt)
+        sqlite3_close(db)
+    }
+    
     enum SQLError: Error {
         case connectionError
         case queryError
@@ -22,13 +33,13 @@ class SQLiteManager {
     var db: OpaquePointer?
     var stmt: OpaquePointer?
     
-    // DB 버전업시에 번들에 V4 로 바꿔서 넣고
+    // DB 버전업시에 번들에 V5 로 바꿔서 넣고
     // dbPath 에 Name 을 수정해줘야함
     
     private let dbPath: String = {
-        let bundleURL = Bundle.main.url(forResource: "ClosedDatabase_V3", withExtension: "db")
+        let bundleURL = Bundle.main.url(forResource: "ClosedDatabase_V4", withExtension: "db")
         let fileManager = FileManager.default
-        let dbName = "ClosedDatabase_V3.db"
+        let dbName = "ClosedDatabase_V4.db"
         
         if let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = documentsURL.appendingPathComponent("DB")
@@ -61,17 +72,6 @@ class SQLiteManager {
             return bundleURL?.path
         }
     }()!
-    
-    init() throws {
-        // DB Open
-        guard sqlite3_open(dbPath, &self.db) == SQLITE_OK else { throw SQLError.connectionError }
-    }
-    
-    deinit {
-        // DB Close
-        sqlite3_finalize(stmt)
-        sqlite3_close(db)
-    }
     
     func executeSelect(name: String, rowHandler: ((Mart) -> Void)? = nil) throws {
         if sqlite3_prepare_v2(db, "SELECT * FROM Mart WHERE Name = '\(name)';", -1, &stmt, nil) != SQLITE_OK{
