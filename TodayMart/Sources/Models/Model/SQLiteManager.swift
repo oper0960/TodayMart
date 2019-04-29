@@ -9,8 +9,6 @@
 import UIKit
 import SQLite3
 
-typealias MartTuple = (String, [Int], [Int], Int, String, [Int])
-
 class SQLiteManager {
     
     init() throws {
@@ -30,6 +28,7 @@ class SQLiteManager {
         case otherError
     }
     
+    static let resourceDB: String = "ClosedDatabase_V4"
     var db: OpaquePointer?
     var stmt: OpaquePointer?
     
@@ -37,9 +36,9 @@ class SQLiteManager {
     // dbPath 에 Name 을 수정해줘야함
     
     private let dbPath: String = {
-        let bundleURL = Bundle.main.url(forResource: "ClosedDatabase_V4", withExtension: "db")
+        let bundleURL = Bundle.main.url(forResource: resourceDB, withExtension: "db")
         let fileManager = FileManager.default
-        let dbName = "ClosedDatabase_V4.db"
+        let dbName = "\(resourceDB).db"
         
         if let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first {
             let fileURL = documentsURL.appendingPathComponent("DB")
@@ -58,6 +57,14 @@ class SQLiteManager {
                     let fileDic = try fileManager.contentsOfDirectory(atPath: fileURL.path)
                     if let dbFileName = fileDic.first {
                         if dbName != dbFileName {
+                            // 즐겨찾기 마이그레이션
+                            
+                            // Old DB Path 를 받아와서 데이터뽑아내고
+                            // New DB Path 로 다시 입력해줘야될듯?
+                            
+                            
+                            
+                            
                             try fileManager.removeItem(atPath: "\(fileURL.path)/\(dbFileName)")
                             let targetURL = fileURL.appendingPathComponent(dbName, isDirectory: false)
                             try fileManager.copyItem(at: bundleURL!, to: targetURL)
@@ -245,4 +252,51 @@ class SQLiteManager {
         }
         return week
     }
+}
+
+// MARK: - Favorite Migration
+extension SQLiteManager {
+    
+    func getOldFavoriteExecute(oldPath: String,rowHandler: (([Mart]) -> Void)? = nil) throws {
+        
+        guard sqlite3_open(oldPath, &self.db) == SQLITE_OK else { throw SQLError.connectionError }
+        
+        if sqlite3_prepare_v2(db, "SELECT * FROM Mart WHERE Favorite = 1;", -1, &stmt, nil) != SQLITE_OK{
+            let errmsg = String(cString: sqlite3_errmsg(db)!)
+            print("error preparing insert: \(errmsg)")
+            return
+        }
+        
+        var result = [Mart]()
+        while true {
+            switch sqlite3_step(stmt) {
+            case SQLITE_DONE:
+                rowHandler!(result)
+                return
+            case SQLITE_ROW:
+                // 0 = Name, 1 = ClosedWeek, 2 = ClosedDay, 3 = Favorite, 4 = OpeningHours, 5 = FixedClosedDay
+                let name = String(cString: sqlite3_column_text(stmt, 0))
+                let closedWeek = splitWeekDay(closedWeek: String(cString: sqlite3_column_text(stmt, 1)))
+                let closedDay = splitWeekDay(closedWeek: String(cString: sqlite3_column_text(stmt, 2)))
+                let favorite = Int(sqlite3_column_int(stmt, 3))
+                let openingHours = String(cString: sqlite3_column_text(stmt, 4))
+                var fixedClosedDay: [Int] = []
+                if let fixedClosed = sqlite3_column_text(stmt, 5) {
+                    fixedClosedDay = splitWeekDay(closedWeek: String(cString: fixedClosed))
+                }
+                let address = String(cString: sqlite3_column_text(stmt, 6))
+                let telNumber = String(cString: sqlite3_column_text(stmt, 7))
+                let longitude = String(cString: sqlite3_column_text(stmt, 8))
+                let latitude = String(cString: sqlite3_column_text(stmt, 9))
+                
+                result.append(Mart(name: name, week: closedWeek, day: closedDay, fav: favorite,
+                                   hours: openingHours, fix: fixedClosedDay, add: address, tel: telNumber,
+                                   logi: longitude, lati: latitude))
+            default:
+                throw SQLError.otherError
+            }
+        }
+    }
+    
+    
 }
