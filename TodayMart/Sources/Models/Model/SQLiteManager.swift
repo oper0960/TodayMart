@@ -28,6 +28,7 @@ class SQLiteManager {
         case otherError
     }
     
+    static let resourceDBOld: String = "ClosedDatabase_V3"
     static let resourceDB: String = "ClosedDatabase_V4"
     var db: OpaquePointer?
     var stmt: OpaquePointer?

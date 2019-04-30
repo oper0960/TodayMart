@@ -12,6 +12,7 @@ import PanModal
 import Floaty
 import SnapKit
 
+// Cluster Poi Item
 class POIItem: NSObject, GMUClusterItem {
     var position: CLLocationCoordinate2D
     var name: String!
@@ -24,16 +25,13 @@ class POIItem: NSObject, GMUClusterItem {
     }
 }
 
-// Cluster
-let kClusterItemCount = 10000
-var kCameraLatitude = -33.8
-var kCameraLongitude = 151.2
-
 class NearbyMartMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
+    
+    
     
     // Cluster
     private var clusterManager: GMUClusterManager!
@@ -214,10 +212,10 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
                 markerData.updateValue(mart, forKey: "mart")
                 markerData.updateValue(index, forKey: "index")
                 
-                kCameraLatitude = Double(mart.latitude)!
-                kCameraLongitude = Double(mart.longitude)!
+                let latitude = Double(mart.latitude)!
+                let longitude = Double(mart.longitude)!
                 
-                let position = CLLocationCoordinate2DMake(kCameraLatitude, kCameraLongitude)
+                let position = CLLocationCoordinate2DMake(latitude, longitude)
                 let item = POIItem(position: position, name: index.description, userData: markerData)
                 self.clusterManager.add(item)
             }

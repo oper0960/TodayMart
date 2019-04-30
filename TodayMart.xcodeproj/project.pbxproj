@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3111AFC32278098600A706CD /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3111AFC22278098600A706CD /* SearchResultViewController.swift */; };
 		3112FFEC226ED125002A13C1 /* ClosedDatabase_V4.db in Resources */ = {isa = PBXBuildFile; fileRef = 3112FFEB226ED125002A13C1 /* ClosedDatabase_V4.db */; };
 		31134A5822641DE400D5D801 /* InfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31134A5722641DE400D5D801 /* InfomationViewController.swift */; };
 		31134A5C2264241300D5D801 /* ClosedDatabase_V3.db in Resources */ = {isa = PBXBuildFile; fileRef = 31134A5B2264241300D5D801 /* ClosedDatabase_V3.db */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		3111335321801C6E00EAEC8A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		3111AFC22278098600A706CD /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		3112FFEB226ED125002A13C1 /* ClosedDatabase_V4.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase_V4.db; sourceTree = "<group>"; };
 		31134A5722641DE400D5D801 /* InfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationViewController.swift; sourceTree = "<group>"; };
 		31134A5B2264241300D5D801 /* ClosedDatabase_V3.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase_V3.db; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 			children = (
 				6F65FB4E20CA238C00E16129 /* NearbyMartMapViewController.swift */,
 				31134A5722641DE400D5D801 /* InfomationViewController.swift */,
+				3111AFC22278098600A706CD /* SearchResultViewController.swift */,
 				6F65FB5020CA239E00E16129 /* NearbyMartMap.storyboard */,
 			);
 			path = MapView;
@@ -505,6 +508,7 @@
 				317CD82920CA54DD00B03B13 /* API.swift in Sources */,
 				42499F9A22185FAA008B3D04 /* OpenSource.swift in Sources */,
 				3116E774226D9CC900224BC1 /* OptionTableViewCell.swift in Sources */,
+				3111AFC32278098600A706CD /* SearchResultViewController.swift in Sources */,
 				3163BA9220CE0A4D00B8625C /* Mart.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
