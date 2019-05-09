@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		31118D172283F23800836F31 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31118D162283F23800836F31 /* StringExtension.swift */; };
+		31118D192283F8FC00836F31 /* SearchResultTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31118D182283F8FB00836F31 /* SearchResultTableViewCell.swift */; };
 		3111AFC32278098600A706CD /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3111AFC22278098600A706CD /* SearchResultViewController.swift */; };
 		3112FFEC226ED125002A13C1 /* ClosedDatabase_V4.db in Resources */ = {isa = PBXBuildFile; fileRef = 3112FFEB226ED125002A13C1 /* ClosedDatabase_V4.db */; };
 		31134A5822641DE400D5D801 /* InfomationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31134A5722641DE400D5D801 /* InfomationViewController.swift */; };
@@ -51,6 +53,8 @@
 
 /* Begin PBXFileReference section */
 		3111335321801C6E00EAEC8A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		31118D162283F23800836F31 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		31118D182283F8FB00836F31 /* SearchResultTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultTableViewCell.swift; sourceTree = "<group>"; };
 		3111AFC22278098600A706CD /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		3112FFEB226ED125002A13C1 /* ClosedDatabase_V4.db */ = {isa = PBXFileReference; lastKnownFileType = file; path = ClosedDatabase_V4.db; sourceTree = "<group>"; };
 		31134A5722641DE400D5D801 /* InfomationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfomationViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				31134A6022643FD000D5D801 /* MarkerInfoTableViewCell.swift */,
+				31118D182283F8FB00836F31 /* SearchResultTableViewCell.swift */,
 			);
 			path = MapViewTableView;
 			sourceTree = "<group>";
@@ -137,6 +142,7 @@
 				6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */,
 				3164568020EC60850051AA57 /* UIApplicationExtensions.swift */,
 				311573602260524C00D6EDAD /* NSObjectExtension.swift */,
+				31118D162283F23800836F31 /* StringExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -493,6 +499,7 @@
 				31586E6720E4E1C100FB9428 /* GWToast.swift in Sources */,
 				6F65FB3420CA1DAB00E16129 /* AppDelegate.swift in Sources */,
 				42B6520F2174F9E2008DC258 /* FavoriteTableViewCell.swift in Sources */,
+				31118D192283F8FC00836F31 /* SearchResultTableViewCell.swift in Sources */,
 				6F65FB4F20CA238C00E16129 /* NearbyMartMapViewController.swift in Sources */,
 				3164568120EC60850051AA57 /* UIApplicationExtensions.swift in Sources */,
 				31134A5822641DE400D5D801 /* InfomationViewController.swift in Sources */,
@@ -507,6 +514,7 @@
 				3157A65320DB489B0018336A /* SQLiteManager.swift in Sources */,
 				317CD82920CA54DD00B03B13 /* API.swift in Sources */,
 				42499F9A22185FAA008B3D04 /* OpenSource.swift in Sources */,
+				31118D172283F23800836F31 /* StringExtension.swift in Sources */,
 				3116E774226D9CC900224BC1 /* OptionTableViewCell.swift in Sources */,
 				3111AFC32278098600A706CD /* SearchResultViewController.swift in Sources */,
 				3163BA9220CE0A4D00B8625C /* Mart.swift in Sources */,
