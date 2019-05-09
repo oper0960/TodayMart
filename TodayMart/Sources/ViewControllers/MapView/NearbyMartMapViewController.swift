@@ -31,7 +31,8 @@ class NearbyMartMapViewController: UIViewController {
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
-    
+    private var resultViewController = SearchResultViewController()
+    private var searchController = UISearchController()
     
     // Cluster
     private var clusterManager: GMUClusterManager!
@@ -62,6 +63,11 @@ class NearbyMartMapViewController: UIViewController {
         settingObserver()
         setFloatyButton()
         setup()
+        setSearchViewController()
+    }
+    
+    func bottomLine(isHide: Bool) {
+        navigationController?.navigationBar.setValue(isHide, forKey: "hidesShadow")
     }
 }
 
@@ -86,6 +92,42 @@ extension NearbyMartMapViewController {
 
 // MARK: - Setup
 extension NearbyMartMapViewController {
+    
+    func setup() {
+        bottomLine(isHide: true)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
+        extendedLayoutIncludesOpaqueBars = true
+        
+        // location
+        DispatchQueue.main.async {
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            self.locationManager.requestWhenInUseAuthorization()
+            self.locationManager.startUpdatingLocation()
+            self.mapView.isMyLocationEnabled = true
+            self.mapView.setMinZoom(8, maxZoom: 15)
+            self.getMartData()
+        }
+    }
+    
+    func setSearchViewController() {
+        
+        let storyboard = UIStoryboard(name: "NearbyMartMap", bundle: nil)
+        resultViewController = storyboard.instantiateViewController(withIdentifier: "SearchResultViewController") as! SearchResultViewController
+        resultViewController.delegate = self
+        
+        searchController = UISearchController(searchResultsController: resultViewController)
+        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
+        searchController.searchBar.placeholder = "마트 검색"
+        searchController.searchBar.setValue("취소", forKey: "_cancelButtonText")
+        searchController.hidesNavigationBarDuringPresentation = true
+        definesPresentationContext = true
+        
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
+    }
     
     func setFloatyButton() {
         let floaty = Floaty()
@@ -115,23 +157,51 @@ extension NearbyMartMapViewController {
         }
     }
     
-    func setup() {
-        navigationController?.navigationBar.isHidden = true
-        
-        // location
-        DispatchQueue.main.async {
-            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            self.locationManager.requestWhenInUseAuthorization()
-            self.locationManager.startUpdatingLocation()
-            self.mapView.isMyLocationEnabled = true
-            self.mapView.setMinZoom(8, maxZoom: 15)
-            self.getMartData()
-        }
-    }
-    
     func move(at coordinate: CLLocationCoordinate2D) {
         let camera: GMSCameraPosition = GMSCameraPosition.camera(withTarget: coordinate, zoom: self.zoomLevel)
         self.mapView.camera = camera
+    }
+}
+
+// MARK: - UISearchBarDelegate
+extension NearbyMartMapViewController: UISearchBarDelegate, SearchResultDelegate {
+    func focusMart(longitude: String, latitude: String) {
+        searchController.isActive = false
+        let coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude)!, longitude: CLLocationDegrees(longitude)!)
+        let camera: GMSCameraPosition = GMSCameraPosition.camera(withTarget: coordinate, zoom: self.zoomLevel)
+        self.mapView.camera = camera
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        do {
+            let db = try SQLiteManager()
+            try db.executeMart(name: searchText, rowHandler: { (marts: [Mart]) in
+                self.resultViewController.marts = marts
+            })
+        } catch {
+            self.dbOpenErrorAlert()
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        return text.isKorean || text == "\n" || text == " " || text == ""
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+    }
+    
+    func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        return true
+    }
+}
+
+// MARK: - UISearchResultsUpdating
+extension NearbyMartMapViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
     }
 }
 

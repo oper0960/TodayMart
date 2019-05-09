@@ -81,6 +81,7 @@ class SQLiteManager {
         }
     }()!
     
+    // 단일 마트 정보 검색
     func executeSelect(name: String, rowHandler: ((Mart) -> Void)? = nil) throws {
         if sqlite3_prepare_v2(db, "SELECT * FROM Mart WHERE Name = '\(name)';", -1, &stmt, nil) != SQLITE_OK{
             let errmsg = String(cString: sqlite3_errmsg(db)!)
@@ -117,6 +118,7 @@ class SQLiteManager {
         }
     }
     
+    // 모든 마트 정보 검색
     func executeAll(rowHandler: (([Mart]) -> Void)? = nil) throws {
         if sqlite3_prepare_v2(db, "SELECT * FROM Mart;", -1, &stmt, nil) != SQLITE_OK{
             let errmsg = String(cString: sqlite3_errmsg(db)!)
@@ -155,16 +157,19 @@ class SQLiteManager {
         }
     }
     
-    func executeMart(name: String, rowHandler: ((Mart) -> Void)? = nil) throws {
+    // 검색바 마트 검색
+    func executeMart(name: String, rowHandler: (([Mart]) -> Void)? = nil) throws {
         if sqlite3_prepare_v2(db, "SELECT * FROM Mart WHERE Name LIKE '%\(name)%';", -1, &stmt, nil) != SQLITE_OK{
             let errmsg = String(cString: sqlite3_errmsg(db)!)
             print("error preparing insert: \(errmsg)")
             return
         }
         
+        var result = [Mart]()
         while true {
             switch sqlite3_step(stmt) {
             case SQLITE_DONE:
+                rowHandler!(result)
                 return
             case SQLITE_ROW:
                 // 0 = Name, 1 = ClosedWeek, 2 = ClosedDay, 3 = Favorite, 4 = OpeningHours
@@ -182,15 +187,16 @@ class SQLiteManager {
                 let telNumber = String(cString: sqlite3_column_text(stmt, 7))
                 let longitude = String(cString: sqlite3_column_text(stmt, 8))
                 let latitude = String(cString: sqlite3_column_text(stmt, 9))
-                rowHandler!(Mart(name: name, week: closedWeek, day: closedDay, fav: favorite,
-                                 hours: openingHours, fix: fixedClosedDay, add: address, tel: telNumber,
-                                 logi: longitude, lati: latitude))
+                result.append(Mart(name: name, week: closedWeek, day: closedDay, fav: favorite,
+                                   hours: openingHours, fix: fixedClosedDay, add: address, tel: telNumber,
+                                   logi: longitude, lati: latitude))
             default:
                 throw SQLError.otherError
             }
         }
     }
     
+    // 즐겨찾기 상태 변경
     func favoriteExecute(name: String, favorite: Int, doneHandler: (() -> ())? = nil) throws {
         if sqlite3_prepare_v2(db, "UPDATE Mart SET Favorite = \(favorite) WHERE Name = '\(name)';", -1, &stmt, nil) != SQLITE_OK{
             let errmsg = String(cString: sqlite3_errmsg(db)!)
@@ -207,6 +213,7 @@ class SQLiteManager {
         }
     }
     
+    // 즐겨찾기한 마트 정보
     func getFavoriteExecute(rowHandler: (([Mart]) -> Void)? = nil) throws {
         if sqlite3_prepare_v2(db, "SELECT * FROM Mart WHERE Favorite = 1;", -1, &stmt, nil) != SQLITE_OK{
             let errmsg = String(cString: sqlite3_errmsg(db)!)
@@ -298,6 +305,4 @@ extension SQLiteManager {
             }
         }
     }
-    
-    
 }
