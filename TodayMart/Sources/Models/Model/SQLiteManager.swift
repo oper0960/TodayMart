@@ -28,13 +28,11 @@ class SQLiteManager {
         case otherError
     }
     
-    static let resourceDBOld: String = "ClosedDatabase_V3"
-    static let resourceDB: String = "ClosedDatabase_V4"
+    static let resourceDBOld: String = "ClosedDatabase_V3"      // 이전 버전 DB
+    static let resourceDB: String = "ClosedDatabase_V4"         // 업데이트 예정 버전 DB
+    
     var db: OpaquePointer?
     var stmt: OpaquePointer?
-    
-    // DB 버전업시에 번들에 V5 로 바꿔서 넣고
-    // dbPath 에 Name 을 수정해줘야함
     
     private let dbPath: String = {
         let bundleURL = Bundle.main.url(forResource: resourceDB, withExtension: "db")
@@ -62,10 +60,6 @@ class SQLiteManager {
                             
                             // Old DB Path 를 받아와서 데이터뽑아내고
                             // New DB Path 로 다시 입력해줘야될듯?
-                            
-                            
-                            
-                            
                             try fileManager.removeItem(atPath: "\(fileURL.path)/\(dbFileName)")
                             let targetURL = fileURL.appendingPathComponent(dbName, isDirectory: false)
                             try fileManager.copyItem(at: bundleURL!, to: targetURL)
