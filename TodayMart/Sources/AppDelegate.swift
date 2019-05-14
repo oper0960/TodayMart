@@ -9,6 +9,7 @@
 import UIKit
 import GoogleMaps
 import Firebase
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,13 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     private let googleMapAPIKey: String = "AIzaSyDZnYwGW3IATa45-cfdTViLNd2ZyP9XDxw"
     static let kakaoAPIKEY: String = "KakaoAK c2d8a5dd337febf258ad56b202b55c9a"
+    static let adMobKey: String = "ca-app-pub-9335296893721653~2837795727"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        // firebase
         FirebaseApp.configure()
-        
+        // googlemaps
         GMSServices.provideAPIKey(self.googleMapAPIKey)
-        
+        // admob
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+        //userdefault
         setUserDefault()
         
         return true

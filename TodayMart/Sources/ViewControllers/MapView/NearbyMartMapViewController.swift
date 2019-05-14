@@ -31,6 +31,7 @@ class NearbyMartMapViewController: UIViewController {
     @IBOutlet weak var refreshButton: UIButton!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
+    // SearchBar
     private var resultViewController = SearchResultViewController()
     private var searchController = UISearchController()
     

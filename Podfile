@@ -17,6 +17,7 @@ target 'TodayMart' do
   pod 'SnapKit'
   pod 'PanModal'
   pod 'Floaty', '~> 4.1.0'
+  pod 'Google-Mobile-Ads-SDK'
   
 end
 

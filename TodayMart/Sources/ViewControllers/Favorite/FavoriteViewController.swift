@@ -29,15 +29,15 @@ class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController {
     func setup() {
-        
         let closeButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Close"), style: .plain, target: self, action: #selector(close(_:)))
         closeButton.tintColor = .black
         navigationItem.rightBarButtonItem = closeButton
         
-        self.mainTableView.register(UINib(nibName: "FavoriteTableViewCell", bundle: nil), forCellReuseIdentifier: TableViewCellType.mainCell.rawValue)
-        self.mainTableView.delegate = self
-        self.mainTableView.dataSource = self
-        self.mainTableView.tableFooterView = UIView()
+        mainTableView.register(UINib(nibName: "FavoriteTableViewCell", bundle: nil), forCellReuseIdentifier: "FavoriteCell")
+        mainTableView.register(UINib(nibName: "AdMobBannerTableViewCell", bundle: nil), forCellReuseIdentifier: "AdMobCell")
+        mainTableView.delegate = self
+        mainTableView.dataSource = self
+        mainTableView.tableFooterView = UIView()
     }
     
     @objc func close (_ sender: UIBarButtonItem) {
@@ -47,24 +47,32 @@ extension FavoriteViewController {
 
 extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.favoriteMarts.count
+        return favoriteMarts.count + 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard indexPath.row != favoriteMarts.count else {
+            return 100
+        }
         return 80
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: TableViewCellType.mainCell.rawValue, for: indexPath) as! FavoriteTableViewCell
+        guard indexPath.row != favoriteMarts.count else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
+            cell.bannerView.rootViewController = self
+            return cell
+        }
         
-        let mart = self.favoriteMarts[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath) as! FavoriteTableViewCell
+        let mart = favoriteMarts[indexPath.row]
         
         // 이름
         cell.placeName.text = mart.name
         
         // 휴무정보
-        cell.offDay.text = self.closedDayDescription(week: mart.closedWeek, day: mart.closedDay,
-                                                     fixedDay: mart.fixedClosedDay)
+        cell.offDay.text = closedDayDescription(week: mart.closedWeek, day: mart.closedDay,
+                                                fixedDay: mart.fixedClosedDay)
         
         // 영업시간
         cell.workTime.text = mart.openingHours
@@ -91,6 +99,9 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        guard indexPath.row != favoriteMarts.count else {
+            return nil
+        }
         let delete = UITableViewRowAction(style: .default, title: "삭제") { (action, indexPath) in
             let mart = self.favoriteMarts[indexPath.row]
             do {
@@ -106,6 +117,9 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.row != favoriteMarts.count else {
+            return
+        }
         let mart = self.favoriteMarts[indexPath.row]
         do {
             let db = try SQLiteManager()
