@@ -39,6 +39,7 @@ PODS:
     - GoogleMaps
   - Google-Maps-iOS-Utils/QuadTree (2.1.0):
     - GoogleMaps
+  - Google-Mobile-Ads-SDK (7.41.0)
   - GoogleAppMeasurement (5.2.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 5.2)
     - GoogleUtilities/MethodSwizzler (~> 5.2)
@@ -84,6 +85,7 @@ DEPENDENCIES:
   - Firebase/Core
   - Floaty (~> 4.1.0)
   - Google-Maps-iOS-Utils
+  - Google-Mobile-Ads-SDK
   - GoogleMaps
   - GooglePlaces
   - PanModal
@@ -99,6 +101,7 @@ SPEC REPOS:
     - FirebaseInstanceID
     - Floaty
     - Google-Maps-iOS-Utils
+    - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
     - GoogleMaps
     - GooglePlaces
@@ -116,6 +119,7 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: 78ba376fcd5b94c001f9999b2cbd3d1f1e56e78d
   Floaty: 1a4e213f3512cf3045ef9cb0c1ff456226d1f66a
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
+  Google-Mobile-Ads-SDK: 101ce89b94fdf60ec64ba7b6e9b9d812dc765936
   GoogleAppMeasurement: 2b3a023a61239c8d002e6e4fcf4abce8eddce0e0
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
@@ -124,6 +128,6 @@ SPEC CHECKSUMS:
   PanModal: db200380a267634f746f8dea550dc3d1df017fc0
   SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
 
-PODFILE CHECKSUM: 8777a8af5bd5b8c08e34cfa0547cbf100282c40a
+PODFILE CHECKSUM: e97635fa551819983fb5d25a85bdbed43f99a763
 
 COCOAPODS: 1.5.3

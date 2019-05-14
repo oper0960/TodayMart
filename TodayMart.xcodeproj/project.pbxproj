@@ -27,6 +27,8 @@
 		316976B020EA0A85000FA771 /* SettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316976AE20EA0A85000FA771 /* SettingTableViewCell.swift */; };
 		316976B120EA0A85000FA771 /* SettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 316976AF20EA0A85000FA771 /* SettingTableViewCell.xib */; };
 		317CD82920CA54DD00B03B13 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317CD82820CA54DD00B03B13 /* API.swift */; };
+		319F0978228A960800AFC0DF /* AdMobBannerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319F0976228A960800AFC0DF /* AdMobBannerTableViewCell.swift */; };
+		319F0979228A960800AFC0DF /* AdMobBannerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 319F0977228A960800AFC0DF /* AdMobBannerTableViewCell.xib */; };
 		42499F9A22185FAA008B3D04 /* OpenSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 42499F9022185FAA008B3D04 /* OpenSource.swift */; };
 		42499F9B22185FAA008B3D04 /* OpenSourceTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42499F9122185FAA008B3D04 /* OpenSourceTextViewController.xib */; };
 		42499F9C22185FAA008B3D04 /* OpenSourceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 42499F9222185FAA008B3D04 /* OpenSourceViewController.xib */; };
@@ -73,6 +75,8 @@
 		316976AE20EA0A85000FA771 /* SettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableViewCell.swift; sourceTree = "<group>"; };
 		316976AF20EA0A85000FA771 /* SettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTableViewCell.xib; sourceTree = "<group>"; };
 		317CD82820CA54DD00B03B13 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		319F0976228A960800AFC0DF /* AdMobBannerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdMobBannerTableViewCell.swift; sourceTree = "<group>"; };
+		319F0977228A960800AFC0DF /* AdMobBannerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdMobBannerTableViewCell.xib; sourceTree = "<group>"; };
 		42499F9022185FAA008B3D04 /* OpenSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSource.swift; sourceTree = "<group>"; };
 		42499F9122185FAA008B3D04 /* OpenSourceTextViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpenSourceTextViewController.xib; sourceTree = "<group>"; };
 		42499F9222185FAA008B3D04 /* OpenSourceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpenSourceViewController.xib; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 		3165B08820E0CD2900F6911D /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
+				319F097A228A9AA900AFC0DF /* AdMob */,
 				31134A5F22643FB000D5D801 /* MapViewTableView */,
 				42B6520C2174F9C5008DC258 /* FavoriteTableView */,
 				316976B220EA1424000FA771 /* SettingTableView */,
@@ -194,6 +199,15 @@
 				3116E773226D9CC900224BC1 /* OptionTableViewCell.swift */,
 			);
 			path = SettingTableView;
+			sourceTree = "<group>";
+		};
+		319F097A228A9AA900AFC0DF /* AdMob */ = {
+			isa = PBXGroup;
+			children = (
+				319F0976228A960800AFC0DF /* AdMobBannerTableViewCell.swift */,
+				319F0977228A960800AFC0DF /* AdMobBannerTableViewCell.xib */,
+			);
+			path = AdMob;
 			sourceTree = "<group>";
 		};
 		36E5A6B4611479AF4FAFA52E /* Pods */ = {
@@ -413,6 +427,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3112FFEC226ED125002A13C1 /* ClosedDatabase_V4.db in Resources */,
+				319F0979228A960800AFC0DF /* AdMobBannerTableViewCell.xib in Resources */,
 				42499F9E22185FAA008B3D04 /* OpenSourceTableViewCell.xib in Resources */,
 				6F65FB3E20CA1DAC00E16129 /* LaunchScreen.storyboard in Resources */,
 				316976B120EA0A85000FA771 /* SettingTableViewCell.xib in Resources */,
@@ -501,6 +516,7 @@
 				42B6520F2174F9E2008DC258 /* FavoriteTableViewCell.swift in Sources */,
 				31118D192283F8FC00836F31 /* SearchResultTableViewCell.swift in Sources */,
 				6F65FB4F20CA238C00E16129 /* NearbyMartMapViewController.swift in Sources */,
+				319F0978228A960800AFC0DF /* AdMobBannerTableViewCell.swift in Sources */,
 				3164568120EC60850051AA57 /* UIApplicationExtensions.swift in Sources */,
 				31134A5822641DE400D5D801 /* InfomationViewController.swift in Sources */,
 				316976AD20E9FF38000FA771 /* SettingViewController.swift in Sources */,
@@ -662,6 +678,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/Floaty/Floaty.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/PanModal/PanModal.modulemap\" -Xcc -fmodule-map-file=\"${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit.modulemap\" $(inherited) \"-D\" \"COCOAPODS\" -D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryu.todaymart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "TodayMart/SupportingFiles/TodayMart-Bridging-Header.h";

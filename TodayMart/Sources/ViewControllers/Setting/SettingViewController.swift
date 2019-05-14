@@ -14,7 +14,7 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var mainTableView: UITableView!
     
     enum SettingMenu {
-        case suggestions, opensource, version, option
+        case suggestions, opensource, version, option, admob
     }
     
     var menuArray: [SettingMenu] = {
@@ -23,6 +23,7 @@ class SettingViewController: UIViewController {
         array.append(.suggestions)
         array.append(.opensource)
         array.append(.version)
+        array.append(.admob) 
         return array
     }()
     
@@ -52,6 +53,7 @@ extension SettingViewController {
         navigationItem.rightBarButtonItem = closeButton
         
         mainTableView.register(UINib(nibName: "SettingTableViewCell", bundle: nil), forCellReuseIdentifier: "SettingCell")
+        mainTableView.register(UINib(nibName: "AdMobBannerTableViewCell", bundle: nil), forCellReuseIdentifier: "AdMobCell")
         mainTableView.delegate = self
         mainTableView.dataSource = self
         mainTableView.tableFooterView = UIView()
@@ -106,23 +108,34 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard !(menuArray[indexPath.row] == .admob) else { return 100 }
         return 50
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingTableViewCell
+        
         switch menuArray[indexPath.row] {
         case .option:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingTableViewCell
             cell.titleLabel.text = "앱 설정"
+            return cell
         case .suggestions:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingTableViewCell
             cell.titleLabel.text = "개선 및 건의사항"
+            return cell
         case .opensource:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingTableViewCell
             cell.titleLabel.text = "오픈소스 라이센스"
+            return cell
         case .version:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "SettingCell", for: indexPath) as! SettingTableViewCell
             cell.titleLabel.text = "버전 \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)"
+            return cell
+        case .admob:
+            let adMobCell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
+            adMobCell.bannerView.rootViewController = self
+            return adMobCell
         }
-        cell.selectionStyle = .none
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
