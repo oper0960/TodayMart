@@ -30,7 +30,7 @@ class AdMobBannerTableViewCell: UITableViewCell {
         
         let admobRequest: GADRequest = GADRequest()
         #if DEBUG
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        bannerView.adUnitID = AppDelegate.adMobKeyTest
         #else
         bannerView.adUnitID = AppDelegate.adMobKey
         #endif
