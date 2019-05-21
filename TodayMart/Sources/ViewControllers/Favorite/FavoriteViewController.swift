@@ -11,6 +11,7 @@ import UIKit
 class FavoriteViewController: UIViewController {
     
     @IBOutlet weak var mainTableView: UITableView!
+    @IBOutlet weak var noneView: UIView!
     
     var favoriteMarts = [Mart]()
     
@@ -61,6 +62,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
         guard indexPath.row != favoriteMarts.count else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
             cell.bannerView.rootViewController = self
+            cell.bannerView.adUnitID = AppDelegate.adMobKey_Favorite
             return cell
         }
         
@@ -152,7 +154,15 @@ extension FavoriteViewController {
             try db.getFavoriteExecute { (marts: [Mart]) in
                 self.favoriteMarts = marts
             }
-            self.mainTableView.reloadData()
+            
+            if favoriteMarts.count == 0 {
+                mainTableView.isHidden = true
+                noneView.isHidden = false
+            } else {
+                mainTableView.isHidden = false
+                mainTableView.reloadData()
+                noneView.isHidden = true
+            }
         } catch {
             self.dbOpenErrorAlert()
         }
