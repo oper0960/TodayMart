@@ -22,19 +22,51 @@
                                 <rect key="frame" x="0.0" y="116" width="375" height="551"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SJB-ri-kgl">
+                                <rect key="frame" x="0.0" y="116" width="375" height="551"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FavoriteIconSelect" translatesAutoresizingMaskIntoConstraints="NO" id="Kt6-el-shd">
+                                        <rect key="frame" x="162.5" y="200.5" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="QRc-gv-xML"/>
+                                            <constraint firstAttribute="width" constant="50" id="sri-ZL-Dmb"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="자주가는마트를 등록해보세요." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i3u-CA-4ld">
+                                        <rect key="frame" x="16" y="275.5" width="343" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="i3u-CA-4ld" firstAttribute="leading" secondItem="SJB-ri-kgl" secondAttribute="leading" constant="16" id="DyO-vz-25M"/>
+                                    <constraint firstItem="Kt6-el-shd" firstAttribute="centerY" secondItem="SJB-ri-kgl" secondAttribute="centerY" constant="-50" id="Q7j-Wz-42U"/>
+                                    <constraint firstAttribute="trailing" secondItem="i3u-CA-4ld" secondAttribute="trailing" constant="16" id="Sd1-wD-FNU"/>
+                                    <constraint firstItem="i3u-CA-4ld" firstAttribute="centerX" secondItem="Kt6-el-shd" secondAttribute="centerX" id="Tvf-B1-8Sd"/>
+                                    <constraint firstItem="Kt6-el-shd" firstAttribute="centerX" secondItem="SJB-ri-kgl" secondAttribute="centerX" id="dmT-8d-CY5"/>
+                                    <constraint firstItem="i3u-CA-4ld" firstAttribute="top" secondItem="Kt6-el-shd" secondAttribute="bottom" constant="25" id="f3E-tN-pca"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4cf-bx-fBe" firstAttribute="bottom" secondItem="aaa-H5-BJ2" secondAttribute="bottom" id="2Ek-mz-zqL"/>
+                            <constraint firstItem="4cf-bx-fBe" firstAttribute="bottom" secondItem="SJB-ri-kgl" secondAttribute="bottom" id="Ea0-IJ-uAL"/>
+                            <constraint firstItem="SJB-ri-kgl" firstAttribute="leading" secondItem="4cf-bx-fBe" secondAttribute="leading" id="LgC-sC-KLz"/>
+                            <constraint firstItem="SJB-ri-kgl" firstAttribute="top" secondItem="4cf-bx-fBe" secondAttribute="top" id="Oyy-Nb-Cp5"/>
                             <constraint firstItem="aaa-H5-BJ2" firstAttribute="leading" secondItem="4cf-bx-fBe" secondAttribute="leading" id="QIp-aP-a4U"/>
                             <constraint firstItem="4cf-bx-fBe" firstAttribute="trailing" secondItem="aaa-H5-BJ2" secondAttribute="trailing" id="eTl-II-LVt"/>
                             <constraint firstItem="aaa-H5-BJ2" firstAttribute="top" secondItem="4cf-bx-fBe" secondAttribute="top" id="l1V-xu-8px"/>
+                            <constraint firstItem="SJB-ri-kgl" firstAttribute="trailing" secondItem="4cf-bx-fBe" secondAttribute="trailing" id="ncY-0F-umg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4cf-bx-fBe"/>
                     </view>
                     <navigationItem key="navigationItem" id="Gcd-jM-HkY"/>
                     <connections>
                         <outlet property="mainTableView" destination="aaa-H5-BJ2" id="CV6-Zv-pLE"/>
+                        <outlet property="noneView" destination="SJB-ri-kgl" id="S5k-dU-yZe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGO-hr-ZUT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -60,4 +92,7 @@
             <point key="canvasLocation" x="222" y="134"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="FavoriteIconSelect" width="25" height="25"/>
+    </resources>
 </document>

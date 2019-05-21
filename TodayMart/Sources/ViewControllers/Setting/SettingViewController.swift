@@ -132,9 +132,11 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             cell.titleLabel.text = "버전 \(Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String)"
             return cell
         case .admob:
-            let adMobCell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
-            adMobCell.bannerView.rootViewController = self
-            return adMobCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
+            cell.bannerView.rootViewController = self
+            cell.bannerView.adUnitID = AppDelegate.adMobKey_Setting
+            cell.separatorInset = .zero
+            return cell
         }
     }
     

@@ -96,7 +96,7 @@ extension NearbyMartMapViewController {
     
     func setup() {
         bottomLine(isHide: true)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         extendedLayoutIncludesOpaqueBars = true

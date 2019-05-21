@@ -29,13 +29,13 @@ class AdMobBannerTableViewCell: UITableViewCell {
         })
         
         let admobRequest: GADRequest = GADRequest()
-        #if DEBUG
-        bannerView.adUnitID = AppDelegate.adMobKeyTest
-        #else
-        bannerView.adUnitID = AppDelegate.adMobKey
-        #endif
         bannerView.delegate = self
         bannerView.load(admobRequest)
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        bannerView.adUnitID = nil
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
