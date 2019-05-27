@@ -35,26 +35,32 @@ class InfomationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        guard let mart = mart else { return }
-        
-        martNameLabel.text = mart.name
-        
-            // 즐겨찾기
-            if mart.favorite == 0 {
-                favoriteButton.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
-            } else {
-                favoriteButton.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
-            }
-        
-        infomationTableView.delegate = self
-        infomationTableView.dataSource = self
-        infomationTableView.tableFooterView = UIView()
+        setup()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         delegate?.completeDismiss()
+    }
+}
+
+extension InfomationViewController {
+    func setup() {
+        guard let mart = mart else { return }
+        
+        martNameLabel.text = mart.name
+        
+        // 즐겨찾기
+        if mart.favorite == 0 {
+            favoriteButton.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
+        } else {
+            favoriteButton.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
+        }
+        
+        infomationTableView.register(UINib(nibName: "AdMobBannerTableViewCell", bundle: nil), forCellReuseIdentifier: "AdMobCell")
+        infomationTableView.delegate = self
+        infomationTableView.dataSource = self
+        infomationTableView.tableFooterView = UIView()
     }
 }
 
@@ -98,14 +104,24 @@ extension InfomationViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuArray.count
+        return menuArray.count + 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        guard indexPath.row != menuArray.count else {
+            return 100
+        }
         return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard indexPath.row != menuArray.count else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
+            cell.bannerView.rootViewController = self
+            cell.bannerView.adUnitID = AppDelegate.adMobKey_MartInfoView
+            return cell
+        }
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! MarkerInfoTableViewCell
         
         guard let mart = mart else { return cell }
@@ -146,6 +162,10 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.row != menuArray.count else {
+            return
+        }
+        
         if menuArray[indexPath.row] == .telNumber {
             if let tel = mart?.telNumber, let url = URL(string: "tel://\(tel)"), UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
@@ -169,7 +189,7 @@ extension InfomationViewController: PanModalPresentable {
     }
     
     var shortFormHeight: PanModalHeight {
-        return .contentHeight(300)
+        return .contentHeight(400)
     }
     
     var longFormHeight: PanModalHeight {

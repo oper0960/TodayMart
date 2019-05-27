@@ -15,11 +15,16 @@ import GoogleMobileAds
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
     private let googleMapAPIKey: String = "AIzaSyDZnYwGW3IATa45-cfdTViLNd2ZyP9XDxw"
     static let kakaoAPIKEY: String = "KakaoAK c2d8a5dd337febf258ad56b202b55c9a"
+    
+    // AdMob Key
     static let adMobKeyTest: String = "ca-app-pub-3940256099942544/2934735716"
     static let adMobKey_Favorite: String = "ca-app-pub-9335296893721653/6964742992"
     static let adMobKey_Setting: String = "ca-app-pub-9335296893721653/1641872358"
+    static let adMobKey_MapView: String = "ca-app-pub-9335296893721653/9295025304"
+    static let adMobKey_MartInfoView: String = "ca-app-pub-9335296893721653/9559405728"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
