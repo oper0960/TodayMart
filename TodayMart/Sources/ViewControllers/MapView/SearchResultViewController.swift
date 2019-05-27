@@ -36,6 +36,7 @@ class SearchResultViewController: UIViewController {
 
 extension SearchResultViewController {
     func setup() {
+        searchTableView.register(UINib(nibName: "AdMobBannerTableViewCell", bundle: nil), forCellReuseIdentifier: "AdMobCell")
         searchTableView.delegate = self
         searchTableView.dataSource = self
         searchTableView.tableFooterView = UIView()
@@ -44,6 +45,17 @@ extension SearchResultViewController {
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell") as! AdMobBannerTableViewCell
+        cell.bannerView.rootViewController = self
+        cell.bannerView.adUnitID = AppDelegate.adMobKey_MapView
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 100
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return marts.count
