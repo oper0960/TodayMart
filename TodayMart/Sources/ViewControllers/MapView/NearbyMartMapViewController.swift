@@ -11,6 +11,8 @@ import GoogleMaps
 import PanModal
 import Floaty
 import SnapKit
+import GoogleMobileAds
+import Firebase
 
 // Cluster Poi Item
 class POIItem: NSObject, GMUClusterItem {
@@ -38,6 +40,12 @@ class NearbyMartMapViewController: UIViewController {
     // Cluster
     private var clusterManager: GMUClusterManager!
     
+    // FullView AD
+    var fullViewAd: GADInterstitial!
+    
+    // Floaty
+    var floaty = Floaty()
+    
     var martArray: [Mart]?
     var currentLocation: CLLocation?
     var firstActive: Bool = false
@@ -62,9 +70,10 @@ class NearbyMartMapViewController: UIViewController {
         super.viewDidLoad()
         checkPermission()
         settingObserver()
-        setFloatyButton()
         setup()
         setSearchViewController()
+        floaty = setFloatyButton()
+        fullViewAd = setupAD()
     }
     
     func bottomLine(isHide: Bool) {
@@ -93,6 +102,14 @@ extension NearbyMartMapViewController {
 
 // MARK: - Setup
 extension NearbyMartMapViewController {
+    
+    func setupAD() -> GADInterstitial {
+        let fullAd = GADInterstitial(adUnitID: AppDelegate.adMobKey_FavoriteFull)
+        fullAd.delegate = self
+        let request: GADRequest = GADRequest()
+        fullAd.load(request)
+        return fullAd
+    }
     
     func setup() {
         bottomLine(isHide: true)
@@ -130,7 +147,7 @@ extension NearbyMartMapViewController {
         navigationItem.searchController = searchController
     }
     
-    func setFloatyButton() {
+    func setFloatyButton() -> Floaty {
         let floaty = Floaty()
         floaty.buttonColor = .white
         floaty.addItem("내 위치로", icon: #imageLiteral(resourceName: "MapIcon")) { _ in
@@ -156,6 +173,7 @@ extension NearbyMartMapViewController {
             $0.bottom.equalTo(view.snp.bottom).offset(-16)
             $0.height.width.equalTo(56)
         }
+        return floaty
     }
     
     func move(at coordinate: CLLocationCoordinate2D) {
@@ -263,8 +281,8 @@ extension NearbyMartMapViewController: GMUClusterRendererDelegate {
     }
 }
 
-// MARK: - GMSMapViewDelegate, GMUClusterManagerDelegate, InfomationDelegate
-extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDelegate, InfomationDelegate {
+// MARK: - GMSMapViewDelegate, GMUClusterManagerDelegate, InfomationDelegate, GADInterstitialDelegate
+extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDelegate, InfomationDelegate, GADInterstitialDelegate {
     
     // Add MarkerView (Cluster)
     func setMarker(marts: [Mart]) {
@@ -338,9 +356,16 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
         return false
     }
     
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        fullViewAd = setupAD()
+    }
+    
     func completeDismiss() {
-        self.mapView.clear()
-        self.getMartData()
+        mapView.clear()
+        getMartData()
+        if fullViewAd.isReady {
+            fullViewAd.present(fromRootViewController: self)
+        }
     }
 }
 

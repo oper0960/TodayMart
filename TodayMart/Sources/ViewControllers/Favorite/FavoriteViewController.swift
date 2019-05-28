@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GoogleMobileAds
+import Firebase
 
 class FavoriteViewController: UIViewController {
     
@@ -15,20 +17,33 @@ class FavoriteViewController: UIViewController {
     
     var favoriteMarts = [Mart]()
     
+    // FullView AD
+    var fullViewAd: GADInterstitial!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationItem.largeTitleDisplayMode = .always
-        self.getFavorite()
+        getFavorite()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setup()
+        setup()
+        fullViewAd = setupAD()
     }
 }
 
 extension FavoriteViewController {
+    
+    func setupAD() -> GADInterstitial {
+        let fullAd = GADInterstitial(adUnitID: AppDelegate.adMobKey_FavoriteFull)
+        fullAd.delegate = self
+        let request: GADRequest = GADRequest()
+        fullAd.load(request)
+        return fullAd
+    }
+    
     func setup() {
         let closeButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Close"), style: .plain, target: self, action: #selector(close(_:)))
         closeButton.tintColor = .black
@@ -140,9 +155,18 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension FavoriteViewController: GADInterstitialDelegate {
+    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
+        fullViewAd = setupAD()
+    }
+}
+
 extension FavoriteViewController: InfomationDelegate {
     func completeDismiss() {
         getFavorite()
+        if fullViewAd.isReady {
+            fullViewAd.present(fromRootViewController: self)
+        }
     }
 }
 
