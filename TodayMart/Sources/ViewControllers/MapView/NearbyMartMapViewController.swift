@@ -11,8 +11,6 @@ import GoogleMaps
 import PanModal
 import Floaty
 import SnapKit
-import GoogleMobileAds
-import Firebase
 
 // Cluster Poi Item
 class POIItem: NSObject, GMUClusterItem {
@@ -39,9 +37,6 @@ class NearbyMartMapViewController: UIViewController {
     
     // Cluster
     private var clusterManager: GMUClusterManager!
-    
-    // FullView AD
-    var fullViewAd: GADInterstitial!
     
     // Floaty
     var floaty = Floaty()
@@ -73,7 +68,6 @@ class NearbyMartMapViewController: UIViewController {
         setup()
         setSearchViewController()
         floaty = setFloatyButton()
-        fullViewAd = setupAD()
     }
     
     func bottomLine(isHide: Bool) {
@@ -102,14 +96,6 @@ extension NearbyMartMapViewController {
 
 // MARK: - Setup
 extension NearbyMartMapViewController {
-    
-    func setupAD() -> GADInterstitial {
-        let fullAd = GADInterstitial(adUnitID: AppDelegate.adMobKey_FavoriteFull)
-        fullAd.delegate = self
-        let request: GADRequest = GADRequest()
-        fullAd.load(request)
-        return fullAd
-    }
     
     func setup() {
         bottomLine(isHide: true)
@@ -281,8 +267,8 @@ extension NearbyMartMapViewController: GMUClusterRendererDelegate {
     }
 }
 
-// MARK: - GMSMapViewDelegate, GMUClusterManagerDelegate, InfomationDelegate, GADInterstitialDelegate
-extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDelegate, InfomationDelegate, GADInterstitialDelegate {
+// MARK: - GMSMapViewDelegate, GMUClusterManagerDelegate, InfomationDelegate
+extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDelegate, InfomationDelegate {
     
     // Add MarkerView (Cluster)
     func setMarker(marts: [Mart]) {
@@ -356,16 +342,9 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
         return false
     }
     
-    func interstitialDidDismissScreen(_ ad: GADInterstitial) {
-        fullViewAd = setupAD()
-    }
-    
     func completeDismiss() {
         mapView.clear()
         getMartData()
-        if fullViewAd.isReady {
-            fullViewAd.present(fromRootViewController: self)
-        }
     }
 }
 
