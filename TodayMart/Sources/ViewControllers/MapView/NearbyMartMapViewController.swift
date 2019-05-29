@@ -200,6 +200,12 @@ extension NearbyMartMapViewController: UISearchBarDelegate, SearchResultDelegate
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
+        floaty.isHidden = true
+        return true
+    }
+    
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        floaty.isHidden = false
         return true
     }
 }
