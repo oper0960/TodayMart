@@ -21,19 +21,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // AdMob
     static let adMobKeyTest: String = "ca-app-pub-3940256099942544/2934735716"
-    static let adMobKeyFullViewTest: String = "ca-app-pub-3940256099942544/4411468910"
     #if DEBUG
     static let adMobKey_Favorite: String = adMobKeyTest
     static let adMobKey_Setting: String = adMobKeyTest
     static let adMobKey_MapView: String = adMobKeyTest
     static let adMobKey_MartInfoView: String = adMobKeyTest
-    static let adMobKey_FavoriteFull: String = adMobKeyFullViewTest
     #else
     static let adMobKey_Favorite: String = "ca-app-pub-9335296893721653/6964742992"
     static let adMobKey_Setting: String = "ca-app-pub-9335296893721653/1641872358"
     static let adMobKey_MapView: String = "ca-app-pub-9335296893721653/9295025304"
     static let adMobKey_MartInfoView: String = "ca-app-pub-9335296893721653/9559405728"
-    static let adMobKey_FavoriteFull: String = "ca-app-pub-9335296893721653/4402637769"
     #endif
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
