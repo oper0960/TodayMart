@@ -23,7 +23,8 @@ class OpenSourceTextViewController: UIViewController {
 extension OpenSourceTextViewController {
     func setup() {
         
-        mainTextView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 161, right: 16)
+        mainTextView.contentInsetAdjustmentBehavior = .never
+        mainTextView.textContainerInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         
         guard let opensource = opensource else {
             title = "Empty License"
