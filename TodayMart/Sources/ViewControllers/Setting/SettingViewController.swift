@@ -33,6 +33,12 @@ class SettingViewController: UIViewController {
         navigationController?.navigationItem.largeTitleDisplayMode = .always
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationItem.largeTitleDisplayMode = .never
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
