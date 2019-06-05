@@ -8,13 +8,14 @@
 
 import UIKit
 import PanModal
+import GoogleMobileAds
+import Firebase
 
 protocol InfomationDelegate: class {
     func completeDismiss()
 }
 
 class InfomationViewController: UIViewController {
-    
     
     enum Infomation {
         case closeWeek, closeCurrent, openHours, address, telNumber
@@ -118,7 +119,7 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
         guard indexPath.row != menuArray.count else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
             cell.bannerView.rootViewController = self
-            cell.bannerView.adUnitID = AppDelegate.adMobKey_MartInfoView
+            cell.loadAd(adUnitId: AppDelegate.adMobKey_MartInfoView)
             return cell
         }
         

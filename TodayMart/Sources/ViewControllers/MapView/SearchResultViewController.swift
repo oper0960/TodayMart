@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import GoogleMobileAds
+import Firebase
 
 protocol SearchResultDelegate: class {
     func focusMart(longitude: String, latitude: String)
