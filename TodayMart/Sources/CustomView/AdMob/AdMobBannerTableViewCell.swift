@@ -27,10 +27,6 @@ class AdMobBannerTableViewCell: UITableViewCell {
             $0.trailing.equalTo(contentView.snp.trailing).offset(0)
             $0.bottom.equalTo(contentView.snp.bottom).offset(0)
         })
-        
-        let admobRequest: GADRequest = GADRequest()
-        bannerView.delegate = self
-        bannerView.load(admobRequest)
     }
     
     override func prepareForReuse() {
@@ -41,6 +37,14 @@ class AdMobBannerTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
+    }
+    
+    func loadAd(adUnitId: String) {
+        bannerView.adUnitID = adUnitId
+        let admobRequest: GADRequest = GADRequest()
+        admobRequest.testDevices = ["d33705983b89f6867acfe7f7564ae9b0"]
+        bannerView.delegate = self
+        bannerView.load(admobRequest)
     }
 }
 
