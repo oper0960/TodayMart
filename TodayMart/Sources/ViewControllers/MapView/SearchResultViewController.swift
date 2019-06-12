@@ -51,7 +51,7 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell") as! AdMobBannerTableViewCell
         cell.bannerView.rootViewController = self
-        cell.bannerView.adUnitID = AppDelegate.adMobKey_MapView
+        cell.adMobUnitId = AppDelegate.adMobKey_MapView
         return cell
     }
     

@@ -63,7 +63,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
         guard indexPath.row != favoriteMarts.count else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
             cell.bannerView.rootViewController = self
-            cell.bannerView.adUnitID = AppDelegate.adMobKey_Favorite
+            cell.adMobUnitId = AppDelegate.adMobKey_Favorite
             return cell
         }
         
