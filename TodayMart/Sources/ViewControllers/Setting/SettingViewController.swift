@@ -140,7 +140,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case .admob:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
             cell.bannerView.rootViewController = self
-            cell.bannerView.adUnitID = AppDelegate.adMobKey_Setting
+            cell.adMobUnitId = AppDelegate.adMobKey_Setting
             cell.separatorInset = .zero
             return cell
         }

@@ -119,7 +119,8 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
         guard indexPath.row != menuArray.count else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
             cell.bannerView.rootViewController = self
-            cell.loadAd(adUnitId: AppDelegate.adMobKey_MartInfoView)
+            cell.adMobUnitId = AppDelegate.adMobKey_MartInfoView
+//            cell.loadAd(adUnitId: AppDelegate.adMobKey_MartInfoView)
             return cell
         }
         
