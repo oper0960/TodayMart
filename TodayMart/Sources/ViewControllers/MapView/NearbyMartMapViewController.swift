@@ -25,7 +25,7 @@ class POIItem: NSObject, GMUClusterItem {
     }
 }
 
-class NearbyMartMapViewController: UIViewController {
+class NearbyMartMapViewController: BaseViewController {
     
     @IBOutlet weak var mapView: GMSMapView!
     @IBOutlet weak var refreshButton: UIButton!
@@ -99,6 +99,9 @@ extension NearbyMartMapViewController {
     
     func setup() {
         bottomLine(isHide: true)
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.isTranslucent = true
         extendedLayoutIncludesOpaqueBars = true
         
         // location
@@ -142,13 +145,17 @@ extension NearbyMartMapViewController {
             let storyboard = UIStoryboard(name: "Favorite", bundle: nil)
             let favoriteViewController = storyboard.instantiateViewController(withIdentifier: "FavoriteViewController") as! FavoriteViewController
             favoriteViewController.title = "즐겨찾기"
-            self.present(UINavigationController(rootViewController: favoriteViewController), animated: true, completion: nil)
+            let naviCon = UINavigationController(rootViewController: favoriteViewController)
+            naviCon.modalPresentationStyle = .fullScreen
+            self.present(naviCon, animated: true, completion: nil)
         }
         floaty.addItem("설정", icon: #imageLiteral(resourceName: "SettingIcon")) { _ in
             let storyboard = UIStoryboard(name: "Setting", bundle: nil)
             let settingViewController = storyboard.instantiateViewController(withIdentifier: "SettingViewController") as! SettingViewController
             settingViewController.title = "설정"
-            self.present(UINavigationController(rootViewController: settingViewController), animated: true, completion: nil)
+            let naviCon = UINavigationController(rootViewController: settingViewController)
+            naviCon.modalPresentationStyle = .fullScreen
+            self.present(naviCon, animated: true, completion: nil)
         }
         view.addSubview(floaty)
         floaty.snp.makeConstraints {
@@ -198,9 +205,6 @@ extension NearbyMartMapViewController: UISearchBarDelegate, SearchResultDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         floaty.isHidden = true
-        if #available(iOS 13.0, *) {
-            searchController.searchBar.backgroundColor = .systemBackground
-        }
         return true
     }
     
