@@ -68,6 +68,17 @@ class NearbyMartMapViewController: UIViewController {
         setup()
         setSearchViewController()
         floaty = setFloatyButton()
+        
+        do {
+          // Set the map style by passing the URL of the local file.
+          if let styleURL = Bundle.main.url(forResource: "MapViewStyle", withExtension: "json") {
+            mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+          } else {
+            NSLog("Unable to find style.json")
+          }
+        } catch {
+          NSLog("One or more of the map styles failed to load. \(error)")
+        }
     }
     
     func bottomLine(isHide: Bool) {
@@ -125,7 +136,7 @@ extension NearbyMartMapViewController {
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
         searchController.searchBar.placeholder = "마트 검색"
-        searchController.searchBar.setValue("취소", forKey: "_cancelButtonText")
+//        searchController.searchBar.setValue("취소", forKey: "_cancelButtonText")
         searchController.hidesNavigationBarDuringPresentation = true
         definesPresentationContext = true
         
@@ -244,6 +255,8 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
             self.present(alert, animated: false, completion: nil)
         case .authorizedAlways, .authorizedWhenInUse:
             permitHandler?()
+        @unknown default:
+            fatalError()
         }
     }
     

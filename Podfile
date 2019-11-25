@@ -12,11 +12,11 @@ target 'TodayMart' do
   pod 'Google-Maps-iOS-Utils'
   pod 'GooglePlaces'
   pod 'Firebase/Core'
-  pod 'Fabric', '~> 1.9.0'
-  pod 'Crashlytics', '~> 3.12.0'
+  pod 'Fabric'
+  pod 'Crashlytics'
   pod 'SnapKit'
   pod 'PanModal'
-  pod 'Floaty', '~> 4.1.0'
+  pod 'Floaty'
   pod 'Google-Mobile-Ads-SDK'
   
 end
