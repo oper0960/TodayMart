@@ -174,9 +174,9 @@ extension NearbyMartMapViewController {
 
 // MARK: - UISearchBarDelegate
 extension NearbyMartMapViewController: UISearchBarDelegate, SearchResultDelegate {
-    func focusMart(longitude: String, latitude: String) {
+    func focusMart(longitude: Double, latitude: Double) {
         searchController.isActive = false
-        let coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude)!, longitude: CLLocationDegrees(longitude)!)
+        let coordinate = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude), longitude: CLLocationDegrees(longitude))
         let camera: GMSCameraPosition = GMSCameraPosition.camera(withTarget: coordinate, zoom: self.zoomLevel)
         self.mapView.camera = camera
     }
@@ -294,8 +294,8 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
                 markerData.updateValue(mart, forKey: "mart")
                 markerData.updateValue(index, forKey: "index")
                 
-                let latitude = Double(mart.latitude)
-                let longitude = Double(mart.longitude)
+                let latitude: Double = mart.latitude
+                let longitude: Double = mart.longitude
                 
                 let position = CLLocationCoordinate2DMake(latitude, longitude)
                 let item = POIItem(position: position, name: index.description, userData: markerData)
@@ -375,7 +375,6 @@ extension NearbyMartMapViewController {
     }
     
     func searchMart(_ searchText: String, result: @escaping (([Mart]) -> (Void))) {
-        
         if let urlPath = "\(API.Mart.search)/\(searchText)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             NetworkManager.request(method: .get, reqURL: urlPath, parameters: [:], headers: [:], failed: { error in
                 print("searchMart Error",error)
@@ -398,7 +397,6 @@ extension NearbyMartMapViewController {
     }
     
     func searchMartById(_ id: Int, result: @escaping ((Mart) -> (Void))) {
-        
         NetworkManager.request(method: .get, reqURL: "\(API.Mart.getAll)/\(id)", parameters: [:], headers: [:], failed: { error in
             print("searchMartById Error",error)
         }) { data in

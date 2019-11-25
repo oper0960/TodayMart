@@ -11,7 +11,7 @@ import GoogleMobileAds
 import Firebase
 
 protocol SearchResultDelegate: class {
-    func focusMart(longitude: String, latitude: String)
+    func focusMart(longitude: Double, latitude: Double)
 }
 
 class SearchResultViewController: UIViewController {
@@ -86,7 +86,7 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     @objc func goToMart(_ sender: UIButton) {
-//        let mart = marts[sender.tag]
-//        delegate?.focusMart(longitude: mart.longitude, latitude: mart.latitude)
+        let mart = marts[sender.tag]
+        delegate?.focusMart(longitude: mart.longitude, latitude: mart.latitude)
     }
 }
