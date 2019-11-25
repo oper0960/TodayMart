@@ -53,7 +53,8 @@
 		6F65FB5120CA239E00E16129 /* NearbyMartMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F65FB5020CA239E00E16129 /* NearbyMartMap.storyboard */; };
 		6F65FB5720CA2D7700E16129 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */; };
 		E127CB8B74A44BC8D435B913 /* libPods-TodayMart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */; };
-		EF7D1B70238B9344003C4938 /* MapViewStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = EF7D1B6F238B9344003C4938 /* MapViewStyle.json */; };
+		EF7D1B72238BA0D4003C4938 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7D1B71238BA0D4003C4938 /* UIViewControllerExtension.swift */; };
+		EF7D1B75238BA40E003C4938 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7D1B74238BA40D003C4938 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,7 +111,8 @@
 		6FC5A24F42984D41CF33D1BD /* Pods-TodayMart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayMart.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart.release.xcconfig"; sourceTree = "<group>"; };
 		787EC97FB7F598FDC3A0FEE9 /* Pods-ClosedMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClosedMart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClosedMart/Pods-ClosedMart.debug.xcconfig"; sourceTree = "<group>"; };
 		A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TodayMart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EF7D1B6F238B9344003C4938 /* MapViewStyle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MapViewStyle.json; sourceTree = "<group>"; };
+		EF7D1B71238BA0D4003C4938 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
+		EF7D1B74238BA40D003C4938 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F53D5D55A2DC2B9364D33E52 /* Pods_ClosedMart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClosedMart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF0C18F195BEBA125B652103 /* Pods-TodayMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayMart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -149,6 +151,7 @@
 		311573622260525000D6EDAD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				EF7D1B71238BA0D4003C4938 /* UIViewControllerExtension.swift */,
 				6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */,
 				3164568020EC60850051AA57 /* UIApplicationExtensions.swift */,
 				311573602260524C00D6EDAD /* NSObjectExtension.swift */,
@@ -230,7 +233,6 @@
 		42499F88220831C5008B3D04 /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				EF7D1B6F238B9344003C4938 /* MapViewStyle.json */,
 				6F65FB4E20CA238C00E16129 /* NearbyMartMapViewController.swift */,
 				31134A5722641DE400D5D801 /* InfomationViewController.swift */,
 				3111AFC22278098600A706CD /* SearchResultViewController.swift */,
@@ -323,6 +325,7 @@
 		6F65FB4720CA1DC300E16129 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				EF7D1B73238BA401003C4938 /* Base */,
 				42499F88220831C5008B3D04 /* MapView */,
 				42499F89220831CF008B3D04 /* Favorite */,
 				42499F8A220831DA008B3D04 /* Setting */,
@@ -371,6 +374,14 @@
 				31586E6620E4E1C100FB9428 /* GWToast.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		EF7D1B73238BA401003C4938 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				EF7D1B74238BA40D003C4938 /* BaseViewController.swift */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,7 +458,6 @@
 				42499F9C22185FAA008B3D04 /* OpenSourceViewController.xib in Resources */,
 				31134A5E2264244100D5D801 /* ClosedDatabase_V2.db in Resources */,
 				42499FA922196C33008B3D04 /* GoogleService-Info.plist in Resources */,
-				EF7D1B70238B9344003C4938 /* MapViewStyle.json in Resources */,
 				6F65FB3B20CA1DAC00E16129 /* Assets.xcassets in Resources */,
 				31177E0822939EFE00AB14FD /* FavoriteNoneTableViewCell.xib in Resources */,
 				42B652102174F9E2008DC258 /* FavoriteTableViewCell.xib in Resources */,
@@ -528,6 +538,7 @@
 				319F0978228A960800AFC0DF /* AdMobBannerTableViewCell.swift in Sources */,
 				3164568120EC60850051AA57 /* UIApplicationExtensions.swift in Sources */,
 				31134A5822641DE400D5D801 /* InfomationViewController.swift in Sources */,
+				EF7D1B72238BA0D4003C4938 /* UIViewControllerExtension.swift in Sources */,
 				316976AD20E9FF38000FA771 /* SettingViewController.swift in Sources */,
 				6F65FB5720CA2D7700E16129 /* UIColorExtension.swift in Sources */,
 				42499FA222185FAA008B3D04 /* OpenSourceTextViewController.swift in Sources */,
@@ -543,6 +554,7 @@
 				3116E774226D9CC900224BC1 /* OptionTableViewCell.swift in Sources */,
 				3111AFC32278098600A706CD /* SearchResultViewController.swift in Sources */,
 				3163BA9220CE0A4D00B8625C /* Mart.swift in Sources */,
+				EF7D1B75238BA40E003C4938 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
