@@ -18,6 +18,7 @@ target 'TodayMart' do
   pod 'PanModal'
   pod 'Floaty'
   pod 'Google-Mobile-Ads-SDK'
+  pod 'Alamofire'
   
 end
 

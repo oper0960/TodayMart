@@ -57,7 +57,7 @@ class NearbyMartMapViewController: BaseViewController {
         super.viewWillAppear(animated)
         checkPermission {
             self.mapView.clear()
-            self.getMartData()
+            self.getAllMart()
         }
     }
     
@@ -110,8 +110,8 @@ extension NearbyMartMapViewController {
             self.locationManager.requestWhenInUseAuthorization()
             self.locationManager.startUpdatingLocation()
             self.mapView.isMyLocationEnabled = true
-            self.mapView.setMinZoom(8, maxZoom: 15)
-            self.getMartData()
+            self.mapView.setMinZoom(8, maxZoom: 18)
+            self.getAllMart()
         }
     }
     
@@ -186,13 +186,8 @@ extension NearbyMartMapViewController: UISearchBarDelegate, SearchResultDelegate
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        do {
-            let db = try SQLiteManager()
-            try db.executeMart(name: searchText, rowHandler: { (marts: [Mart]) in
-                self.resultViewController.marts = marts
-            })
-        } catch {
-            self.dbOpenErrorAlert()
+        searchMart(searchText) { marts in
+            self.resultViewController.marts = marts
         }
     }
     
@@ -299,8 +294,8 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
                 markerData.updateValue(mart, forKey: "mart")
                 markerData.updateValue(index, forKey: "index")
                 
-                let latitude = Double(mart.latitude)!
-                let longitude = Double(mart.longitude)!
+                let latitude = Double(mart.latitude)
+                let longitude = Double(mart.longitude)
                 
                 let position = CLLocationCoordinate2DMake(latitude, longitude)
                 let item = POIItem(position: position, name: index.description, userData: markerData)
@@ -322,22 +317,16 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
             let userData = poiItem.userData
             let mart = userData["mart"] as! Mart
             
-            do {
-                let db = try SQLiteManager()
-                
-                try db.executeSelect(name: mart.name) {(mart: Mart) in
-                    let storyboard = UIStoryboard.init(name: "NearbyMartMap", bundle: nil)
-                    let infoViewController = storyboard.instantiateViewController(withIdentifier: "InfomationViewController") as! InfomationViewController
-                    infoViewController.title = "마트"
-                    infoViewController.mart = mart
-                    infoViewController.delegate = self
-                    self.presentPanModal(infoViewController)
-                    DispatchQueue.main.async {
-                        marker.icon = #imageLiteral(resourceName: "Pin_Red")
-                    }
+            searchMartById(mart.id) { mart in
+                let storyboard = UIStoryboard.init(name: "NearbyMartMap", bundle: nil)
+                let infoViewController = storyboard.instantiateViewController(withIdentifier: "InfomationViewController") as! InfomationViewController
+                infoViewController.title = "마트"
+                infoViewController.mart = mart
+                infoViewController.delegate = self
+                self.presentPanModal(infoViewController)
+                DispatchQueue.main.async {
+                    marker.icon = #imageLiteral(resourceName: "Pin_Red")
                 }
-            } catch {
-                dbOpenErrorAlert()
             }
         }
         return false
@@ -356,37 +345,75 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
     
     func completeDismiss() {
         mapView.clear()
-        getMartData()
+        getAllMart()
     }
 }
 
-// MARK: - Database
+// MARK: - Alamofire
 extension NearbyMartMapViewController {
-    
-    func getMartData() {
-        self.indicator.startAnimating()
-        do {
-            let db = try SQLiteManager()
-            try db.executeAll() { (marts: [Mart]) in
-                self.indicator.stopAnimating()
+    func getAllMart() {
+        NetworkManager.request(method: .get, reqURL: API.Mart.getAll, parameters: [:], headers: [:], failed: { error in
+            print("getAllMart Error",error)
+        }) { data in
+            let decoder = JSONDecoder()
+            if let marts = try? decoder.decode([Mart].self, from: data) {
                 self.martArray = marts
                 if let mart = self.martArray {
                     self.setMarker(marts: mart)
                 }
+            } else {
+                let alert = UIAlertController(title: "DB 불러오기 실패", message: "잠시후에 다시 실행해주세요.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                alert.addAction(okAction)
+                DispatchQueue.main.async {
+                    if let topController = UIApplication.topViewController() {
+                        topController.present(alert, animated: true, completion: nil)
+                    }
+                }
             }
-        } catch {
-            self.indicator.stopAnimating()
-            self.dbOpenErrorAlert()
         }
     }
     
-    func dbOpenErrorAlert() {
-        let alert = UIAlertController(title: "DB 불러오기 실패", message: "잠시후에 다시 실행해주세요.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-        alert.addAction(okAction)
-        DispatchQueue.main.async {
-            if let topController = UIApplication.topViewController() {
-                topController.present(alert, animated: true, completion: nil)
+    func searchMart(_ searchText: String, result: @escaping (([Mart]) -> (Void))) {
+        
+        if let urlPath = "\(API.Mart.search)/\(searchText)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+            NetworkManager.request(method: .get, reqURL: urlPath, parameters: [:], headers: [:], failed: { error in
+                print("searchMart Error",error)
+            }) { data in
+                let decoder = JSONDecoder()
+                if let marts = try? decoder.decode([Mart].self, from: data) {
+                    result(marts)
+                } else {
+                    let alert = UIAlertController(title: "DB 불러오기 실패", message: "잠시후에 다시 실행해주세요.", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                    alert.addAction(okAction)
+                    DispatchQueue.main.async {
+                        if let topController = UIApplication.topViewController() {
+                            topController.present(alert, animated: true, completion: nil)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func searchMartById(_ id: Int, result: @escaping ((Mart) -> (Void))) {
+        
+        NetworkManager.request(method: .get, reqURL: "\(API.Mart.getAll)/\(id)", parameters: [:], headers: [:], failed: { error in
+            print("searchMartById Error",error)
+        }) { data in
+            let decoder = JSONDecoder()
+            if let mart = try? decoder.decode(Mart.self, from: data) {
+                result(mart)
+            } else {
+                let alert = UIAlertController(title: "DB 불러오기 실패", message: "잠시후에 다시 실행해주세요.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                alert.addAction(okAction)
+                DispatchQueue.main.async {
+                    if let topController = UIApplication.topViewController() {
+                        topController.present(alert, animated: true, completion: nil)
+                    }
+                }
             }
         }
     }

@@ -86,7 +86,7 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     @objc func goToMart(_ sender: UIButton) {
-        let mart = marts[sender.tag]
-        delegate?.focusMart(longitude: mart.longitude, latitude: mart.latitude)
+//        let mart = marts[sender.tag]
+//        delegate?.focusMart(longitude: mart.longitude, latitude: mart.latitude)
     }
 }
