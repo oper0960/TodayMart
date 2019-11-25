@@ -53,6 +53,7 @@
 		6F65FB5120CA239E00E16129 /* NearbyMartMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F65FB5020CA239E00E16129 /* NearbyMartMap.storyboard */; };
 		6F65FB5720CA2D7700E16129 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */; };
 		E127CB8B74A44BC8D435B913 /* libPods-TodayMart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */; };
+		EF6E6E5C238BA75D00454398 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6E6E5B238BA75D00454398 /* NetworkManager.swift */; };
 		EF7D1B72238BA0D4003C4938 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7D1B71238BA0D4003C4938 /* UIViewControllerExtension.swift */; };
 		EF7D1B75238BA40E003C4938 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7D1B74238BA40D003C4938 /* BaseViewController.swift */; };
 /* End PBXBuildFile section */
@@ -111,6 +112,7 @@
 		6FC5A24F42984D41CF33D1BD /* Pods-TodayMart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayMart.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart.release.xcconfig"; sourceTree = "<group>"; };
 		787EC97FB7F598FDC3A0FEE9 /* Pods-ClosedMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClosedMart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClosedMart/Pods-ClosedMart.debug.xcconfig"; sourceTree = "<group>"; };
 		A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TodayMart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF6E6E5B238BA75D00454398 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EF7D1B71238BA0D4003C4938 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		EF7D1B74238BA40D003C4938 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		F53D5D55A2DC2B9364D33E52 /* Pods_ClosedMart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClosedMart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -369,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				311573622260525000D6EDAD /* Extensions */,
+				EF6E6E5B238BA75D00454398 /* NetworkManager.swift */,
 				317CD82820CA54DD00B03B13 /* API.swift */,
 				42AD289E21777B19006FAC94 /* ETC.swift */,
 				31586E6620E4E1C100FB9428 /* GWToast.swift */,
@@ -538,6 +541,7 @@
 				319F0978228A960800AFC0DF /* AdMobBannerTableViewCell.swift in Sources */,
 				3164568120EC60850051AA57 /* UIApplicationExtensions.swift in Sources */,
 				31134A5822641DE400D5D801 /* InfomationViewController.swift in Sources */,
+				EF6E6E5C238BA75D00454398 /* NetworkManager.swift in Sources */,
 				EF7D1B72238BA0D4003C4938 /* UIViewControllerExtension.swift in Sources */,
 				316976AD20E9FF38000FA771 /* SettingViewController.swift in Sources */,
 				6F65FB5720CA2D7700E16129 /* UIColorExtension.swift in Sources */,

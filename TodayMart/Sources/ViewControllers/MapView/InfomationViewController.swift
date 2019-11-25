@@ -68,37 +68,37 @@ extension InfomationViewController {
 // MARK: - Button
 extension InfomationViewController {
     @IBAction func favoriteButton(_ sender: UIButton) {
-        if let mart = mart {
-            let name = mart.name
-            var martData: Mart?
-            do {
-                let db = try SQLiteManager()
-                
-                try db.executeSelect(name: name) { (mart: Mart) in
-                    martData = mart
-                }
-                
-                let updateDB = try SQLiteManager()
-                guard let data = martData else { return }
-                do {
-                    if data.favorite == 0 {
-                        try updateDB.favoriteExecute(name: name, favorite: 1, doneHandler: {
-                            sender.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
-                            mart.favorite = 1
-                        })
-                    } else {
-                        try updateDB.favoriteExecute(name: name, favorite: 0, doneHandler: {
-                            sender.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
-                            mart.favorite = 0
-                        })
-                    }
-                } catch {
-                    dbOpenErrorAlert()
-                }
-            } catch {
-                dbOpenErrorAlert()
-            }
-        }
+//        if let mart = mart {
+//            let name = mart.name
+//            var martData: Mart?
+//            do {
+//                let db = try SQLiteManager()
+//
+//                try db.executeSelect(name: name) { (mart: Mart) in
+//                    martData = mart
+//                }
+//
+//                let updateDB = try SQLiteManager()
+//                guard let data = martData else { return }
+//                do {
+//                    if data.favorite == 0 {
+//                        try updateDB.favoriteExecute(name: name, favorite: 1, doneHandler: {
+//                            sender.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
+//                            mart.favorite = 1
+//                        })
+//                    } else {
+//                        try updateDB.favoriteExecute(name: name, favorite: 0, doneHandler: {
+//                            sender.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
+//                            mart.favorite = 0
+//                        })
+//                    }
+//                } catch {
+//                    dbOpenErrorAlert()
+//                }
+//            } catch {
+//                dbOpenErrorAlert()
+//            }
+//        }
     }
 }
 
@@ -126,41 +126,42 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! MarkerInfoTableViewCell
         
-        guard let mart = mart else { return cell }
-        
-        switch menuArray[indexPath.row] {
-        case .closeWeek:
-            cell.descriptionTitleLabel.text = "휴무일"
-            cell.descriptionLabel.text = closedDayDescription(week: mart.closedWeek, day: mart.closedDay, fixedDay: mart.fixedClosedDay)
-            return cell
-        case .closeCurrent:
-            cell.descriptionTitleLabel.text = "영업유무"
-            if closedDayYN(week: mart.closedWeek, day: mart.closedDay) {
-                cell.descriptionLabel.textColor = .red
-                cell.descriptionLabel.text = "휴무"
-            } else {
-                if mart.closedWeek[0] == 0 && mart.closedDay[0] == 8 ||
-                    mart.closedWeek[1] == 0 && mart.closedDay[1] == 8 {
-                    cell.descriptionLabel.text = "영업정보없음"
-                } else {
-                    cell.descriptionLabel.textColor = openTime(time: mart.openingHours) ? #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                    cell.descriptionLabel.text = openTime(time: mart.openingHours) ? "영업중" : "영업종료"
-                }
-            }
-            return cell
-        case .openHours:
-            cell.descriptionTitleLabel.text = "영업시간"
-            cell.descriptionLabel.text = mart.openingHours
-            return cell
-        case .address:
-            cell.descriptionTitleLabel.text = "주소"
-            cell.descriptionLabel.text = mart.address
-            return cell
-        case .telNumber:
-            cell.descriptionTitleLabel.text = "전화번호"
-            cell.descriptionLabel.text = mart.telNumber
-            return cell
-        }
+//        guard let mart = mart else { return cell }
+//
+//        switch menuArray[indexPath.row] {
+//        case .closeWeek:
+//            cell.descriptionTitleLabel.text = "휴무일"
+//            cell.descriptionLabel.text = closedDayDescription(week: mart.closedWeek, day: mart.closedDay, fixedDay: mart.fixedClosedDay)
+//            return cell
+//        case .closeCurrent:
+//            cell.descriptionTitleLabel.text = "영업유무"
+//            if closedDayYN(week: mart.closedWeek, day: mart.closedDay) {
+//                cell.descriptionLabel.textColor = .red
+//                cell.descriptionLabel.text = "휴무"
+//            } else {
+//                if mart.closedWeek[0] == 0 && mart.closedDay[0] == 8 ||
+//                    mart.closedWeek[1] == 0 && mart.closedDay[1] == 8 {
+//                    cell.descriptionLabel.text = "영업정보없음"
+//                } else {
+//                    cell.descriptionLabel.textColor = openTime(time: mart.openingHours) ? #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+//                    cell.descriptionLabel.text = openTime(time: mart.openingHours) ? "영업중" : "영업종료"
+//                }
+//            }
+//            return cell
+//        case .openHours:
+//            cell.descriptionTitleLabel.text = "영업시간"
+//            cell.descriptionLabel.text = mart.openingHours
+//            return cell
+//        case .address:
+//            cell.descriptionTitleLabel.text = "주소"
+//            cell.descriptionLabel.text = mart.address
+//            return cell
+//        case .telNumber:
+//            cell.descriptionTitleLabel.text = "전화번호"
+//            cell.descriptionLabel.text = mart.telNumber
+//            return cell
+//        }
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
