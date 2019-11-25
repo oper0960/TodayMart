@@ -110,9 +110,6 @@ extension NearbyMartMapViewController {
     
     func setup() {
         bottomLine(isHide: true)
-        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.isTranslucent = true
         extendedLayoutIncludesOpaqueBars = true
         
         // location
@@ -135,8 +132,7 @@ extension NearbyMartMapViewController {
         searchController = UISearchController(searchResultsController: resultViewController)
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
-        searchController.searchBar.placeholder = "마트 검색"
-//        searchController.searchBar.setValue("취소", forKey: "_cancelButtonText")
+        searchController.searchBar.placeholder = "검색"
         searchController.hidesNavigationBarDuringPresentation = true
         definesPresentationContext = true
         
@@ -146,7 +142,16 @@ extension NearbyMartMapViewController {
     
     func setFloatyButton() -> Floaty {
         let floaty = Floaty()
-        floaty.buttonColor = .white
+        if #available(iOS 13.0, *) {
+            floaty.buttonColor = .systemBackground
+            floaty.itemButtonColor = .systemBackground
+            floaty.itemTitleColor = .systemBackground
+        } else {
+            floaty.buttonColor = .white
+            floaty.itemButtonColor = .white
+            floaty.itemTitleColor = .white
+        }
+        
         floaty.addItem("내 위치로", icon: #imageLiteral(resourceName: "MapIcon")) { _ in
             if let location = self.currentLocation {
                 self.move(at: location.coordinate)
@@ -212,6 +217,12 @@ extension NearbyMartMapViewController: UISearchBarDelegate, SearchResultDelegate
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         floaty.isHidden = true
+        if #available(iOS 13.0, *) {
+            searchController.searchBar.backgroundColor = .systemBackground
+        }
+        
+        
+        
         return true
     }
     
