@@ -75,6 +75,30 @@ struct Mart: Codable {
         case latitude = "Latitude"
         case id = "id"
     }
+    
+    var splitClosedWeek: closedWeek {
+        var week = [Int]()
+        _ = closedWeek.components(separatedBy: ",").map {
+            week.append(Int($0) ?? 0)
+        }
+        return week
+    }
+    
+    var splitClosedDay: closedDay {
+        var week = [Int]()
+        _ = closedWeek.components(separatedBy: ",").map {
+            week.append(Int($0) ?? 0)
+        }
+        return week
+    }
+    
+    var splitFixedClosedDay: fixedClosedDay {
+        var week = [Int]()
+        _ = closedWeek.components(separatedBy: ",").map {
+            week.append(Int($0) ?? 0)
+        }
+        return week
+    }
 
 //    var description: String {
 //        var des = ""

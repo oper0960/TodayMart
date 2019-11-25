@@ -120,48 +120,46 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
             cell.bannerView.rootViewController = self
             cell.adMobUnitId = AppDelegate.adMobKey_MartInfoView
-//            cell.loadAd(adUnitId: AppDelegate.adMobKey_MartInfoView)
             return cell
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! MarkerInfoTableViewCell
         
-//        guard let mart = mart else { return cell }
-//
-//        switch menuArray[indexPath.row] {
-//        case .closeWeek:
-//            cell.descriptionTitleLabel.text = "휴무일"
-//            cell.descriptionLabel.text = closedDayDescription(week: mart.closedWeek, day: mart.closedDay, fixedDay: mart.fixedClosedDay)
-//            return cell
-//        case .closeCurrent:
-//            cell.descriptionTitleLabel.text = "영업유무"
-//            if closedDayYN(week: mart.closedWeek, day: mart.closedDay) {
-//                cell.descriptionLabel.textColor = .red
-//                cell.descriptionLabel.text = "휴무"
-//            } else {
-//                if mart.closedWeek[0] == 0 && mart.closedDay[0] == 8 ||
-//                    mart.closedWeek[1] == 0 && mart.closedDay[1] == 8 {
-//                    cell.descriptionLabel.text = "영업정보없음"
-//                } else {
-//                    cell.descriptionLabel.textColor = openTime(time: mart.openingHours) ? #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-//                    cell.descriptionLabel.text = openTime(time: mart.openingHours) ? "영업중" : "영업종료"
-//                }
-//            }
-//            return cell
-//        case .openHours:
-//            cell.descriptionTitleLabel.text = "영업시간"
-//            cell.descriptionLabel.text = mart.openingHours
-//            return cell
-//        case .address:
-//            cell.descriptionTitleLabel.text = "주소"
-//            cell.descriptionLabel.text = mart.address
-//            return cell
-//        case .telNumber:
-//            cell.descriptionTitleLabel.text = "전화번호"
-//            cell.descriptionLabel.text = mart.telNumber
-//            return cell
-//        }
-        return cell
+        guard let mart = mart else { return cell }
+
+        switch menuArray[indexPath.row] {
+        case .closeWeek:
+            cell.descriptionTitleLabel.text = "휴무일"
+            cell.descriptionLabel.text = closedDayDescription(week: mart.splitClosedWeek, day: mart.splitClosedDay, fixedDay: mart.splitFixedClosedDay)
+            return cell
+        case .closeCurrent:
+            cell.descriptionTitleLabel.text = "영업유무"
+            if closedDayYN(week: mart.splitClosedWeek, day: mart.splitClosedDay) {
+                cell.descriptionLabel.textColor = .red
+                cell.descriptionLabel.text = "휴무"
+            } else {
+                if mart.splitClosedWeek[0] == 0 && mart.splitClosedDay[0] == 8 ||
+                    mart.splitClosedWeek[1] == 0 && mart.splitClosedDay[1] == 8 {
+                    cell.descriptionLabel.text = "영업정보없음"
+                } else {
+                    cell.descriptionLabel.textColor = openTime(time: mart.openingHours) ? #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                    cell.descriptionLabel.text = openTime(time: mart.openingHours) ? "영업중" : "영업종료"
+                }
+            }
+            return cell
+        case .openHours:
+            cell.descriptionTitleLabel.text = "영업시간"
+            cell.descriptionLabel.text = mart.openingHours
+            return cell
+        case .address:
+            cell.descriptionTitleLabel.text = "주소"
+            cell.descriptionLabel.text = mart.address
+            return cell
+        case .telNumber:
+            cell.descriptionTitleLabel.text = "전화번호"
+            cell.descriptionLabel.text = mart.telNumber
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
