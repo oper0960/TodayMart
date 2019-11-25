@@ -101,6 +101,8 @@ extension SettingViewController: MFMailComposeViewControllerDelegate {
                 controller.present(alert, animated: true, completion: nil)
             case .cancelled, .saved:
                 controller.dismiss(animated: true, completion: nil)
+            @unknown default:
+                fatalError()
             }
         }
     }

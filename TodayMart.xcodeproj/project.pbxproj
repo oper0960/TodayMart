@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -53,6 +53,7 @@
 		6F65FB5120CA239E00E16129 /* NearbyMartMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F65FB5020CA239E00E16129 /* NearbyMartMap.storyboard */; };
 		6F65FB5720CA2D7700E16129 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */; };
 		E127CB8B74A44BC8D435B913 /* libPods-TodayMart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */; };
+		EF7D1B70238B9344003C4938 /* MapViewStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = EF7D1B6F238B9344003C4938 /* MapViewStyle.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +110,7 @@
 		6FC5A24F42984D41CF33D1BD /* Pods-TodayMart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayMart.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart.release.xcconfig"; sourceTree = "<group>"; };
 		787EC97FB7F598FDC3A0FEE9 /* Pods-ClosedMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClosedMart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClosedMart/Pods-ClosedMart.debug.xcconfig"; sourceTree = "<group>"; };
 		A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TodayMart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF7D1B6F238B9344003C4938 /* MapViewStyle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MapViewStyle.json; sourceTree = "<group>"; };
 		F53D5D55A2DC2B9364D33E52 /* Pods_ClosedMart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClosedMart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF0C18F195BEBA125B652103 /* Pods-TodayMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayMart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -228,6 +230,7 @@
 		42499F88220831C5008B3D04 /* MapView */ = {
 			isa = PBXGroup;
 			children = (
+				EF7D1B6F238B9344003C4938 /* MapViewStyle.json */,
 				6F65FB4E20CA238C00E16129 /* NearbyMartMapViewController.swift */,
 				31134A5722641DE400D5D801 /* InfomationViewController.swift */,
 				3111AFC22278098600A706CD /* SearchResultViewController.swift */,
@@ -405,7 +408,7 @@
 				TargetAttributes = {
 					6F65FB2F20CA1DAB00E16129 = {
 						CreatedOnToolsVersion = 9.4;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1120;
 					};
 				};
 			};
@@ -444,6 +447,7 @@
 				42499F9C22185FAA008B3D04 /* OpenSourceViewController.xib in Resources */,
 				31134A5E2264244100D5D801 /* ClosedDatabase_V2.db in Resources */,
 				42499FA922196C33008B3D04 /* GoogleService-Info.plist in Resources */,
+				EF7D1B70238B9344003C4938 /* MapViewStyle.json in Resources */,
 				6F65FB3B20CA1DAC00E16129 /* Assets.xcassets in Resources */,
 				31177E0822939EFE00AB14FD /* FavoriteNoneTableViewCell.xib in Resources */,
 				42B652102174F9E2008DC258 /* FavoriteTableViewCell.xib in Resources */,
@@ -475,19 +479,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart-resources.sh",
-				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TodayMart/Pods-TodayMart-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TodayMart/Pods-TodayMart-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TodayMart/Pods-TodayMart-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D7A5DE521FF72095B152053B /* [CP] Check Pods Manifest.lock */ = {
@@ -690,7 +691,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryu.todaymart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "TodayMart/SupportingFiles/TodayMart-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -711,7 +712,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ryu.todaymart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "TodayMart/SupportingFiles/TodayMart-Bridging-Header.h";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
