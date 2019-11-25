@@ -68,17 +68,6 @@ class NearbyMartMapViewController: UIViewController {
         setup()
         setSearchViewController()
         floaty = setFloatyButton()
-        
-        do {
-          // Set the map style by passing the URL of the local file.
-          if let styleURL = Bundle.main.url(forResource: "MapViewStyle", withExtension: "json") {
-            mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-          } else {
-            NSLog("Unable to find style.json")
-          }
-        } catch {
-          NSLog("One or more of the map styles failed to load. \(error)")
-        }
     }
     
     func bottomLine(isHide: Bool) {
@@ -142,15 +131,7 @@ extension NearbyMartMapViewController {
     
     func setFloatyButton() -> Floaty {
         let floaty = Floaty()
-        if #available(iOS 13.0, *) {
-            floaty.buttonColor = .systemBackground
-            floaty.itemButtonColor = .systemBackground
-            floaty.itemTitleColor = .systemBackground
-        } else {
-            floaty.buttonColor = .white
-            floaty.itemButtonColor = .white
-            floaty.itemTitleColor = .white
-        }
+        floaty.buttonColor = .white
         
         floaty.addItem("내 위치로", icon: #imageLiteral(resourceName: "MapIcon")) { _ in
             if let location = self.currentLocation {
@@ -220,9 +201,6 @@ extension NearbyMartMapViewController: UISearchBarDelegate, SearchResultDelegate
         if #available(iOS 13.0, *) {
             searchController.searchBar.backgroundColor = .systemBackground
         }
-        
-        
-        
         return true
     }
     
