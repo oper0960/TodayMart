@@ -19,6 +19,7 @@ target 'TodayMart' do
   pod 'Floaty'
   pod 'Google-Mobile-Ads-SDK'
   pod 'Alamofire'
+  pod 'KeychainSwift', '~> 18.0'
   
 end
 
