@@ -352,7 +352,7 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
 // MARK: - Alamofire
 extension NearbyMartMapViewController {
     func getAllMart() {
-        NetworkManager.request(method: .get, reqURL: API.Mart.getAll, parameters: [:], headers: [:], failed: { error in
+        NetworkManager.request(method: .get, reqURL: Api.Mart.getAll, parameters: [:], headers: [:], failed: { error in
             print("getAllMart Error",error)
         }) { data in
             let decoder = JSONDecoder()
@@ -375,7 +375,7 @@ extension NearbyMartMapViewController {
     }
     
     func searchMart(_ searchText: String, result: @escaping (([Mart]) -> (Void))) {
-        if let urlPath = "\(API.Mart.search)/\(searchText)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+        if let urlPath = "\(Api.Mart.search)/\(searchText)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
             NetworkManager.request(method: .get, reqURL: urlPath, parameters: [:], headers: [:], failed: { error in
                 print("searchMart Error",error)
             }) { data in
@@ -397,7 +397,7 @@ extension NearbyMartMapViewController {
     }
     
     func searchMartById(_ id: Int, result: @escaping ((Mart) -> (Void))) {
-        NetworkManager.request(method: .get, reqURL: "\(API.Mart.getAll)/\(id)", parameters: [:], headers: [:], failed: { error in
+        NetworkManager.request(method: .get, reqURL: "\(Api.Mart.getAll)/\(id)", parameters: [:], headers: [:], failed: { error in
             print("searchMartById Error",error)
         }) { data in
             let decoder = JSONDecoder()

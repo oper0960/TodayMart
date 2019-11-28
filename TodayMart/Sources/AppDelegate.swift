@@ -10,6 +10,7 @@ import UIKit
 import GoogleMaps
 import Firebase
 import GoogleMobileAds
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -44,6 +45,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //userdefault
         setUserDefault()
         
+        login()
+        
         return true
     }
     
@@ -54,3 +57,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
+extension AppDelegate {
+    func login() {
+        Keychain.current.synchronizable = true
+        
+        guard let keychainUUID = Keychain.current.get(KeychainKey.uuid) else {
+            if let uuid = UIDevice.current.deviceUUID {
+                Keychain.current.set(uuid, forKey: KeychainKey.uuid)
+                
+                let loginParamater = ["userId": uuid]
+                
+                NetworkManager.request(method: .post, reqURL: Api.User.login, parameters: loginParamater, headers: [:], failed: { error in
+                    print("Login Error",error)
+                }) { data in
+                    print("login Success")
+                    User.current.uuid = uuid
+                }
+            }
+            return
+        }
+        User.current.uuid = keychainUUID
+    }
+}

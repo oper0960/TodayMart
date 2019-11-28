@@ -20,7 +20,6 @@
 		3116E774226D9CC900224BC1 /* OptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3116E773226D9CC900224BC1 /* OptionTableViewCell.swift */; };
 		31177E0722939EFE00AB14FD /* FavoriteNoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31177E0522939EFE00AB14FD /* FavoriteNoneTableViewCell.swift */; };
 		31177E0822939EFE00AB14FD /* FavoriteNoneTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 31177E0622939EFE00AB14FD /* FavoriteNoneTableViewCell.xib */; };
-		3157A65320DB489B0018336A /* SQLiteManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3157A65220DB489B0018336A /* SQLiteManager.swift */; };
 		31586E6720E4E1C100FB9428 /* GWToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31586E6620E4E1C100FB9428 /* GWToast.swift */; };
 		3163BA9220CE0A4D00B8625C /* Mart.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3163BA9120CE0A4D00B8625C /* Mart.swift */; };
 		3164568120EC60850051AA57 /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3164568020EC60850051AA57 /* UIApplicationExtensions.swift */; };
@@ -53,6 +52,9 @@
 		6F65FB5120CA239E00E16129 /* NearbyMartMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F65FB5020CA239E00E16129 /* NearbyMartMap.storyboard */; };
 		6F65FB5720CA2D7700E16129 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F65FB5620CA2D7700E16129 /* UIColorExtension.swift */; };
 		E127CB8B74A44BC8D435B913 /* libPods-TodayMart.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */; };
+		EF00A063238E19C000CD21CC /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF00A062238E19C000CD21CC /* UIDeviceExtension.swift */; };
+		EF00A065238FBA0300CD21CC /* GlobalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF00A064238FBA0300CD21CC /* GlobalModel.swift */; };
+		EF00A067238FC18300CD21CC /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF00A066238FC18300CD21CC /* Favorite.swift */; };
 		EF6E6E5C238BA75D00454398 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6E6E5B238BA75D00454398 /* NetworkManager.swift */; };
 		EF7D1B72238BA0D4003C4938 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7D1B71238BA0D4003C4938 /* UIViewControllerExtension.swift */; };
 		EF7D1B75238BA40E003C4938 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7D1B74238BA40D003C4938 /* BaseViewController.swift */; };
@@ -73,7 +75,6 @@
 		3116E773226D9CC900224BC1 /* OptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionTableViewCell.swift; sourceTree = "<group>"; };
 		31177E0522939EFE00AB14FD /* FavoriteNoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteNoneTableViewCell.swift; sourceTree = "<group>"; };
 		31177E0622939EFE00AB14FD /* FavoriteNoneTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteNoneTableViewCell.xib; sourceTree = "<group>"; };
-		3157A65220DB489B0018336A /* SQLiteManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteManager.swift; sourceTree = "<group>"; };
 		31586E6620E4E1C100FB9428 /* GWToast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GWToast.swift; sourceTree = "<group>"; };
 		3163BA9120CE0A4D00B8625C /* Mart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mart.swift; sourceTree = "<group>"; };
 		3164568020EC60850051AA57 /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
@@ -112,6 +113,9 @@
 		6FC5A24F42984D41CF33D1BD /* Pods-TodayMart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayMart.release.xcconfig"; path = "Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart.release.xcconfig"; sourceTree = "<group>"; };
 		787EC97FB7F598FDC3A0FEE9 /* Pods-ClosedMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ClosedMart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ClosedMart/Pods-ClosedMart.debug.xcconfig"; sourceTree = "<group>"; };
 		A664E6DF7C7FD92E60AD2F47 /* libPods-TodayMart.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TodayMart.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF00A062238E19C000CD21CC /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
+		EF00A064238FBA0300CD21CC /* GlobalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalModel.swift; sourceTree = "<group>"; };
+		EF00A066238FC18300CD21CC /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
 		EF6E6E5B238BA75D00454398 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EF7D1B71238BA0D4003C4938 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		EF7D1B74238BA40D003C4938 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 				3164568020EC60850051AA57 /* UIApplicationExtensions.swift */,
 				311573602260524C00D6EDAD /* NSObjectExtension.swift */,
 				31118D162283F23800836F31 /* StringExtension.swift */,
+				EF00A062238E19C000CD21CC /* UIDeviceExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -165,8 +170,9 @@
 		311F6921226599B1008E67EE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				EF00A064238FBA0300CD21CC /* GlobalModel.swift */,
 				3163BA9120CE0A4D00B8625C /* Mart.swift */,
-				3157A65220DB489B0018336A /* SQLiteManager.swift */,
+				EF00A066238FC18300CD21CC /* Favorite.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -535,6 +541,7 @@
 				31586E6720E4E1C100FB9428 /* GWToast.swift in Sources */,
 				31177E0722939EFE00AB14FD /* FavoriteNoneTableViewCell.swift in Sources */,
 				6F65FB3420CA1DAB00E16129 /* AppDelegate.swift in Sources */,
+				EF00A067238FC18300CD21CC /* Favorite.swift in Sources */,
 				42B6520F2174F9E2008DC258 /* FavoriteTableViewCell.swift in Sources */,
 				31118D192283F8FC00836F31 /* SearchResultTableViewCell.swift in Sources */,
 				6F65FB4F20CA238C00E16129 /* NearbyMartMapViewController.swift in Sources */,
@@ -543,6 +550,7 @@
 				31134A5822641DE400D5D801 /* InfomationViewController.swift in Sources */,
 				EF6E6E5C238BA75D00454398 /* NetworkManager.swift in Sources */,
 				EF7D1B72238BA0D4003C4938 /* UIViewControllerExtension.swift in Sources */,
+				EF00A065238FBA0300CD21CC /* GlobalModel.swift in Sources */,
 				316976AD20E9FF38000FA771 /* SettingViewController.swift in Sources */,
 				6F65FB5720CA2D7700E16129 /* UIColorExtension.swift in Sources */,
 				42499FA222185FAA008B3D04 /* OpenSourceTextViewController.swift in Sources */,
@@ -551,7 +559,6 @@
 				42499F9D22185FAA008B3D04 /* OpenSourceTableViewCell.swift in Sources */,
 				42B6520B2174F563008DC258 /* FavoriteViewController.swift in Sources */,
 				3116E772226D97C600224BC1 /* SettingOptionsViewController.swift in Sources */,
-				3157A65320DB489B0018336A /* SQLiteManager.swift in Sources */,
 				317CD82920CA54DD00B03B13 /* API.swift in Sources */,
 				42499F9A22185FAA008B3D04 /* OpenSource.swift in Sources */,
 				31118D172283F23800836F31 /* StringExtension.swift in Sources */,
@@ -559,6 +566,7 @@
 				3111AFC32278098600A706CD /* SearchResultViewController.swift in Sources */,
 				3163BA9220CE0A4D00B8625C /* Mart.swift in Sources */,
 				EF7D1B75238BA40E003C4938 /* BaseViewController.swift in Sources */,
+				EF00A063238E19C000CD21CC /* UIDeviceExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -38,8 +38,12 @@ class NetworkManager {
     }
 }
 
-struct API {
+struct Api {
     private static let baseUrl = "http://192.168.1.4:3000"
+    
+    struct User {
+        static let login = "\(baseUrl)/login"
+    }
     
     struct Mart {
         static let getAll = "\(baseUrl)/mart"
