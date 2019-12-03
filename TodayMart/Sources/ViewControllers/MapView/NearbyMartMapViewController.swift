@@ -268,8 +268,7 @@ extension NearbyMartMapViewController: GMUClusterRendererDelegate {
     func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
         if let data = marker.userData as? POIItem {
             let userData = data.userData
-            let mart = userData["mart"] as! Mart
-            marker.icon = mart.favorite == 0 ? #imageLiteral(resourceName: "Pin_Blue") : #imageLiteral(resourceName: "Pin_Yellow")
+            marker.icon = #imageLiteral(resourceName: "Pin_Blue")
         }
     }
 }

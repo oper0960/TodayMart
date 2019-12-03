@@ -49,4 +49,9 @@ struct Api {
         static let getAll = "\(baseUrl)/mart"
         static let search = "\(baseUrl)/search"
     }
+    
+    struct Favorite {
+        static let getAll = "\(baseUrl)/favorite"
+        static let current = "\(baseUrl)/favorite"
+    }
 }

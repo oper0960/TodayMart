@@ -94,6 +94,7 @@ PODS:
   - nanopb/encode (0.3.9011)
   - PanModal (1.2.5)
   - SnapKit (5.0.1)
+  - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -108,6 +109,7 @@ DEPENDENCIES:
   - KeychainSwift (~> 18.0)
   - PanModal
   - SnapKit
+  - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
@@ -133,6 +135,7 @@ SPEC REPOS:
     - nanopb
     - PanModal
     - SnapKit
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
@@ -157,7 +160,8 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PanModal: 7c5af3ad4fe22b91508040965bebffb89fb607ae
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: bb3e1531c47f0963168558228ddf51bd5a0ea55c
+PODFILE CHECKSUM: ac2234d1f295f323c403734c851ed71d9ccc9ea2
 
 COCOAPODS: 1.8.3
