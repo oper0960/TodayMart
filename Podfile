@@ -20,6 +20,7 @@ target 'TodayMart' do
   pod 'Google-Mobile-Ads-SDK'
   pod 'Alamofire'
   pod 'KeychainSwift', '~> 18.0'
+  pod 'SwiftyJSON', '~> 4.0'
   
 end
 

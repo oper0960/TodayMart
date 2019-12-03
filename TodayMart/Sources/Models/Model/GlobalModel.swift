@@ -13,7 +13,7 @@ class User {
     static let current = User()
     private init() {}
     
-    var uuid: String!
+    var uuid: String = ""
 }
 
 

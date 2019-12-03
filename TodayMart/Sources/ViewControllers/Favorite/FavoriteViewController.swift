@@ -7,13 +7,20 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class FavoriteViewController: UIViewController {
     
     @IBOutlet weak var mainTableView: UITableView!
     @IBOutlet weak var noneView: UIView!
     
-    var favoriteMarts = [Mart]()
+    var favoriteMarts = [Mart]() {
+        didSet {
+            mainTableView.isHidden = favoriteMarts.count == 0
+            noneView.isHidden = favoriteMarts.count != 0
+            mainTableView.reloadData()
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -106,15 +113,11 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
         let delete = UITableViewRowAction(style: .default, title: "삭제") { (action, indexPath) in
-//            let mart = self.favoriteMarts[indexPath.row]
-//            do {
-//                let db = try SQLiteManager()
-//                try db.favoriteExecute(name: mart.name, favorite: 0, doneHandler: {
-//                    self.getFavorite()
-//                })
-//            } catch {
-//                self.dbOpenErrorAlert()
-//            }
+            self.deleteFavorite(martId: self.favoriteMarts[indexPath.row].id) { result in
+                if !result {
+                    self.getFavorite()
+                }
+            }
         }
         return [delete]
     }
@@ -124,20 +127,13 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         let mart = self.favoriteMarts[indexPath.row]
-//        do {
-//            let db = try SQLiteManager()
-//
-//            try db.executeSelect(name: mart.name) {(mart: Mart) in
-//                let storyboard = UIStoryboard.init(name: "NearbyMartMap", bundle: nil)
-//                let infoViewController = storyboard.instantiateViewController(withIdentifier: "InfomationViewController") as! InfomationViewController
-//                infoViewController.title = "마트"
-//                infoViewController.mart = mart
-//                infoViewController.delegate = self
-//                self.presentPanModal(infoViewController)
-//            }
-//        } catch {
-//            dbOpenErrorAlert()
-//        }
+        
+        let storyboard = UIStoryboard.init(name: "NearbyMartMap", bundle: nil)
+        let infoViewController = storyboard.instantiateViewController(withIdentifier: "InfomationViewController") as! InfomationViewController
+        infoViewController.title = "마트"
+        infoViewController.mart = mart
+        infoViewController.delegate = self
+        self.presentPanModal(infoViewController)
     }
 }
 
@@ -147,25 +143,40 @@ extension FavoriteViewController: InfomationDelegate {
     }
 }
 
+// MARK: - Alamofire
 extension FavoriteViewController {
     func getFavorite() {
-        
-        
-        
-        
-        
-        
-        
+        NetworkManager.request(method: .get, reqURL: "\(Api.Favorite.getAll)/\(User.current.uuid)", parameters: [:], headers: [:], failed: { error in
+            print("favorite Error",error)
+        }) { data in
+            let decoder = JSONDecoder()
+            if let marts = try? decoder.decode([Mart].self, from: data) {
+                self.favoriteMarts = marts
+            } else {
+                let alert = UIAlertController(title: "DB 불러오기 실패", message: "잠시후에 다시 실행해주세요.", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
+                alert.addAction(okAction)
+                DispatchQueue.main.async {
+                    if let topController = UIApplication.topViewController() {
+                        topController.present(alert, animated: true, completion: nil)
+                    }
+                }
+            }
+        }
     }
     
-    func dbOpenErrorAlert() {
-        let alert = UIAlertController(title: "DB 불러오기 실패", message: "잠시후에 다시 실행해주세요.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-        alert.addAction(okAction)
-        DispatchQueue.main.async {
-            if let topController = UIApplication.topViewController() {
-                topController.present(alert, animated: true, completion: nil)
-            }
+    func deleteFavorite(martId: Int, complete: @escaping (Bool) -> ()) {
+
+        var parameters = DictionaryType()
+        parameters.updateValue(martId.description, forKey: "martId")
+        parameters.updateValue(User.current.uuid, forKey: "userId")
+
+        NetworkManager.request(method: .post, reqURL: Api.Favorite.current, parameters: parameters, headers: [:], failed: { error in
+            print("currentFavorite Error",error)
+        }) { data in
+            let json = JSON(data)
+            print(json)
+            complete(json["favorite"].boolValue)
         }
     }
 }

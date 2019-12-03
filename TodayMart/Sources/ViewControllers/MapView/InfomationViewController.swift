@@ -10,6 +10,7 @@ import UIKit
 import PanModal
 import GoogleMobileAds
 import Firebase
+import SwiftyJSON
 
 protocol InfomationDelegate: class {
     func completeDismiss()
@@ -52,10 +53,8 @@ extension InfomationViewController {
         martNameLabel.text = mart.name
         
         // 즐겨찾기
-        if mart.favorite == 0 {
-            favoriteButton.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
-        } else {
-            favoriteButton.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
+        getCurrentFavorite { result in
+            self.favoriteButton.setImage(result ? #imageLiteral(resourceName: "FavoriteIconSelect") : #imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
         }
         
         infomationTableView.register(UINib(nibName: "AdMobBannerTableViewCell", bundle: nil), forCellReuseIdentifier: "AdMobCell")
@@ -68,37 +67,10 @@ extension InfomationViewController {
 // MARK: - Button
 extension InfomationViewController {
     @IBAction func favoriteButton(_ sender: UIButton) {
-//        if let mart = mart {
-//            let name = mart.name
-//            var martData: Mart?
-//            do {
-//                let db = try SQLiteManager()
-//
-//                try db.executeSelect(name: name) { (mart: Mart) in
-//                    martData = mart
-//                }
-//
-//                let updateDB = try SQLiteManager()
-//                guard let data = martData else { return }
-//                do {
-//                    if data.favorite == 0 {
-//                        try updateDB.favoriteExecute(name: name, favorite: 1, doneHandler: {
-//                            sender.setImage(#imageLiteral(resourceName: "FavoriteIconSelect"), for: .normal)
-//                            mart.favorite = 1
-//                        })
-//                    } else {
-//                        try updateDB.favoriteExecute(name: name, favorite: 0, doneHandler: {
-//                            sender.setImage(#imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
-//                            mart.favorite = 0
-//                        })
-//                    }
-//                } catch {
-//                    dbOpenErrorAlert()
-//                }
-//            } catch {
-//                dbOpenErrorAlert()
-//            }
-//        }
+        
+        setCurrentFavorite { result in
+            self.favoriteButton.setImage(result ? #imageLiteral(resourceName: "FavoriteIconSelect") : #imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
+        }
     }
 }
 
@@ -198,16 +170,35 @@ extension InfomationViewController: PanModalPresentable {
     }
 }
 
-// MARK: - Database
+// MARK: - Alamofire
 extension InfomationViewController {
-    func dbOpenErrorAlert() {
-        let alert = UIAlertController(title: "DB 불러오기 실패", message: "잠시후에 다시 실행해주세요.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default, handler: nil)
-        alert.addAction(okAction)
-        DispatchQueue.main.async {
-            if let topController = UIApplication.topViewController() {
-                topController.present(alert, animated: true, completion: nil)
-            }
+    func getCurrentFavorite(complete: @escaping (Bool) -> ()) {
+        
+        guard let mart = mart else { return }
+        
+        NetworkManager.request(method: .get, reqURL: "\(Api.Favorite.current)/\(mart.id.description)/\(User.current.uuid)", parameters: [:], headers: [:], failed: { error in
+            print("currentFavorite Error",error)
+        }) { data in
+            let json = JSON(data)
+            print(json)
+            complete(json["favorite"].boolValue)
+        }
+    }
+    
+    func setCurrentFavorite(complete: @escaping (Bool) -> ()) {
+        
+        guard let mart = mart else { return }
+        
+        var parameters = DictionaryType()
+        parameters.updateValue(mart.id.description, forKey: "martId")
+        parameters.updateValue(User.current.uuid, forKey: "userId")
+        
+        NetworkManager.request(method: .post, reqURL: Api.Favorite.current, parameters: parameters, headers: [:], failed: { error in
+            print("currentFavorite Error",error)
+        }) { data in
+            let json = JSON(data)
+            print(json)
+            complete(json["favorite"].boolValue)
         }
     }
 }
