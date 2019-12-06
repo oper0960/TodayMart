@@ -39,7 +39,7 @@ class NetworkManager {
 }
 
 struct Api {
-    private static let baseUrl = "http://192.168.1.4:3000"
+    private static let baseUrl = "http://192.168.1.4:8001"
     
     struct User {
         static let login = "\(baseUrl)/login"

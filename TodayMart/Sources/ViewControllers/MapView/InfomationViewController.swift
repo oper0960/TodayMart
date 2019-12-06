@@ -180,7 +180,6 @@ extension InfomationViewController {
             print("currentFavorite Error",error)
         }) { data in
             let json = JSON(data)
-            print(json)
             complete(json["favorite"].boolValue)
         }
     }
@@ -197,7 +196,6 @@ extension InfomationViewController {
             print("currentFavorite Error",error)
         }) { data in
             let json = JSON(data)
-            print(json)
             complete(json["favorite"].boolValue)
         }
     }

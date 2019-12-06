@@ -16,7 +16,6 @@ class User {
     var uuid: String = ""
 }
 
-
 // MARK: - Current Location Singleton
 class Locations {
     static let shared = Locations()
