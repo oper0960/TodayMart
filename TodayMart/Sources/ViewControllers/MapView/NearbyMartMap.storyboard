@@ -3,7 +3,7 @@
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -239,6 +239,7 @@
                     <connections>
                         <outlet property="indicator" destination="Zl2-Qa-eUE" id="WJt-9O-j3x"/>
                         <outlet property="searchTableView" destination="Ikv-FO-1SC" id="tMC-89-CVZ"/>
+                        <outlet property="searchTableViewBottom" destination="kvE-nV-xJx" id="8AM-jz-ZsT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4aj-1b-B6o" userLabel="First Responder" sceneMemberID="firstResponder"/>

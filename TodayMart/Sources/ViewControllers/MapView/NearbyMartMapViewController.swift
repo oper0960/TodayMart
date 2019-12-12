@@ -268,7 +268,9 @@ extension NearbyMartMapViewController: GMUClusterRendererDelegate {
     func renderer(_ renderer: GMUClusterRenderer, willRenderMarker marker: GMSMarker) {
         if let data = marker.userData as? POIItem {
             let userData = data.userData
-            marker.icon = #imageLiteral(resourceName: "Pin_Blue")
+            let mart = userData["mart"] as! Mart
+            
+            marker.icon = mart.markerImage
         }
     }
 }
@@ -323,9 +325,6 @@ extension NearbyMartMapViewController: GMSMapViewDelegate, GMUClusterManagerDele
                 infoViewController.mart = mart
                 infoViewController.delegate = self
                 self.presentPanModal(infoViewController)
-                DispatchQueue.main.async {
-                    marker.icon = #imageLiteral(resourceName: "Pin_Red")
-                }
             }
         }
         return false

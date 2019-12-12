@@ -14,10 +14,12 @@ protocol SearchResultDelegate: class {
     func focusMart(longitude: Double, latitude: Double)
 }
 
-class SearchResultViewController: UIViewController {
+class SearchResultViewController: BaseViewController {
     
     @IBOutlet weak var searchTableView: UITableView!
+    @IBOutlet weak var searchTableViewBottom: NSLayoutConstraint!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
+    
     weak var delegate: SearchResultDelegate?
     
     var marts = [Mart]() {
@@ -33,6 +35,22 @@ class SearchResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+    }
+    
+    override func keyboardWillChange(_ notification: Notification, keyboardSize: CGRect) {
+        print(keyboardSize.height)
+        var keyboardHeight = keyboardSize.height
+        if #available(iOS 11.0, *) {
+            if keyboardSize.height != 0{
+                keyboardHeight = keyboardSize.height - self.view.safeAreaInsets.bottom
+            }
+        }
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.3) {
+                self.searchTableViewBottom.constant = keyboardHeight
+                self.view.layoutIfNeeded()
+            }
+        }
     }
 }
 
