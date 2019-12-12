@@ -16,6 +16,22 @@ typealias closedDay = [Int]
 typealias fixedClosedDay = [Int]
 
 struct Mart: Codable {
+    
+    enum Brand: Int {
+        case emart, homeplus, lotteMart, costco, traders, bigMarket, megaMart
+    }
+    
+    var MartArray: [Brand] = {
+        var array = [Brand]()
+        array.append(.emart)
+        array.append(.homeplus)
+        array.append(.lotteMart)
+        array.append(.costco)
+        array.append(.traders)
+        array.append(.bigMarket)
+        array.append(.megaMart)
+        return array
+    }()
 
     var name: name
     var closedWeek: String
@@ -27,6 +43,7 @@ struct Mart: Codable {
     var longitude: Double
     var latitude: Double
     var id: Int
+    var type: Int
 
     private enum CodingKeys: String, CodingKey {
         case name = "Name"
@@ -39,6 +56,19 @@ struct Mart: Codable {
         case longitude = "Longitude"
         case latitude = "Latitude"
         case id = "id"
+        case type = "type"
+    }
+    
+    var markerImage: UIImage {
+        switch MartArray[self.type] {
+        case .emart:        return #imageLiteral(resourceName: "Pin_Red")
+        case .homeplus:     return #imageLiteral(resourceName: "Pin_Yellow")
+        case .lotteMart:    return #imageLiteral(resourceName: "Pin_Blue")
+        case .costco:       return #imageLiteral(resourceName: "Pin_Red")
+        case .traders:      return #imageLiteral(resourceName: "Pin_Red")
+        case .bigMarket:    return #imageLiteral(resourceName: "Pin_Red")
+        case .megaMart:     return #imageLiteral(resourceName: "Pin_Red")
+        }
     }
     
     var splitClosedWeek: closedWeek {
@@ -76,6 +106,7 @@ struct Mart: Codable {
         des = des.appending("       address: \(self.address),\n")
         des = des.appending("       telNumber: \(self.telNumber),\n")
         des = des.appending("       telNumber: \(self.telNumber),\n")
+        des = des.appending("       type: \(self.type),\n")
         des = des.appending("       longitude: \(self.longitude),\n")
         des = des.appending("       latitude: \(self.latitude)\n")
         des = des.appending("   }")
