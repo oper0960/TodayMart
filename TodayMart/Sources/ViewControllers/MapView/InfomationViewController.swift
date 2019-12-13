@@ -110,13 +110,8 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.descriptionLabel.textColor = .red
                 cell.descriptionLabel.text = "휴무"
             } else {
-                if mart.splitClosedWeek[0] == 0 && mart.splitClosedDay[0] == 8 ||
-                    mart.splitClosedWeek[1] == 0 && mart.splitClosedDay[1] == 8 {
-                    cell.descriptionLabel.text = "영업정보없음"
-                } else {
-                    cell.descriptionLabel.textColor = openTime(time: mart.openingHours) ? #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
-                    cell.descriptionLabel.text = openTime(time: mart.openingHours) ? "영업중" : "영업종료"
-                }
+                cell.descriptionLabel.textColor = openTime(time: mart.openingHours) ? #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                cell.descriptionLabel.text = openTime(time: mart.openingHours) ? "영업중" : "영업종료"
             }
             return cell
         case .openHours:
