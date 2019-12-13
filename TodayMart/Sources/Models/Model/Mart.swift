@@ -37,7 +37,7 @@ struct Mart: Codable {
     var closedWeek: String
     var closedDay: String
     var openingHours: String
-    var fixedClosedDay: String
+    var fixedClosedDay: String?
     var address: String
     var telNumber: String
     var longitude: Double
@@ -89,8 +89,10 @@ struct Mart: Codable {
     
     var splitFixedClosedDay: fixedClosedDay {
         var week = [Int]()
-        _ = fixedClosedDay.components(separatedBy: ",").map {
-            week.append(Int($0) ?? 0)
+        if let fixday = fixedClosedDay {
+            _ = fixday.components(separatedBy: ",").map {
+                week.append(Int($0) ?? 0)
+            }
         }
         return week
     }
@@ -102,7 +104,7 @@ struct Mart: Codable {
         des = des.appending("       closedWeek: \(self.closedWeek),\n")
         des = des.appending("       closedDay: \(self.closedDay),\n")
         des = des.appending("       openingHours: \(self.openingHours),\n")
-        des = des.appending("       fixedClosedDay: \(self.fixedClosedDay),\n")
+        des = des.appending("       fixedClosedDay: \(self.fixedClosedDay ?? ""),\n")
         des = des.appending("       address: \(self.address),\n")
         des = des.appending("       telNumber: \(self.telNumber),\n")
         des = des.appending("       telNumber: \(self.telNumber),\n")

@@ -114,7 +114,6 @@ extension NSObject {
                 return "\(week[0])번째주 \(dayToString(day: day[0])), 매달 \(fixedDay[0])일"
             }
         }
-        
         return "\(week[0])번째주 \(dayToString(day: day[0])), \(week[1])번째주 \(dayToString(day: day[1]))"
     }
 }
