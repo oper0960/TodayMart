@@ -185,6 +185,9 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 OpenSource("SnapKit", license: .mit(year: "2011", name: "SnapKit Team")),
                 OpenSource("Floaty", license: .mit(year: "2015", name: "Lee Sun-Hyoup")),
                 OpenSource("PanModal", license: .mit(year: "2018", name: "Tiny Speck")),
+                OpenSource("Alamofire", license: .mit(year: "2018", name: "Alamofire Software Foundation")),
+                OpenSource("KeychainSwift", license: .mit(year: "2019", name: "Evgenii Neumerzhitckii")),
+                OpenSource("SwiftyJSON", license: .mit(year: "2017", name: "Ruoyu Fu")),
                 OpenSource("GoogleMaps", license: .apache2),
                 OpenSource("GooglePlaces", license: .apache2),
                 OpenSource("Firebase", license: .apache2)

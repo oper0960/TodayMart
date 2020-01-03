@@ -61,13 +61,13 @@ struct Mart: Codable {
     
     var markerImage: UIImage {
         switch MartArray[self.type] {
-        case .emart:        return #imageLiteral(resourceName: "Pin_Red")
-        case .homeplus:     return #imageLiteral(resourceName: "Pin_Yellow")
-        case .lotteMart:    return #imageLiteral(resourceName: "Pin_Blue")
-        case .costco:       return #imageLiteral(resourceName: "Pin_Red")
-        case .traders:      return #imageLiteral(resourceName: "Pin_Red")
-        case .bigMarket:    return #imageLiteral(resourceName: "Pin_Red")
-        case .megaMart:     return #imageLiteral(resourceName: "Pin_Red")
+        case .emart:        return #imageLiteral(resourceName: "Emart")
+        case .homeplus:     return #imageLiteral(resourceName: "HomePlus")
+        case .lotteMart:    return #imageLiteral(resourceName: "LotteMart")
+        case .costco:       return #imageLiteral(resourceName: "Costco")
+        case .traders:      return #imageLiteral(resourceName: "Traders")
+        case .bigMarket:    return #imageLiteral(resourceName: "BigMarket")
+        case .megaMart:     return #imageLiteral(resourceName: "MegaMart")
         }
     }
     

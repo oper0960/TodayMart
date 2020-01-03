@@ -123,7 +123,7 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
             cell.descriptionLabel.text = mart.address
             return cell
         case .telNumber:
-            cell.descriptionTitleLabel.text = "전화번호"
+            cell.descriptionTitleLabel.text = "전화번호 (전화걸기)"
             cell.descriptionLabel.text = mart.telNumber
             return cell
         }

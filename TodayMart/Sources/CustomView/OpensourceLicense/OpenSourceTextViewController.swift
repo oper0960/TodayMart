@@ -31,6 +31,7 @@ extension OpenSourceTextViewController {
             mainTextView.text = ""
             return
         }
+        
         title = opensource.opensourceName
         mainTextView.text = opensource.license.licenseText
     }
