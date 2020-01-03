@@ -134,6 +134,33 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
             return
         }
         
+        
+        if menuArray[indexPath.row] == .address {
+            guard let lat = mart?.latitude, let long = mart?.longitude else { return }
+            
+            let alert = UIAlertController(title: "네비게이션 앱 선택", message: "앱이 설치되어 있지 않다면 동작하지 않을 수 있습니다.", preferredStyle: .actionSheet)
+            let kakao = UIAlertAction(title: "카카오맵", style: .default) { action in
+                
+                let url = SchemeManager.getUrl(type: .kakaoMap, long: long, lat: lat)
+                
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                } else {
+                    UIApplication.shared.open(URL(string: "https://apps.apple.com/us/app/id304608425")!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                }
+            }
+            let naver = UIAlertAction(title: "네이버지도", style: .default) { action in
+                UIApplication.shared.open(SchemeManager.getUrl(type: .naverMap, long: long, lat: lat), options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+            }
+            let tmap = UIAlertAction(title: "티맵", style: .default) { action in
+                UIApplication.shared.open(SchemeManager.getUrl(type: .tMap, long: long, lat: lat), options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+            }
+            alert.addAction(kakao)
+            alert.addAction(naver)
+            alert.addAction(tmap)
+            present(alert, animated: true, completion: nil)
+        }
+        
         if menuArray[indexPath.row] == .telNumber {
             if let tel = mart?.telNumber, let url = URL(string: "tel://\(tel)"), UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
@@ -194,4 +221,9 @@ extension InfomationViewController {
             complete(json["favorite"].boolValue)
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+    return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

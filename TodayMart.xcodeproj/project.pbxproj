@@ -51,6 +51,7 @@
 		EF00A063238E19C000CD21CC /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF00A062238E19C000CD21CC /* UIDeviceExtension.swift */; };
 		EF00A065238FBA0300CD21CC /* GlobalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF00A064238FBA0300CD21CC /* GlobalModel.swift */; };
 		EF00A067238FC18300CD21CC /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF00A066238FC18300CD21CC /* Favorite.swift */; };
+		EF0C40F723BF49350021C5E0 /* SchemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF0C40F623BF49350021C5E0 /* SchemeManager.swift */; };
 		EF6E6E5C238BA75D00454398 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6E6E5B238BA75D00454398 /* NetworkManager.swift */; };
 		EF7D1B72238BA0D4003C4938 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7D1B71238BA0D4003C4938 /* UIViewControllerExtension.swift */; };
 		EF7D1B75238BA40E003C4938 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7D1B74238BA40D003C4938 /* BaseViewController.swift */; };
@@ -108,6 +109,7 @@
 		EF00A062238E19C000CD21CC /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
 		EF00A064238FBA0300CD21CC /* GlobalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalModel.swift; sourceTree = "<group>"; };
 		EF00A066238FC18300CD21CC /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		EF0C40F623BF49350021C5E0 /* SchemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchemeManager.swift; sourceTree = "<group>"; };
 		EF6E6E5B238BA75D00454398 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EF7D1B71238BA0D4003C4938 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		EF7D1B74238BA40D003C4938 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,8 @@
 				311573602260524C00D6EDAD /* NSObjectExtension.swift */,
 				31118D162283F23800836F31 /* StringExtension.swift */,
 				EF00A062238E19C000CD21CC /* UIDeviceExtension.swift */,
+				42AD289E21777B19006FAC94 /* ETC.swift */,
+				31586E6620E4E1C100FB9428 /* GWToast.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -165,6 +169,7 @@
 				EF00A064238FBA0300CD21CC /* GlobalModel.swift */,
 				3163BA9120CE0A4D00B8625C /* Mart.swift */,
 				EF00A066238FC18300CD21CC /* Favorite.swift */,
+				EF0C40F623BF49350021C5E0 /* SchemeManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -359,8 +364,6 @@
 			children = (
 				EF00A08623A0D36300CD21CC /* Networking */,
 				311573622260525000D6EDAD /* Extensions */,
-				42AD289E21777B19006FAC94 /* ETC.swift */,
-				31586E6620E4E1C100FB9428 /* GWToast.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				3111AFC32278098600A706CD /* SearchResultViewController.swift in Sources */,
 				3163BA9220CE0A4D00B8625C /* Mart.swift in Sources */,
 				EF7D1B75238BA40E003C4938 /* BaseViewController.swift in Sources */,
+				EF0C40F723BF49350021C5E0 /* SchemeManager.swift in Sources */,
 				EF00A063238E19C000CD21CC /* UIDeviceExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
