@@ -11,17 +11,51 @@ import UIKit
 enum SchemeManager {
     case naverMap, kakaoMap, tMap
     
-    static func getUrl(type: SchemeManager, long: Double, lat: Double) -> URL {
+    static func getUrl(type: SchemeManager, name: String, long: Double, lat: Double) -> URL {
         switch type {
         case .kakaoMap:
-            guard let currentLat = Locations.shared.currentLocation?.coordinate.latitude, let currentLong = Locations.shared.currentLocation?.coordinate.longitude else {
-                return URL(string: "kakaomap://look?p=\(lat),\(long)")!
+            
+            let url: URL
+            
+            if let currentLat = Locations.shared.currentLocation?.coordinate.latitude, let currentLong = Locations.shared.currentLocation?.coordinate.longitude {
+                url = URL(string: "kakaomap://route?sp=\(currentLat),\(currentLong)&ep=\(lat),\(long)&by=CAR")!
+            } else {
+                url = URL(string: "kakaomap://look?p=\(lat),\(long)")!
             }
-            return URL(string: "kakaomap://route?sp=\(currentLat),\(currentLong)&ep=\(lat),\(long)&by=CAR")!
+            
+            if UIApplication.shared.canOpenURL(url) {
+                return url
+            } else {
+                return URL(string: "https://apps.apple.com/us/app/id304608425")!
+            }
+            
         case .naverMap:
-            return URL(string: "nmap://map?lat=\(lat)&lng=\(long)&level=13&mode=3&traffic=false&appname=com.ryu.todaymart")!
+            
+            let url: URL
+            
+            if let currentLat = Locations.shared.currentLocation?.coordinate.latitude, let currentLong = Locations.shared.currentLocation?.coordinate.longitude {
+                url = URL(string: "nmap://route/car?slat=\(currentLat)&slng=\(currentLong)&sname=\("현재위치")&dlat=\(lat)&dlng=\(long)&dname=\(name)&appname=com.ryu.todaymart".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")!
+            } else {
+                url = URL(string: "nmap://map?lat=\(lat)&lng=\(long)&level=13&mode=1&traffic=false&appname=com.ryu.todaymart")!
+            }
+            
+            if UIApplication.shared.canOpenURL(url) {
+                return url
+            } else {
+                return URL(string: "http://itunes.apple.com/app/id311867728?mt=8")!
+            }
+            
         case .tMap:
-            return URL(string: "tmap://?rGoX=\(long)&rGoY=\(lat)")!
+            
+            let url: URL
+            
+            url = URL(string: "tmap://?rGoName=\(name)&rGoX=\(long)&rGoY=\(lat)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")!
+            
+            if UIApplication.shared.canOpenURL(url) {
+                return url
+            } else {
+                return URL(string: "https://apps.apple.com/kr/app/t-map-for-all/id431589174")!
+            }
         }
     }
 }

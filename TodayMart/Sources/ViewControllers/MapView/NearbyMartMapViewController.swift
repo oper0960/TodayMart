@@ -253,6 +253,7 @@ extension NearbyMartMapViewController: CLLocationManagerDelegate {
         guard let location: CLLocation = locations.first else { return }
         
         self.currentLocation = location
+        Locations.shared.currentLocation = location
         
         if !firstActive {
             move(at: location.coordinate)

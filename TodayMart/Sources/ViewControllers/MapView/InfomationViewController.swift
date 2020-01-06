@@ -119,7 +119,7 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
             cell.descriptionLabel.text = mart.openingHours
             return cell
         case .address:
-            cell.descriptionTitleLabel.text = "주소"
+            cell.descriptionTitleLabel.text = "주소 (앱 연결)"
             cell.descriptionLabel.text = mart.address
             return cell
         case .telNumber:
@@ -136,28 +136,25 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
         
         
         if menuArray[indexPath.row] == .address {
-            guard let lat = mart?.latitude, let long = mart?.longitude else { return }
+            guard let name = mart?.name, let lat = mart?.latitude, let long = mart?.longitude else { return }
             
-            let alert = UIAlertController(title: "네비게이션 앱 선택", message: "앱이 설치되어 있지 않다면 동작하지 않을 수 있습니다.", preferredStyle: .actionSheet)
+            let alert = UIAlertController(title: "내비게이션 앱 선택", message: "앱이 설치되어 있지 않다면 설치페이지로 이동합니다.\n도착지는 주차장입구와는 차이가 있을 수 있습니다.", preferredStyle: .actionSheet)
             let kakao = UIAlertAction(title: "카카오맵", style: .default) { action in
-                
-                let url = SchemeManager.getUrl(type: .kakaoMap, long: long, lat: lat)
-                
-                if UIApplication.shared.canOpenURL(url) {
-                    UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                } else {
-                    UIApplication.shared.open(URL(string: "https://apps.apple.com/us/app/id304608425")!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
-                }
+                UIApplication.shared.open(SchemeManager.getUrl(type: .kakaoMap, name: name, long: long, lat: lat), options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             }
             let naver = UIAlertAction(title: "네이버지도", style: .default) { action in
-                UIApplication.shared.open(SchemeManager.getUrl(type: .naverMap, long: long, lat: lat), options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                UIApplication.shared.open(SchemeManager.getUrl(type: .naverMap, name: name, long: long, lat: lat), options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             }
             let tmap = UIAlertAction(title: "티맵", style: .default) { action in
-                UIApplication.shared.open(SchemeManager.getUrl(type: .tMap, long: long, lat: lat), options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
+                UIApplication.shared.open(SchemeManager.getUrl(type: .tMap, name: name, long: long, lat: lat), options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             }
+            let cancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+            
             alert.addAction(kakao)
             alert.addAction(naver)
             alert.addAction(tmap)
+            alert.addAction(cancel)
+            
             present(alert, animated: true, completion: nil)
         }
         
