@@ -21,6 +21,7 @@ target 'TodayMart' do
   pod 'Alamofire'
   pod 'KeychainSwift', '~> 18.0'
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'JTAppleCalendar'
   
 end
 

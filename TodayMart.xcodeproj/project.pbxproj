@@ -55,6 +55,8 @@
 		EF6E6E5C238BA75D00454398 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF6E6E5B238BA75D00454398 /* NetworkManager.swift */; };
 		EF7D1B72238BA0D4003C4938 /* UIViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7D1B71238BA0D4003C4938 /* UIViewControllerExtension.swift */; };
 		EF7D1B75238BA40E003C4938 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7D1B74238BA40D003C4938 /* BaseViewController.swift */; };
+		EF96247C23C6CF7600E7CDEB /* MarkerCalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF96247B23C6CF7600E7CDEB /* MarkerCalendarTableViewCell.swift */; };
+		EF96247E23C6CFE100E7CDEB /* MarkerCalendarCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF96247D23C6CFE100E7CDEB /* MarkerCalendarCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +115,8 @@
 		EF6E6E5B238BA75D00454398 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EF7D1B71238BA0D4003C4938 /* UIViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtension.swift; sourceTree = "<group>"; };
 		EF7D1B74238BA40D003C4938 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		EF96247B23C6CF7600E7CDEB /* MarkerCalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerCalendarTableViewCell.swift; sourceTree = "<group>"; };
+		EF96247D23C6CFE100E7CDEB /* MarkerCalendarCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerCalendarCollectionViewCell.swift; sourceTree = "<group>"; };
 		F53D5D55A2DC2B9364D33E52 /* Pods_ClosedMart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ClosedMart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF0C18F195BEBA125B652103 /* Pods-TodayMart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TodayMart.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TodayMart/Pods-TodayMart.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +147,8 @@
 			isa = PBXGroup;
 			children = (
 				31134A6022643FD000D5D801 /* MarkerInfoTableViewCell.swift */,
+				EF96247B23C6CF7600E7CDEB /* MarkerCalendarTableViewCell.swift */,
+				EF96247D23C6CFE100E7CDEB /* MarkerCalendarCollectionViewCell.swift */,
 				31118D182283F8FB00836F31 /* SearchResultTableViewCell.swift */,
 			);
 			path = MapViewTableView;
@@ -551,6 +557,8 @@
 				31118D172283F23800836F31 /* StringExtension.swift in Sources */,
 				3116E774226D9CC900224BC1 /* OptionTableViewCell.swift in Sources */,
 				3111AFC32278098600A706CD /* SearchResultViewController.swift in Sources */,
+				EF96247E23C6CFE100E7CDEB /* MarkerCalendarCollectionViewCell.swift in Sources */,
+				EF96247C23C6CF7600E7CDEB /* MarkerCalendarTableViewCell.swift in Sources */,
 				3163BA9220CE0A4D00B8625C /* Mart.swift in Sources */,
 				EF7D1B75238BA40E003C4938 /* BaseViewController.swift in Sources */,
 				EF0C40F723BF49350021C5E0 /* SchemeManager.swift in Sources */,
