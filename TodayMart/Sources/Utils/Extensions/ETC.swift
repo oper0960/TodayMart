@@ -17,3 +17,19 @@ struct UserSettings {
 }
 
 
+enum Admob {
+    case banner
+    
+    var id: String {
+        switch self {
+        case .banner:
+            #if DEBUG
+            return "ca-app-pub-3940256099942544/2934735716"
+            #else
+            return "ca-app-pub-9335296893721653/6964742992"
+            #endif
+        }
+    }
+}
+
+

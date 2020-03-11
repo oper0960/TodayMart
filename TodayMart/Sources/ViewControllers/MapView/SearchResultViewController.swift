@@ -12,6 +12,7 @@ import Firebase
 
 protocol SearchResultDelegate: class {
     func focusMart(longitude: Double, latitude: Double)
+    func endEditing()
 }
 
 class SearchResultViewController: BaseViewController {
@@ -69,12 +70,11 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell") as! AdMobBannerTableViewCell
         cell.bannerView.rootViewController = self
-        cell.adMobUnitId = AppDelegate.adMobKey_MapView
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 100
+        return 200
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -106,5 +106,9 @@ extension SearchResultViewController: UITableViewDelegate, UITableViewDataSource
     @objc func goToMart(_ sender: UIButton) {
         let mart = marts[sender.tag]
         delegate?.focusMart(longitude: mart.longitude, latitude: mart.latitude)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        delegate?.endEditing()
     }
 }
