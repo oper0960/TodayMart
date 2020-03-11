@@ -61,7 +61,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard indexPath.row != favoriteMarts.count else {
-            return 100
+            return 200
         }
         return 80
     }
@@ -70,7 +70,6 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
         guard indexPath.row != favoriteMarts.count else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
             cell.bannerView.rootViewController = self
-            cell.adMobUnitId = AppDelegate.adMobKey_Favorite
             return cell
         }
         

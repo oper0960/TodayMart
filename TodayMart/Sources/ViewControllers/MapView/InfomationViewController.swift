@@ -82,7 +82,7 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard indexPath.row != menuArray.count else {
-            return 100
+            return 200
         }
         return UITableView.automaticDimension
     }
@@ -91,7 +91,6 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
         guard indexPath.row != menuArray.count else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
             cell.bannerView.rootViewController = self
-            cell.adMobUnitId = AppDelegate.adMobKey_MartInfoView
             return cell
         }
         

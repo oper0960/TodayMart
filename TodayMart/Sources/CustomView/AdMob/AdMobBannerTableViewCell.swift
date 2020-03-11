@@ -28,13 +28,12 @@ class AdMobBannerTableViewCell: UITableViewCell {
             $0.trailing.equalTo(contentView.snp.trailing).offset(0)
             $0.bottom.equalTo(contentView.snp.bottom).offset(0)
         })
-        if let adId = adMobUnitId {
-            bannerView.adUnitID = adId
-            let admobRequest: GADRequest = GADRequest()
-            admobRequest.testDevices = ["d33705983b89f6867acfe7f7564ae9b0"]
-            bannerView.delegate = self
-            bannerView.load(admobRequest)
-        }
+        
+        bannerView.adUnitID = Admob.banner.id
+        let admobRequest: GADRequest = GADRequest()
+        admobRequest.testDevices = ["d33705983b89f6867acfe7f7564ae9b0", "d695c495c793a667799551f191877aa6"]
+        bannerView.delegate = self
+        bannerView.load(admobRequest)
     }
     
     override func prepareForReuse() {

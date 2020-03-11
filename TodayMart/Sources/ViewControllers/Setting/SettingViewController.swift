@@ -116,7 +116,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard !(menuArray[indexPath.row] == .admob) else { return 100 }
+        guard !(menuArray[indexPath.row] == .admob) else { return 200 }
         return 50
     }
     
@@ -142,7 +142,6 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         case .admob:
             let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
             cell.bannerView.rootViewController = self
-            cell.adMobUnitId = AppDelegate.adMobKey_Setting
             cell.separatorInset = .zero
             return cell
         }
