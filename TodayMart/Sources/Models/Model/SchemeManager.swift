@@ -2,7 +2,7 @@
 //  SchemeManager.swift
 //  TodayMart
 //
-//  Created by Buxi on 2020/01/03.
+//  Created by Gilwan Ryu on 2020/01/03.
 //  Copyright © 2020 Ry. All rights reserved.
 //
 

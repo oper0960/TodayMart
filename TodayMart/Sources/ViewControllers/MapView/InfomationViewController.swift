@@ -19,12 +19,12 @@ protocol InfomationDelegate: class {
 class InfomationViewController: UIViewController {
     
     enum Infomation {
-        case closeWeek, closeCurrent, openHours, address, telNumber
+        case closeWeek, closeCurrent, openHours, address, telNumber, calendar, admob
     }
     
     var menuArray: [Infomation] = {
         var menu = [Infomation]()
-        menu = [.closeWeek, .closeCurrent, .openHours, .address, .telNumber]
+        menu = [.closeWeek, .closeCurrent, .openHours, .address, .telNumber, .admob, .calendar]
         return menu
     }()
     
@@ -67,7 +67,6 @@ extension InfomationViewController {
 // MARK: - Button
 extension InfomationViewController {
     @IBAction func favoriteButton(_ sender: UIButton) {
-        
         setCurrentFavorite { result in
             self.favoriteButton.setImage(result ? #imageLiteral(resourceName: "FavoriteIconSelect") : #imageLiteral(resourceName: "FavoriteIcon"), for: .normal)
         }
@@ -77,33 +76,32 @@ extension InfomationViewController {
 // MARK: - UITableViewDelegate, UITableViewDataSource
 extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuArray.count + 1
+        return menuArray.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        guard indexPath.row != menuArray.count else {
+        switch menuArray[indexPath.row] {
+        case .calendar:
+            return 300
+        case .admob:
             return 200
+        default:
+            return UITableView.automaticDimension
         }
-        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard indexPath.row != menuArray.count else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
-            cell.bannerView.rootViewController = self
-            return cell
-        }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! MarkerInfoTableViewCell
-        
-        guard let mart = mart else { return cell }
+        guard let mart = mart else { return UITableViewCell() }
 
         switch menuArray[indexPath.row] {
         case .closeWeek:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! MarkerInfoTableViewCell
             cell.descriptionTitleLabel.text = "휴무일"
             cell.descriptionLabel.text = closedDayDescription(week: mart.splitClosedWeek, day: mart.splitClosedDay, fixedDay: mart.splitFixedClosedDay)
             return cell
         case .closeCurrent:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! MarkerInfoTableViewCell
             cell.descriptionTitleLabel.text = "영업유무"
             if closedDayYN(week: mart.splitClosedWeek, day: mart.splitClosedDay) {
                 cell.descriptionLabel.textColor = .red
@@ -114,26 +112,32 @@ extension InfomationViewController: UITableViewDelegate, UITableViewDataSource {
             }
             return cell
         case .openHours:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! MarkerInfoTableViewCell
             cell.descriptionTitleLabel.text = "영업시간"
             cell.descriptionLabel.text = mart.openingHours
             return cell
         case .address:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! MarkerInfoTableViewCell
             cell.descriptionTitleLabel.text = "주소 (앱 연결)"
             cell.descriptionLabel.text = mart.address
             return cell
         case .telNumber:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "InfoCell", for: indexPath) as! MarkerInfoTableViewCell
             cell.descriptionTitleLabel.text = "전화번호 (전화걸기)"
             cell.descriptionLabel.text = mart.telNumber
+            return cell
+        case .calendar:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "calendarCell", for: indexPath) as! MarkerCalendarTableViewCell
+            cell.closeDayBind(mart: mart)
+            return cell   
+        case .admob:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AdMobCell", for: indexPath) as! AdMobBannerTableViewCell
+            cell.bannerView.rootViewController = self
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.row != menuArray.count else {
-            return
-        }
-        
-        
         if menuArray[indexPath.row] == .address {
             guard let name = mart?.name, let lat = mart?.latitude, let long = mart?.longitude else { return }
             
@@ -180,11 +184,11 @@ extension InfomationViewController: PanModalPresentable {
     }
     
     var shortFormHeight: PanModalHeight {
-        return .contentHeight(400)
+        return .maxHeightWithTopInset(0)
     }
     
     var longFormHeight: PanModalHeight {
-        return .maxHeightWithTopInset(100)
+        return .maxHeightWithTopInset(0)
     }
 }
 
