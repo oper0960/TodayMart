@@ -187,6 +187,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 OpenSource("Alamofire", license: .mit(year: "2018", name: "Alamofire Software Foundation")),
                 OpenSource("KeychainSwift", license: .mit(year: "2019", name: "Evgenii Neumerzhitckii")),
                 OpenSource("SwiftyJSON", license: .mit(year: "2017", name: "Ruoyu Fu")),
+                OpenSource("FSCalendar", license: .mit(year: "2016", name: "WenchaoD")),
                 OpenSource("GoogleMaps", license: .apache2),
                 OpenSource("GooglePlaces", license: .apache2),
                 OpenSource("Firebase", license: .apache2)

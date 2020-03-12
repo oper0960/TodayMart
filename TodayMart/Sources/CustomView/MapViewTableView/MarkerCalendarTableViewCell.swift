@@ -23,6 +23,7 @@ class MarkerCalendarTableViewCell: UITableViewCell {
         calendarView.delegate = self
         calendarView.dataSource = self
         calendarView.scrollDirection = .vertical
+        calendarView.locale = Locale(identifier: "ko-KR")
     }
     
     func closeDayBind(mart: Mart) {
@@ -96,14 +97,14 @@ extension MarkerCalendarTableViewCell {
 extension MarkerCalendarTableViewCell: FSCalendarDelegate, FSCalendarDataSource {
 
     // Today 표시
-    func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd"
-        
-        let calendarToday = dateFormatter.string(from: date)
-        let dateToday = dateFormatter.string(from: Date())
-        
-        return calendarToday == dateToday ? "Today" : nil
-    }
+//    func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "YYYY-MM-dd"
+//
+//        let calendarToday = dateFormatter.string(from: date)
+//        let dateToday = dateFormatter.string(from: Date())
+//
+//        return calendarToday == dateToday ? "Today" : nil
+//    }
 }
 
