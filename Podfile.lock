@@ -34,6 +34,7 @@ PODS:
     - GoogleUtilities/Environment (~> 6.0)
     - GoogleUtilities/UserDefaults (~> 6.0)
   - Floaty (4.2.0)
+  - FSCalendar (2.8.1)
   - Google-Maps-iOS-Utils (2.1.0):
     - Google-Maps-iOS-Utils/Clustering (= 2.1.0)
     - Google-Maps-iOS-Utils/Geometry (= 2.1.0)
@@ -86,7 +87,6 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.3.2):
     - GoogleUtilities/Logger
-  - JTAppleCalendar (8.0.2)
   - KeychainSwift (18.0.0)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
@@ -103,11 +103,11 @@ DEPENDENCIES:
   - Fabric
   - Firebase/Core
   - Floaty
+  - FSCalendar
   - Google-Maps-iOS-Utils
   - Google-Mobile-Ads-SDK
   - GoogleMaps
   - GooglePlaces
-  - JTAppleCalendar
   - KeychainSwift (~> 18.0)
   - PanModal
   - SnapKit
@@ -125,6 +125,7 @@ SPEC REPOS:
     - FirebaseCoreDiagnosticsInterop
     - FirebaseInstanceID
     - Floaty
+    - FSCalendar
     - Google-Maps-iOS-Utils
     - Google-Mobile-Ads-SDK
     - GoogleAppMeasurement
@@ -133,7 +134,6 @@ SPEC REPOS:
     - GoogleMaps
     - GooglePlaces
     - GoogleUtilities
-    - JTAppleCalendar
     - KeychainSwift
     - nanopb
     - PanModal
@@ -151,6 +151,7 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnosticsInterop: e9b1b023157e3a2fc6418b5cb601e79b9af7b3a0
   FirebaseInstanceID: ebd2ea79ee38db0cb5f5167b17a0d387e1cc7b6e
   Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
+  FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
   Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
   Google-Mobile-Ads-SDK: 101ce89b94fdf60ec64ba7b6e9b9d812dc765936
   GoogleAppMeasurement: dfe55efa543e899d906309eaaac6ca26d249862f
@@ -159,13 +160,12 @@ SPEC CHECKSUMS:
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   GoogleUtilities: 547a86735c6f0ee30ad17e94df4fc21f616b71cb
-  JTAppleCalendar: bb3dd3752e2bcc85cb798ab763fbdd6e142715fc
   KeychainSwift: c46e1438d121e47459fb304ac88c5e058a2a91ed
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   PanModal: 7c5af3ad4fe22b91508040965bebffb89fb607ae
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 25231f1130407caf04614a68d3d59c3b387496cd
+PODFILE CHECKSUM: dba87a5298a7f0dd48b2401c1e2897f099b16b00
 
 COCOAPODS: 1.8.3

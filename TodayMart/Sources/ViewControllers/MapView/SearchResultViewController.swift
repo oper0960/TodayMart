@@ -39,7 +39,6 @@ class SearchResultViewController: BaseViewController {
     }
     
     override func keyboardWillChange(_ notification: Notification, keyboardSize: CGRect) {
-        print(keyboardSize.height)
         var keyboardHeight = keyboardSize.height
         if #available(iOS 11.0, *) {
             if keyboardSize.height != 0{
