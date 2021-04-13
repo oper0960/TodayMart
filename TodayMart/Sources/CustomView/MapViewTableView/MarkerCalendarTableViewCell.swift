@@ -20,6 +20,7 @@ class MarkerCalendarTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
         calendarView.delegate = self
         calendarView.dataSource = self
         calendarView.scrollDirection = .vertical
@@ -39,7 +40,8 @@ class MarkerCalendarTableViewCell: UITableViewCell {
         let fixedDay = mart.splitFixedClosedDay
         
         let date = Date()
-        let calendar = Calendar.current
+        let a = Calendar.init(identifier: .gregorian)
+        let calendar = a
         
         if week[0] == 0, day[0] == 8 {
             if week[1] == 0, day[1] == 8 {
@@ -80,6 +82,7 @@ extension MarkerCalendarTableViewCell {
     }
     
     func calculateComponents(calendar: Calendar, weekDay: Int, weekOfMonth: Int) -> DateComponents {
+        
         let date = Date()
         let calendar = calendar
         
@@ -88,23 +91,13 @@ extension MarkerCalendarTableViewCell {
         dateComponents.year = calendar.component(.year, from: date)
         dateComponents.month = calendar.component(.month, from: date)
         dateComponents.weekday = weekDay
-        dateComponents.weekOfMonth = weekOfMonth
+        dateComponents.weekdayOrdinal = weekOfMonth
         
         return dateComponents
     }
 }
 
 extension MarkerCalendarTableViewCell: FSCalendarDelegate, FSCalendarDataSource {
-
-    // Today 표시
-//    func calendar(_ calendar: FSCalendar, subtitleFor date: Date) -> String? {
-//        let dateFormatter = DateFormatter()
-//        dateFormatter.dateFormat = "YYYY-MM-dd"
-//
-//        let calendarToday = dateFormatter.string(from: date)
-//        let dateToday = dateFormatter.string(from: Date())
-//
-//        return calendarToday == dateToday ? "Today" : nil
-//    }
+    
 }
 

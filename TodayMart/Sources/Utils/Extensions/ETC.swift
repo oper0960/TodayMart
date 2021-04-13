@@ -14,8 +14,9 @@ let userDefault = UserDefaults.standard
 struct UserSettings {
     // POI Clustering Animation
     static let clusterRendererAnimation: String = "clusterRendererAnimation"
+    // Close Day Notification
+    static let localNotificationMartID: String = "localNotificationMartID"
 }
-
 
 enum Admob {
     case banner

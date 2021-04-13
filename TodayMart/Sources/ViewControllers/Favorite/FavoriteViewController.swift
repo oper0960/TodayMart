@@ -111,6 +111,21 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
         guard indexPath.row != favoriteMarts.count else {
             return nil
         }
+        
+        var notification = UITableViewRowAction()
+        
+        if let martId = userDefault.string(forKey: UserSettings.localNotificationMartID), martId == self.favoriteMarts[indexPath.row].id.description {
+            notification = UITableViewRowAction(style: .normal, title: "알림삭제") { (action, indexPath) in
+                self.removeNotification()
+                self.getFavorite()
+            }
+        } else {
+            notification = UITableViewRowAction(style: .normal, title: "알림등록") { (action, indexPath) in
+                
+            }
+        }
+        
+        
         let delete = UITableViewRowAction(style: .default, title: "삭제") { (action, indexPath) in
             self.deleteFavorite(martId: self.favoriteMarts[indexPath.row].id) { result in
                 if !result {
@@ -118,7 +133,7 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-        return [delete]
+        return [notification, delete]
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -139,6 +154,54 @@ extension FavoriteViewController: UITableViewDelegate, UITableViewDataSource {
 extension FavoriteViewController: InfomationDelegate {
     func completeDismiss() {
         getFavorite()
+    }
+}
+
+// MARK: - Local Notification
+extension FavoriteViewController {
+    func removeNotification() {
+        
+        userDefault.removeObject(forKey: UserSettings.localNotificationMartID)
+        
+        let noti = UNUserNotificationCenter.current()
+        noti.removeAllDeliveredNotifications()
+        noti.removeAllPendingNotificationRequests()
+    }
+    
+    func setNotification(mart: Mart) {
+        removeNotification()
+        
+        userDefault.set(mart.id.description, forKey: UserSettings.localNotificationMartID)
+        
+        
+        // First Week
+        if mart.splitClosedWeek[0] == 0 && mart.splitClosedDay[0] == 8 {
+            // n번째주가 n요일이 아닌경우
+        }
+        
+        
+        
+        
+        
+        
+        let firstWeekNotification = UNMutableNotificationContent()
+        firstWeekNotification.title = "휴무 알림"
+        //notification.subtitle = "Something"
+        firstWeekNotification.body = "내일은 \(mart.name) 휴무일 이에요"
+        firstWeekNotification.sound = UNNotificationSound.default
+
+        // Add notification for Friday (after 5 days) at 10:00 AM
+        var dateComponents = DateComponents()
+        dateComponents.weekday = 5
+        dateComponents.hour = 10
+        dateComponents.minute = 0
+
+        let notificationTrigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let request = UNNotificationRequest(identifier: "notification1", content: firstWeekNotification, trigger: notificationTrigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+        
+        
     }
 }
 
